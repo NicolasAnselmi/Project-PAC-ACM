@@ -2122,9 +2122,9 @@
 											"font": "Arial;13;1",
 											"left": 949,
 											"top": 198,
-											"width": 114.84814453125,
+											"width": 171.9326171875,
 											"height": 13,
-											"text": "Gestione Notifiche"
+											"text": "Gestione Notifiche Firebase"
 										},
 										{
 											"_type": "LabelView",
@@ -2157,7 +2157,7 @@
 									"font": "Arial;13;0",
 									"left": 944,
 									"top": 191,
-									"width": 124.84814453125,
+									"width": 181.9326171875,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGFPk3r7ZZxnBQ="
@@ -2241,7 +2241,7 @@
 							"containerChangeable": true,
 							"left": 944,
 							"top": 168,
-							"width": 124.84814453125,
+							"width": 181.9326171875,
 							"height": 49,
 							"stereotypeDisplay": "icon",
 							"showProperty": false,
@@ -2284,7 +2284,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 857,
+									"left": 871,
 									"top": 192,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -2305,7 +2305,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 854,
+									"left": 868,
 									"top": 177,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -2326,7 +2326,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 864,
+									"left": 878,
 									"top": 221,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -2345,7 +2345,7 @@
 								"$ref": "AAAAAAGFOnCxmAgLFSA="
 							},
 							"lineStyle": 1,
-							"points": "729:243;994.424072265625:183.26448698966735",
+							"points": "729:245;1022.96630859375:182.5162313272665",
 							"showVisibility": true,
 							"showProperty": false,
 							"nameLabel": {
@@ -2585,7 +2585,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGE+1lrfSYJRVA="
 					},
-					"name": "Gestione Notifiche"
+					"name": "Gestione Notifiche Firebase"
 				}
 			]
 		}
