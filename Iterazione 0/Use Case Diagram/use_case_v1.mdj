@@ -61,8 +61,7 @@
 											"left": 421,
 											"top": 103,
 											"width": 767,
-											"height": 13,
-											"text": "UseCaseSubject1"
+											"height": 13
 										},
 										{
 											"_type": "LabelView",
@@ -6561,8 +6560,7 @@
 					"_id": "AAAAAAGE+1mH5CYOX0M=",
 					"_parent": {
 						"$ref": "AAAAAAGE+1lrfSYJRVA="
-					},
-					"name": "UseCaseSubject1"
+					}
 				},
 				{
 					"_type": "UMLActor",
