@@ -860,13 +860,64 @@
 											"height": 13,
 											"text": "+inviaLogAlServer()",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGFWAAbBtt7AtU=",
+											"_parent": {
+												"$ref": "AAAAAAGFPlt2ZYDH2tk="
+											},
+											"model": {
+												"$ref": "AAAAAAGFWAAa+Nt4U60="
+											},
+											"font": "Arial;13;0",
+											"left": 125,
+											"top": 365,
+											"width": 407,
+											"height": 13,
+											"text": "+getDatiMacchina(idMacchina:String)",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGFWAV9OduCJ5M=",
+											"_parent": {
+												"$ref": "AAAAAAGFPlt2ZYDH2tk="
+											},
+											"model": {
+												"$ref": "AAAAAAGFWAV9L9t/5JU="
+											},
+											"font": "Arial;13;0",
+											"left": 125,
+											"top": 380,
+											"width": 407,
+											"height": 13,
+											"text": "+getMacchineInLavorazione()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGFWB16NduLUks=",
+											"_parent": {
+												"$ref": "AAAAAAGFPlt2ZYDH2tk="
+											},
+											"model": {
+												"$ref": "AAAAAAGFWB16KNuIhBU="
+											},
+											"font": "Arial;13;0",
+											"left": 125,
+											"top": 395,
+											"width": 407,
+											"height": 13,
+											"text": "+getDatiAllMacchine()",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 120,
 									"top": 345,
 									"width": 417,
-									"height": 23
+									"height": 68
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -879,7 +930,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 120,
-									"top": 368,
+									"top": 413,
 									"width": 417,
 									"height": 10
 								},
@@ -968,7 +1019,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": -80,
-											"top": -48,
+											"top": -64,
 											"height": 13
 										},
 										{
@@ -979,7 +1030,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 445,
-											"top": 583,
+											"top": 575,
 											"width": 383,
 											"height": 13,
 											"text": "Gestione Notifiche"
@@ -993,7 +1044,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": -80,
-											"top": -48,
+											"top": -64,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -1007,14 +1058,14 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": -80,
-											"top": -48,
+											"top": -64,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 440,
-									"top": 576,
+									"top": 568,
 									"width": 393,
 									"height": 25,
 									"stereotypeLabel": {
@@ -1051,18 +1102,35 @@
 											},
 											"font": "Arial;13;0",
 											"left": 445,
-											"top": 606,
+											"top": 598,
 											"width": 383,
 											"height": 13,
-											"text": "+preparaNotifica()",
+											"text": "+preparaNotificaPianificazione()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGFWCr11NuU0V0=",
+											"_parent": {
+												"$ref": "AAAAAAGFPpEKq4GUMWk="
+											},
+											"model": {
+												"$ref": "AAAAAAGFWCr1yduRTy0="
+											},
+											"font": "Arial;13;0",
+											"left": 445,
+											"top": 613,
+											"width": 383,
+											"height": 13,
+											"text": "+preparaNotificaErrore()",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 440,
-									"top": 601,
+									"top": 593,
 									"width": 393,
-									"height": 23
+									"height": 38
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -1075,7 +1143,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 440,
-									"top": 624,
+									"top": 631,
 									"width": 393,
 									"height": 10
 								},
@@ -1091,7 +1159,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": -40,
-									"top": -24,
+									"top": -32,
 									"width": 10,
 									"height": 10
 								},
@@ -1107,7 +1175,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": -40,
-									"top": -24,
+									"top": -32,
 									"width": 10,
 									"height": 10
 								}
@@ -1115,7 +1183,7 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 440,
-							"top": 576,
+							"top": 568,
 							"width": 393,
 							"height": 129,
 							"showProperty": false,
@@ -1207,7 +1275,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPlsN7oBnvck="
 							},
-							"name": "visualizzaReport(idMacchina:String)"
+							"name": "visualizzaReport(idMacchina:String)",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1235,7 +1304,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPltKLICTY3I="
 							},
-							"name": "inserisciLotto()"
+							"name": "inserisciLotto()",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1281,7 +1351,35 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPlt2ZYC/od8="
 							},
-							"name": "inviaLogAlServer()"
+							"name": "inviaLogAlServer()",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGFWAAa+Nt4U60=",
+							"_parent": {
+								"$ref": "AAAAAAGFPlt2ZYC/od8="
+							},
+							"name": "getDatiMacchina(idMacchina:String)",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGFWAV9L9t/5JU=",
+							"_parent": {
+								"$ref": "AAAAAAGFPlt2ZYC/od8="
+							},
+							"name": "getMacchineInLavorazione()",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGFWB16KNuIhBU=",
+							"_parent": {
+								"$ref": "AAAAAAGFPlt2ZYC/od8="
+							},
+							"name": "getDatiAllMacchine()",
+							"type": ""
 						}
 					]
 				},
@@ -1299,7 +1397,16 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPpEKqoGMrYY="
 							},
-							"name": "preparaNotifica()",
+							"name": "preparaNotificaPianificazione()",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGFWCr1yduRTy0=",
+							"_parent": {
+								"$ref": "AAAAAAGFPpEKqoGMrYY="
+							},
+							"name": "preparaNotificaErrore()",
 							"type": ""
 						}
 					]
