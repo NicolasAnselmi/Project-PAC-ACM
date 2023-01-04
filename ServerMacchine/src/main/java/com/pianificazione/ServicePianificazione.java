@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class ServicePianificazione {
 	
 	public void inserisciLotto() {
-		ì
+		
 	}
 	
 	public void confermaPianificazione(boolean decisioneMangaer) {
