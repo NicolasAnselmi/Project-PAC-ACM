@@ -677,7 +677,7 @@
 											"top": 387,
 											"width": 399,
 											"height": 13,
-											"text": "+cancellaLotto()",
+											"text": "+cancellaLotto(int:idLotto)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -728,7 +728,7 @@
 											"top": 432,
 											"width": 399,
 											"height": 13,
-											"text": "+modificaLotto()",
+											"text": "+modificaLotto(int:idLotto)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -745,7 +745,7 @@
 											"top": 447,
 											"width": 399,
 											"height": 13,
-											"text": "+visualizzaListaPianificazioni()",
+											"text": "+visualizzaListaLavorazioni()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -762,7 +762,7 @@
 											"top": 462,
 											"width": 399,
 											"height": 13,
-											"text": "+visualizzaSingolaPianificazione()",
+											"text": "+visualizzaLavorazioniPerMacchina(String:idMacchina)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1473,7 +1473,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPltKLICTY3I="
 							},
-							"name": "cancellaLotto()",
+							"name": "cancellaLotto(int:idLotto)",
 							"type": ""
 						},
 						{
@@ -1500,7 +1500,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPltKLICTY3I="
 							},
-							"name": "modificaLotto()",
+							"name": "modificaLotto(int:idLotto)",
 							"type": ""
 						},
 						{
@@ -1509,7 +1509,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPltKLICTY3I="
 							},
-							"name": "visualizzaListaPianificazioni()",
+							"name": "visualizzaListaLavorazioni()",
 							"type": ""
 						},
 						{
@@ -1518,7 +1518,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGFPltKLICTY3I="
 							},
-							"name": "visualizzaSingolaPianificazione()",
+							"name": "visualizzaLavorazioniPerMacchina(String:idMacchina)",
 							"type": ""
 						}
 					]

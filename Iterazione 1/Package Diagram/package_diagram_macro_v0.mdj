@@ -587,7 +587,7 @@
 											"top": 222,
 											"width": 270,
 											"height": 13,
-											"text": "Gestione Autenticazione"
+											"text": "Gestione Interfaccia"
 										},
 										{
 											"_type": "LabelView",
@@ -695,7 +695,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Gestione Autenticazione"
+					"name": "Gestione Interfaccia"
 				}
 			]
 		}
