@@ -43,7 +43,6 @@ class _RootPageState extends ConsumerState<RootPage> {
 
   @override
   void initState() {
-    print(ref.read(loginStateProvider));
     super.initState();
   }
 

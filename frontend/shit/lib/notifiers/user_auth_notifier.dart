@@ -8,9 +8,9 @@ class UserAuthNotifier extends Notifier<UserStatus> {
   }
 
   void login(String email, String password) {
-    // TODO: RIMUOVEREa
+    // TODO: RIMUOVERE
     state = UserStatus.manager;
-    /*
+    return;
     email = email.trim();
     if (users.containsKey(email)) {
       if (users[email]["password"] == password) {
@@ -31,7 +31,7 @@ class UserAuthNotifier extends Notifier<UserStatus> {
     } else {
       print("ACCOUNT NON VALIDO");
       return;
-    }*/
+    }
   }
 
   void logout() {
