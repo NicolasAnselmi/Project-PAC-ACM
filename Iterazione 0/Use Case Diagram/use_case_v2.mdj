@@ -1778,11 +1778,11 @@
 												"$ref": "AAAAAAGE+2QqKzGFPME="
 											},
 											"font": "Arial;13;1",
-											"left": 947.5,
+											"left": 953.5,
 											"top": 499.5,
-											"width": 173,
+											"width": 204,
 											"height": 13,
-											"text": "Invio Informazioni Macchina"
+											"text": "Ricezione Informazioni Macchina"
 										},
 										{
 											"_type": "LabelView",
@@ -1813,9 +1813,9 @@
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 942.5,
+									"left": 948.5,
 									"top": 492.5,
-									"width": 184.078125,
+									"width": 214.42626953125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGE+2QqLDGGimw="
@@ -1915,7 +1915,7 @@
 							"containerChangeable": true,
 							"left": 904,
 							"top": 488,
-							"width": 260,
+							"width": 303,
 							"height": 35,
 							"showProperty": false,
 							"nameCompartment": {
@@ -1960,8 +1960,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1231,
-									"top": 533,
+									"left": 1253,
+									"top": 534,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -1981,8 +1981,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1229,
-									"top": 548,
+									"left": 1251,
+									"top": 549,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -2002,8 +2002,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1234,
-									"top": 504,
+									"left": 1256,
+									"top": 505,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2024,7 +2024,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1275,
-									"top": 538,
+									"top": 537,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -2044,8 +2044,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1272,
-									"top": 551,
+									"left": 1271,
+									"top": 550,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -2066,7 +2066,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1282,
-									"top": 511,
+									"top": 510,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 25,
@@ -2086,8 +2086,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1188,
-									"top": 529,
+									"left": 1231,
+									"top": 532,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -2106,8 +2106,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1189,
-									"top": 542,
+									"left": 1232,
+									"top": 546,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -2126,8 +2126,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1186,
-									"top": 501,
+									"left": 1229,
+									"top": 504,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -2176,7 +2176,7 @@
 								"$ref": "AAAAAAGE+1zZoCaHVDo="
 							},
 							"lineStyle": 1,
-							"points": "1303:532;1164:518",
+							"points": "1303:531;1207:521",
 							"showVisibility": true,
 							"showProperty": false,
 							"nameLabel": {
@@ -9098,7 +9098,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGE+1lrfSYJRVA="
 					},
-					"name": "Invio Informazioni Macchina"
+					"name": "Ricezione Informazioni Macchina"
 				},
 				{
 					"_type": "UMLUseCase",
