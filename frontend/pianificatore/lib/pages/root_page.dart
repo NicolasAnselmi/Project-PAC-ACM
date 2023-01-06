@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pianificatore/pages/notifiche_page.dart';
 import 'package:pianificatore/pages/pianificatore%20pages/avvia_pianificazione_page.dart';
 import 'package:pianificatore/pages/manager%20pages/gestisci_macchine_page.dart';
 import 'package:pianificatore/pages/manager%20pages/gestisci_utenti_page.dart';
@@ -42,12 +44,6 @@ class _RootPageState extends ConsumerState<RootPage> {
   };
 
   @override
-  void initState() {
-    print(ref.read(loginStateProvider));
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +71,12 @@ class _RootPageState extends ConsumerState<RootPage> {
                   margin: const EdgeInsets.only(right: 16),
                   child: IconButton(
                     padding: EdgeInsets.zero,
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: ((context) => const NotifichePage()),
+                      ),
+                    ),
                     icon: const Icon(
                       Icons.email,
                       size: kToolbarHeight - 8,
@@ -85,6 +86,7 @@ class _RootPageState extends ConsumerState<RootPage> {
               : const SizedBox()
         ],
       ),
+      // LISTA PULSANTI
       body: ListView.builder(
         itemBuilder: (context, index) => PulsanteSezioniHome(
           titolo: listaPermessi[ref.watch(loginStateProvider).name]!.keys.elementAt(index),
