@@ -2,8 +2,18 @@ package com.macchine;
 
 import org.springframework.stereotype.Service;
 
+
+
+
+
+
+
+
+
+
 @Service
 public class ServiceMacchina {
+	
 	
 	public void inviaLog() {
 		
