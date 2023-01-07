@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:pianificatore/models/notifica.dart';
 
-import '../pages/root_page.dart';
+import '../models/push_notification.dart';
 
 class NotificationNotifier extends Notifier<List<Notifica>> {
   @override
@@ -16,6 +16,10 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
   /// Setup firebase e listener per la ricezione notifiche push
   Future<void> initRicezioneNotifiche() async {
     await Firebase.initializeApp();
+
+    // Print Device Token
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("TOKEN: $token");
 
     // 2. Instantiate Firebase Messaging
     FirebaseMessaging _messaging = FirebaseMessaging.instance;

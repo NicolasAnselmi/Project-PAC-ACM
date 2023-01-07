@@ -62,7 +62,7 @@ class _RootPageState extends ConsumerState<RootPage> {
         centerTitle: true,
         // PULSANTE LOGOUT
         leading: Container(
-          margin: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(12),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue[200],
@@ -106,13 +106,4 @@ class _RootPageState extends ConsumerState<RootPage> {
       ),
     );
   }
-}
-
-class PushNotification {
-  PushNotification({
-    this.title,
-    this.body,
-  });
-  String? title;
-  String? body;
 }
