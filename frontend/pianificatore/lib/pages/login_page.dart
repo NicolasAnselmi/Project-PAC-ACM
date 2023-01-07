@@ -36,10 +36,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
             // TextField Email
             SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
+              width: MediaQuery.of(context).size.width / 1.2,
               child: TextField(
                 controller: emailCtr,
-                style: const TextStyle(fontSize: 30),
+                style: const TextStyle(fontSize: 15),
                 decoration: const InputDecoration(
                   label: Text("Email"),
                   enabledBorder: OutlineInputBorder(
@@ -51,11 +51,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
             // TextField Password
             Container(
-              margin: const EdgeInsets.only(top: 40, bottom: 40),
-              width: MediaQuery.of(context).size.width / 2,
+              margin: const EdgeInsets.only(top: 20, bottom: 40),
+              width: MediaQuery.of(context).size.width / 1.2,
               child: TextField(
                 controller: pswCtr,
-                style: const TextStyle(fontSize: 30),
+                style: const TextStyle(fontSize: 15),
                 obscureText: true,
                 decoration: const InputDecoration(
                   label: Text("Password"),

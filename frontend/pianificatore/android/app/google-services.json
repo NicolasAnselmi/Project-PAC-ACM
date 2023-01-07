@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "423767416860",
+    "project_id": "servermacchine",
+    "storage_bucket": "servermacchine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423767416860:android:40fb71238bae7524517fd9",
+        "android_client_info": {
+          "package_name": "com.example.pianificatore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423767416860-6cbf7ldrjl0kqt12gjoi03q637q7vbaj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pianificatore",
+            "certificate_hash": "b186426c915acc5a778514a807d8a91917fcd9fd"
+          }
+        },
+        {
+          "client_id": "423767416860-65td8t6savqm9estbm6g07ihh9gt32q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuNUekD1aHrTzypLBVBeWE4EnZCieDCj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423767416860-65td8t6savqm9estbm6g07ihh9gt32q9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

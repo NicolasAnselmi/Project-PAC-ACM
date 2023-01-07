@@ -13,6 +13,9 @@ class PulsanteSezioniHome extends StatelessWidget {
       height: 100,
       margin: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue[800],
+        ),
         onPressed: () => Navigator.push(
           context,
           CupertinoPageRoute(
@@ -21,7 +24,7 @@ class PulsanteSezioniHome extends StatelessWidget {
         ),
         child: Text(
           titolo,
-          style: const TextStyle(fontSize: 30),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );

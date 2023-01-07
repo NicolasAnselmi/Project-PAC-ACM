@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,8 @@ import 'package:pianificatore/pages/pianificatore%20pages/visualizza_pianificazi
 import 'package:pianificatore/providers/auth_providers.dart';
 import 'package:pianificatore/utils/enums.dart';
 import 'package:pianificatore/widgets/pulsante_sezioni_home.dart';
+
+import '../providers/notica_provider.dart';
 
 /// PAGINA HOME APPLICAZIONE. CONTENUTO MOSTRATO IN BASE ALLA TIPOLOGIA DI UTENTE
 class RootPage extends ConsumerStatefulWidget {
@@ -42,6 +45,13 @@ class _RootPageState extends ConsumerState<RootPage> {
       "Reports": const ReportsPage(),
     }
   };
+
+  @override
+  void initState() {
+    // INIZIALIZZO RICEZIONE NOTIFICHE
+    ref.read(notificaProvider.notifier).initRicezioneNotifiche();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,4 +106,13 @@ class _RootPageState extends ConsumerState<RootPage> {
       ),
     );
   }
+}
+
+class PushNotification {
+  PushNotification({
+    this.title,
+    this.body,
+  });
+  String? title;
+  String? body;
 }
