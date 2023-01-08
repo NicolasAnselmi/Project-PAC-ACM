@@ -22,10 +22,10 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
     print("TOKEN: $token");
 
     // 2. Instantiate Firebase Messaging
-    FirebaseMessaging _messaging = FirebaseMessaging.instance;
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     // 3. On iOS, this helps to take the user permissions
-    NotificationSettings settings = await _messaging.requestPermission(
+    NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       badge: true,
       provisional: false,

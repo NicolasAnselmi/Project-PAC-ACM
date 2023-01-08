@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pianificatore/notifiers/user_auth_notifier.dart';
 import 'package:pianificatore/providers/auth_providers.dart';
-import 'package:pianificatore/utils/enums.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
