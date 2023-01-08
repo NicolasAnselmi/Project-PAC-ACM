@@ -45,7 +45,7 @@ public class GestoreNotifiche
 			    .build();
 			FirebaseApp.initializeApp(options);
 		}catch(IOException e) {System.out.println("IO ex"); e.printStackTrace();}
-				
+		
 		Message message = Message.builder()
 			    .putData("Body", body)		//info a caso del json che sarà da inviare al client
 			    .putData("Title", title)

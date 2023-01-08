@@ -52,8 +52,7 @@ public class Macchina implements Machinable
 	}
 
 	@Override
-	public String getInfoMacchina(String json) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getInfoMacchina() {
+		return json;
 	}
 }
