@@ -3,6 +3,7 @@ package com.service.notifiche;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -36,7 +37,11 @@ public class GestoreNotifiche {
 		send(body, title, tokenManager);
 	}
 
-	private void send(String body, String title, ArrayList<String> recieversList) {
+	
+	/* va bene? se no si usa solo il metodo con parametro la lista  di recievers e si mette il foreach 
+	 * li dentro, così non si rininizalizza tutto ogni volta, LMK...
+	 */
+	private String send(String body, String title, String reciever) {
 		try {
 			FileInputStream f = new FileInputStream(
 					"/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
@@ -48,16 +53,27 @@ public class GestoreNotifiche {
 		}
 
 		Message message = Message.builder().putData("Body", body) // info a caso del json che sarà da inviare al client
-				.putData("Title", title).setToken(list) // we have to use who to decide which devices get the
-														// notification
+				.putData("Title", title)
+				.setToken(reciever) // we have to use who to decide which devices get the notification
 				.build();
 
 		String response;
 		try {
 			response = FirebaseMessaging.getInstance().send(message);
+			return response;
 		} catch (Exception e) {
 			System.out.println(e.getClass());
+			return null;
 		}
+
+	}
+
+	private List<String> send(String body, String title, ArrayList<String> recieversList) {
+		List<String> responses = new ArrayList<String>();
+		for (String r : recieversList) {
+			responses.add(this.send(body, title, r));
+		}
+		return responses;
 
 	}
 

@@ -6,9 +6,8 @@ import com.service.notifiche.GestoreNotifiche;
 public class Macchina implements Machinable {
 	private String codiceMacchina;
 	private int codiceLottoInLavorazione;
-	private int timeStampMessaggio;
+	private String timeStampUltimoMessaggio;
 	private StatoMacchina statoMacchina;
-	private LogDataManager logDataManager;
 
 	private String json;
 
@@ -22,10 +21,10 @@ public class Macchina implements Machinable {
 	/**
 	 * scompatta json, aggiunge log, DOVE AGGIUNGE LOG? manda solo notifiche mi sembra
 	 */
-	public void aggiornaMacchina(int codiceLottoInLavorazione, int timeStampMessaggio, StatoMacchina statoMacchina, String json) {
+	public void aggiornaMacchina(int codiceLottoInLavorazione, String timeStampMessaggio, StatoMacchina statoMacchina, String json) {
 		this.json = json;
 		this.codiceLottoInLavorazione = codiceLottoInLavorazione;
-		this.timeStampMessaggio = timeStampMessaggio;
+		this.timeStampUltimoMessaggio = timeStampMessaggio;
 		if (!this.statoMacchina.equals(statoMacchina)) {
 			String body, title;
 			if (statoMacchina.equals(StatoMacchina.AttesaMateriale)) {
@@ -43,7 +42,6 @@ public class Macchina implements Machinable {
 			}
 			gestoreNotifiche.sendOperai(body, title);
 			this.statoMacchina = statoMacchina;
-			logDataManager.get
 		}
 	}
 

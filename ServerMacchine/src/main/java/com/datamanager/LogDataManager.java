@@ -10,7 +10,7 @@ public class LogDataManager {
 	/* SINGLETON PATTERN */
 	private static LogDataManager m = null;
 
-	// Array che rappresenta il DB deiLog
+	// Array che rappresenta il DB dei Log
 	private List<LogMacchina> listaLog = new ArrayList<LogMacchina>();
 
 	private LogDataManager() {
@@ -37,6 +37,7 @@ public class LogDataManager {
 		return listaLog;
 	}
 
+	
 	/* DELETE */
 	// TODO si eliminano? io non credo...
 
