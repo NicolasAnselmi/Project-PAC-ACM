@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pianificatore/pages/pianificatore%20pages/pianificazione_page.dart';
 import 'package:pianificatore/providers/notica_provider.dart';
 
 class NotifichePage extends ConsumerStatefulWidget {
@@ -33,12 +35,34 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // TITOLO
-                  Expanded(
-                    child: Text(
-                      ref.watch(notificaProvider)[index].titolo,
-                      style: const TextStyle(fontSize: 20),
-                    ),
+                  Row(
+                    children: [
+                      // TITOLO
+                      Expanded(
+                        child: Text(
+                          ref.watch(notificaProvider)[index].titolo,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ),
+
+                      // VISUALIZZA
+                      SizedBox(
+                        height: 30,
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue[300],
+                          ),
+                          onPressed: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: ((context) => const PianificazionePage()),
+                            ),
+                          ),
+                          child: const Text("Visualizza"),
+                        ),
+                      ),
+                    ],
                   ),
 
                   // DESCRIZIONE NOTIFICA
@@ -53,8 +77,9 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              // RIFIUTA
                               SizedBox(
-                                width: 100,
+                                width: 120,
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   child: const Text("Rifiuta"),
@@ -63,8 +88,10 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                               const SizedBox(
                                 width: 50,
                               ),
+
+                              // CONFERMA
                               SizedBox(
-                                width: 100,
+                                width: 120,
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   child: const Text("Conferma"),

@@ -49,7 +49,7 @@ class _AggiungiMacchinaPageState extends ConsumerState<AggiungiMacchinaPage> {
             ),
 
             // PULSANTE CONFERMA
-            Container(
+            SizedBox(
               width: 100,
               child: ElevatedButton(
                 onPressed: () {

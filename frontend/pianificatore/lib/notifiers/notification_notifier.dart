@@ -19,6 +19,7 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
 
     // Print Device Token
     String? token = await FirebaseMessaging.instance.getToken();
+    // ignore: avoid_print
     print("TOKEN: $token");
 
     // 2. Instantiate Firebase Messaging
@@ -53,6 +54,7 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
         );
       });
     } else {
+      // ignore: avoid_print
       print('User declined or has not accepted permission');
     }
   }

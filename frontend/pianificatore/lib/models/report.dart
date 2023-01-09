@@ -19,8 +19,12 @@ class Report {
 }
 
 enum StatoMacchina {
+  // ignore: constant_identifier_names
   Lavorazione,
+  // ignore: constant_identifier_names
   Fermo,
+  // ignore: constant_identifier_names
   AttesaMateriale,
+  // ignore: constant_identifier_names
   Guasta,
 }
