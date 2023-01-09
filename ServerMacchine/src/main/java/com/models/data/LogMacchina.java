@@ -1,17 +1,21 @@
 package com.models.data;
 
-public class LogMacchina {
+import com.google.cloud.Timestamp;
+
+public class LogMacchina implements Comparable<LogMacchina>{
 
 	private long idLog;
 	private String idLogger;
 	private String title;
 	private String body;
+	private String timeStamp;
 	
-	public LogMacchina(long idLog, String idLogger, String title, String body) {
+	public LogMacchina(long idLog, String idLogger, String title, String body, String timeStamp) {
 		this.idLog = idLog;
 		this.idLogger = idLogger;
 		this.title = title;
 		this.body = body;
+		this.timeStamp = timeStamp;
 	}
 
 	public long getIdLog() {
@@ -20,6 +24,22 @@ public class LogMacchina {
 
 	public String getIdLogger() {
 		return idLogger;
+	}
+	
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	@Override
+	public String toString() {
+		return idLog + " " + timeStamp + ": " + idLogger + " -> " + title + "(" + body + ")\n";
+	}
+
+	@Override
+	public int compareTo(LogMacchina o) {
+		Timestamp o1 = Timestamp.parseTimestamp(this.timeStamp);
+		Timestamp o2 = Timestamp.parseTimestamp(o.getTimeStamp());
+		return o1.compareTo(o2);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.models.macchine.Macchina;
+import com.models.macchine.StatoMacchina;
 
 public class MacchineDataManager {
 
@@ -24,25 +25,30 @@ public class MacchineDataManager {
 	}
 	
 	/* PUSH */
-	public void addMacchina(Macchina macchina) {
-		listaMacchine.add(macchina);
+	public void addMacchina(String idMacchina) {
+		Macchina m = new Macchina(idMacchina);
+		listaMacchine.add(m);
 	}
 	
 	/* PUT */
-	public Macchina getMacchina(String idMacchina) {
-		return listaMacchine.stream().filter(x -> x.getCodiceMacchina().equals(idMacchina)).findFirst().get();
+	public String getInfoMacchina(String idMacchina) {
+		return listaMacchine.stream().filter(x -> x.getidMacchina().equals(idMacchina)).findFirst().get().getInfoMacchina();
 	}
 	
 	public List<Macchina> getAllMacchine(){
 		return listaMacchine;
 	}
+
+	
 	
 	/* DELETE */
 	public boolean deleteMacchina(String idMacchina) {
-		return listaMacchine.removeIf(x-> x.getCodiceMacchina().equals(idMacchina));
+		return listaMacchine.removeIf(x-> x.getidMacchina().equals(idMacchina));
 	}
-	
-	/* UPDATE */
-	//TODO quali update?
+
+	public List<Macchina> getMacchineByStato(String stato) {
+		StatoMacchina s = StatoMacchina.valueOf(stato);
+		return listaMacchine.stream().filter(x->x.getStatoMacchina().equals(s)).toList();
+	}
 
 }
