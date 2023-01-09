@@ -1,4 +1,6 @@
-package com.macchine;
+package com.service.macchine;
+
+
 
 import org.springframework.stereotype.Service;
 

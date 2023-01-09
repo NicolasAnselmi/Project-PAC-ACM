@@ -1,4 +1,6 @@
-package com.notifiche;
+package com.service.notifiche;
+
+
 
 import org.springframework.stereotype.Service;
 

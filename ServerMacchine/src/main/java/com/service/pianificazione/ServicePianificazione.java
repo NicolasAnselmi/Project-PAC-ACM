@@ -1,4 +1,6 @@
-package com.pianificazione;
+package com.service.pianificazione;
+
+
 
 import org.springframework.stereotype.Service;
 

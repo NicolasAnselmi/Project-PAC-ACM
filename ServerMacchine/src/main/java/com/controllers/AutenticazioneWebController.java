@@ -1,9 +1,9 @@
-package com.web;
+package com.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autenticazione.ServiceAutenticazione;
+import com.service.autenticazione.ServiceAutenticazione;
 
 @RestController
 public class AutenticazioneWebController {

@@ -1,4 +1,4 @@
-package com.data;
+package com.models.data;
 
 public class Pianificazione {
 

@@ -1,10 +1,10 @@
-package com.autenticazione;
-
-import com.user.Dipendente;
+package com.service.autenticazione;
 
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
+
+import com.models.user.Dipendente;
 
 import ch.qos.logback.core.net.LoginAuthenticator;
 
