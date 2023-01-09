@@ -1,12 +1,6 @@
-package com.service.autenticazione;
-
-import java.util.Collection;
+package com.services;
 
 import org.springframework.stereotype.Service;
-
-import com.models.user.Dipendente;
-
-import ch.qos.logback.core.net.LoginAuthenticator;
 
 @Service
 public class ServiceAutenticazione {
@@ -27,7 +21,7 @@ public class ServiceAutenticazione {
 		return true;
 	}
 	
-	public Collection<Dipendente> getAllUsers() {
+	public String getAllUsers() {
 		return null;
 	}
 	

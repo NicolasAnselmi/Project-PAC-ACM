@@ -1,10 +1,10 @@
 package com.models.macchine;
 
-import com.datamanager.LogDataManager;
-import com.service.notifiche.GestoreNotifiche;
+import com.google.cloud.Timestamp;
+import com.notifiche.GestoreNotifiche;
 
 public class Macchina implements Machinable {
-	private String codiceMacchina;
+	private String idMacchina;
 	private int codiceLottoInLavorazione;
 	private String timeStampUltimoMessaggio;
 	private StatoMacchina statoMacchina;
@@ -13,36 +13,57 @@ public class Macchina implements Machinable {
 
 	private GestoreNotifiche gestoreNotifiche;
 
-	public Macchina() {
+	private Macchina() {
 		gestoreNotifiche = GestoreNotifiche.getGestoreNotifiche();
 	}
 
-	
+	public Macchina(String idMacchina) {
+		this();
+		this.idMacchina = idMacchina;
+		this.codiceLottoInLavorazione = 0;
+		this.timeStampUltimoMessaggio = Timestamp.now().toString();
+		this.statoMacchina = StatoMacchina.Fermo;
+	}
+
 	/**
-	 * scompatta json, aggiunge log, DOVE AGGIUNGE LOG? manda solo notifiche mi sembra
+	 * scompatta json, aggiunge log, DOVE AGGIUNGE LOG? manda solo notifiche mi
+	 * sembra
 	 */
-	public void aggiornaMacchina(int codiceLottoInLavorazione, String timeStampMessaggio, StatoMacchina statoMacchina, String json) {
+	public void aggiornaMacchina(int codiceLottoInLavorazione, String timeStampMessaggio, StatoMacchina statoMacchina,
+			String json) {
 		this.json = json;
 		this.codiceLottoInLavorazione = codiceLottoInLavorazione;
 		this.timeStampUltimoMessaggio = timeStampMessaggio;
 		if (!this.statoMacchina.equals(statoMacchina)) {
 			String body, title;
 			if (statoMacchina.equals(StatoMacchina.AttesaMateriale)) {
-				body = this.codiceMacchina + " ha terminato il materiale e la produzione si è fermata";
-				title = this.codiceMacchina + " FINE MATERIALE";
+				body = this.idMacchina + " ha terminato il materiale e la produzione si è fermata";
+				title = this.idMacchina + " FINE MATERIALE";
 			} else if (statoMacchina.equals(StatoMacchina.Guasta)) {
-				body = this.codiceMacchina + " si è guastata e la produzione si è fermata";
-				title = this.codiceMacchina + " GUASTA";
+				body = this.idMacchina + " si è guastata e la produzione si è fermata";
+				title = this.idMacchina + " GUASTA";
 			} else if (statoMacchina.equals(StatoMacchina.Fermo)) {
-				body = this.codiceMacchina + " ha terminato la lavorazione";
-				title = this.codiceMacchina + " LAVORAZIONE TERMINATA";
+				body = this.idMacchina + " ha terminato la lavorazione";
+				title = this.idMacchina + " LAVORAZIONE TERMINATA";
 			} else {
-				body = this.codiceMacchina + " ha ripreso la lavorazione";
-				title = this.codiceMacchina + " LAVORAZIONE RIPRESA";
+				body = this.idMacchina + " ha ripreso la lavorazione";
+				title = this.idMacchina + " LAVORAZIONE RIPRESA";
 			}
 			gestoreNotifiche.sendOperai(body, title);
 			this.statoMacchina = statoMacchina;
 		}
+	}
+
+	public int getCodiceLottoInLavorazione() {
+		return codiceLottoInLavorazione;
+	}
+
+	public void setCodiceLottoInLavorazione(int codiceLottoInLavorazione) {
+		this.codiceLottoInLavorazione = codiceLottoInLavorazione;
+	}
+
+	public StatoMacchina getStatoMacchina() {
+		return statoMacchina;
 	}
 
 	@Override
@@ -50,10 +71,12 @@ public class Macchina implements Machinable {
 		return json;
 	}
 
-
-	public String getCodiceMacchina() {
-		return codiceMacchina;
+	public String getidMacchina() {
+		return idMacchina;
 	}
-	
-	
+
+	public String getTimeStampUltimoMessaggio() {
+		return timeStampUltimoMessaggio;
+	}
+
 }

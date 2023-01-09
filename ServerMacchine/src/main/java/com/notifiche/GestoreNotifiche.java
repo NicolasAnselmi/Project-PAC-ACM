@@ -1,4 +1,4 @@
-package com.service.notifiche;
+package com.notifiche;
 
 import java.io.FileInputStream;
 import java.io.IOException;

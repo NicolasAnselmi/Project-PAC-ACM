@@ -1,4 +1,4 @@
-package com.service.pianificazione;
+package com.services;
 
 
 
@@ -23,7 +23,7 @@ public class ServicePianificazione {
 		
 	}
 	
-	public void scaricaPianificazione() {
+	public void getPianificazioneByMacchina(String idMacchina) {
 		
 	}
 	

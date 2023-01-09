@@ -36,7 +36,6 @@ public class LogDataManager {
 	public List<LogMacchina> getAllLogMacchina() {
 		return listaLog;
 	}
-
 	
 	/* DELETE */
 	// TODO si eliminano? io non credo...
