@@ -29,7 +29,7 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
               ),
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.only(right: 15, top: 10, bottom: 10, left: 15),
-              height: 100,
+              height: ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione" ? 150 : 100,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -42,7 +42,38 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                   ),
 
                   // DESCRIZIONE NOTIFICA
-                  Expanded(flex: 2, child: Text(ref.watch(notificaProvider)[index].descrizione)),
+                  Expanded(
+                    flex: 2,
+                    child: Text(ref.watch(notificaProvider)[index].descrizione),
+                  ),
+
+                  // PULSANTI CONFERMA / RIFIUTA (solo per notifiche fine pianificazione)
+                  ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione"
+                      ? Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 100,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text("Rifiuta"),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 50,
+                              ),
+                              SizedBox(
+                                width: 100,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text("Conferma"),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : const SizedBox()
                 ],
               ),
             )),
