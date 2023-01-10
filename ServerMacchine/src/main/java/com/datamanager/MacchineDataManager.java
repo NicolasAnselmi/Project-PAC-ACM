@@ -3,6 +3,8 @@ package com.datamanager;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
+
 import com.models.macchine.Macchina;
 import com.models.macchine.StatoMacchina;
 
@@ -18,6 +20,7 @@ public class MacchineDataManager {
 
 	}
 
+	@Bean("macchineDataManager")
 	public static MacchineDataManager getMacchineDataManager() {
 		if (m == null)
 			m = new MacchineDataManager();

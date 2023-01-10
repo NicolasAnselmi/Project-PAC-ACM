@@ -1,7 +1,6 @@
 package com.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,8 @@ public class MacchineWebController {
 		serviceMacchine.registraLog(log);
 	}
 	
-	@PostMapping("/macchine")
-	public void aggiungiMacchina(@RequestBody String idMacchina) {
+	@PostMapping("/macchine/aggiungi/{idMacchina}")
+	public void aggiungiMacchina(@PathVariable String idMacchina) {
 		serviceMacchine.aggiungiMacchina(idMacchina);
 	}
 	

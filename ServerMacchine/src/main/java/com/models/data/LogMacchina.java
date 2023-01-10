@@ -10,12 +10,12 @@ public class LogMacchina implements Comparable<LogMacchina>{
 	private String body;
 	private String timeStamp;
 	
-	public LogMacchina(long idLog, String idLogger, String title, String body, String timeStamp) {
+	public LogMacchina(long idLog, String idLogger, String title, String body) {
 		this.idLog = idLog;
 		this.idLogger = idLogger;
 		this.title = title;
 		this.body = body;
-		this.timeStamp = timeStamp;
+		this.timeStamp = Timestamp.now().toString();
 	}
 
 	public long getIdLog() {
@@ -28,6 +28,14 @@ public class LogMacchina implements Comparable<LogMacchina>{
 	
 	public String getTimeStamp() {
 		return timeStamp;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getBody() {
+		return body;
 	}
 
 	@Override
