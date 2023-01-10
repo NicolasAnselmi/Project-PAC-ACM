@@ -1,4 +1,4 @@
-package accessori;
+package com.accessori;
 
 public class Lavorazione 
 {

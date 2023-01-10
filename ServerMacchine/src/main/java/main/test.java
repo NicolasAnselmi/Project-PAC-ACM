@@ -21,6 +21,14 @@ public class test {
 		System.out.println(list.toString());
 		Collections.sort(list);
 		System.out.println(list.toString());
+		
+		Timestamp t1 = Timestamp.now();
+		for (int i = 0; i < 10000000; i++) {
+		}
+		Timestamp t2 = Timestamp.now();
+		System.out.println(t1);
+		System.out.println(t2);
+		System.out.println(t2.compareTo(t2));
 	}
 
 }

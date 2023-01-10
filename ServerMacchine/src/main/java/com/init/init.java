@@ -12,6 +12,7 @@ public class init implements CommandLineRunner{
 	
 	private LogDataManager logDataManager = LogDataManager.getLogDataManager();
 	private MacchineDataManager macchineDataManager = MacchineDataManager.getMacchineDataManager();
+	
 	@Override
 	public void run(String... args) throws Exception {
 		

@@ -1,4 +1,4 @@
-package macchine;
+package com.macchine;
 
 public class Fresa extends Macchina
 {

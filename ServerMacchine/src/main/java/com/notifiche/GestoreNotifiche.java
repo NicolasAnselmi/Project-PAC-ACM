@@ -10,6 +10,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
+import com.models.data.Lavorazione;
 
 public class GestoreNotifiche {
 	// aggiungere liste dispositivi

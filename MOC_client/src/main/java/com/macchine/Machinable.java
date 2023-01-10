@@ -1,4 +1,4 @@
-package macchine;
+package com.macchine;
 
 public interface Machinable 
 {
