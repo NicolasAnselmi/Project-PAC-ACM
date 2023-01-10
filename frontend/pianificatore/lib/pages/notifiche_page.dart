@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pianificatore/pages/pianificatore%20pages/pianificazione_page.dart';
 import 'package:pianificatore/providers/notica_provider.dart';
 
 class NotifichePage extends ConsumerStatefulWidget {
@@ -29,20 +31,76 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
               ),
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.only(right: 15, top: 10, bottom: 10, left: 15),
-              height: 100,
+              height: ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione" ? 150 : 100,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // TITOLO
-                  Expanded(
-                    child: Text(
-                      ref.watch(notificaProvider)[index].titolo,
-                      style: const TextStyle(fontSize: 20),
-                    ),
+                  Row(
+                    children: [
+                      // TITOLO
+                      Expanded(
+                        child: Text(
+                          ref.watch(notificaProvider)[index].titolo,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ),
+
+                      // VISUALIZZA
+                      SizedBox(
+                        height: 30,
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue[300],
+                          ),
+                          onPressed: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: ((context) => const PianificazionePage()),
+                            ),
+                          ),
+                          child: const Text("Visualizza"),
+                        ),
+                      ),
+                    ],
                   ),
 
                   // DESCRIZIONE NOTIFICA
-                  Expanded(flex: 2, child: Text(ref.watch(notificaProvider)[index].descrizione)),
+                  Expanded(
+                    flex: 2,
+                    child: Text(ref.watch(notificaProvider)[index].descrizione),
+                  ),
+
+                  // PULSANTI CONFERMA / RIFIUTA (solo per notifiche fine pianificazione)
+                  ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione"
+                      ? Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // RIFIUTA
+                              SizedBox(
+                                width: 120,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text("Rifiuta"),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 50,
+                              ),
+
+                              // CONFERMA
+                              SizedBox(
+                                width: 120,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text("Conferma"),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : const SizedBox()
                 ],
               ),
             )),
