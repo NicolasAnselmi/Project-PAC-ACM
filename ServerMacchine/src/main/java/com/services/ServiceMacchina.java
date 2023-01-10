@@ -10,7 +10,6 @@ import com.datamanager.LogDataManager;
 import com.datamanager.MacchineDataManager;
 import com.models.data.LogMacchina;
 import com.models.macchine.Macchina;
-import com.models.macchine.StatoMacchina;
 
 @Service
 public class ServiceMacchina {
@@ -18,12 +17,16 @@ public class ServiceMacchina {
 	private LogDataManager logDataManager = LogDataManager.getLogDataManager();
 	private MacchineDataManager macchineDataManager = MacchineDataManager.getMacchineDataManager();
 	
-	public void inviaLog(LogMacchina log) {
+	public void registraLog(LogMacchina log) {
 		logDataManager.addLogMacchina(log);
 	}
 	
 	public String getDatiMacchina(String idMacchina) {
 		return macchineDataManager.getInfoMacchina(idMacchina);
+	}
+	
+	public List<Macchina> getAllMacchine(){
+		return macchineDataManager.getAllMacchine();
 	}
 	
 	public List<Macchina> getMacchineByStato(String stato) {
@@ -34,8 +37,7 @@ public class ServiceMacchina {
 		macchineDataManager.addMacchina(m);
 	}
 	
-	public void rimuoviMacchina(String idMacchina) {
-		macchineDataManager.deleteMacchina(idMacchina);
+	public boolean rimuoviMacchina(String idMacchina) {
+		return macchineDataManager.deleteMacchina(idMacchina);
 	}
-
 }
