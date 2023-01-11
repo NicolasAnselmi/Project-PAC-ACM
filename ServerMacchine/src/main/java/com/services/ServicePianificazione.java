@@ -15,10 +15,10 @@ public class ServicePianificazione {
 	
 	private PianificazioniDataManager pianificazioniDataManager = PianificazioniDataManager.getPianificazioniDataManager();
 	
-	public boolean inserisciLotto(Lotto lotto) {
+	public boolean inserisciLotto(String idLotto, String idProdotto, int nPezzi, String priorita, float tempoLavorazionePezzoTornio, float tempoLavorazionePezzoFresa) {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return false;
-		pianificazioniDataManager.getPianificazioneCorrente().inserisciLotto(lotto);
+		pianificazioniDataManager.getPianificazioneCorrente().inserisciLotto(new Lotto(idLotto, idProdotto, nPezzi, priorita, tempoLavorazionePezzoTornio, tempoLavorazionePezzoFresa));
 		return true;
 	}
 
@@ -45,11 +45,7 @@ public class ServicePianificazione {
 		return pianificazioniDataManager.getPianificazioneCorrente().cancellaLotto(idLotto);
 	}
 
-	public Pianificazione getPianificazioneCorrente() {
-		return pianificazioniDataManager.getPianificazioneCorrente();
-	}
-
-	public List<Lotto> visualizzaLotti() {
+	public List<Lotto> visualizzaLottiPianificazioneCorrente() {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return null;
 		return pianificazioniDataManager.getPianificazioneCorrente().getListaLotti();
@@ -64,7 +60,7 @@ public class ServicePianificazione {
 	
 	}
 
-	public List<Lavorazione> getPianificazione() {
+	public List<Lavorazione> getPianificazioneCorrente() {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return null;
 		return pianificazioniDataManager.getPianificazioneCorrente().getPianificazione();

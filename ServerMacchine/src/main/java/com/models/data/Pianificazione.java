@@ -2,6 +2,7 @@ package com.models.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.google.cloud.Timestamp;
 import com.models.scheduler.Scheduler;
@@ -35,7 +36,7 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		pippo.setLottiDaSchedulare(listaLotti);
 		listaLavorazioni = pippo.getScheule();
 		List<Lotto> residui = pippo.getLottiResidui();
-		listaLotti.removeIf(x-> residui.contains(x));
+		listaLotti.removeIf(x -> residui.contains(x));
 		return residui;
 	}
 
@@ -45,14 +46,17 @@ public class Pianificazione implements Comparable<Pianificazione> {
 
 	public boolean updateLotto(String idLotto, int nPezzi, float tempoLavorazionePezzoFresa,
 			float tempoLavorazionePezzoTornio, String priorita) {
-		Lotto l = listaLotti.stream().filter(x -> x.getIdLotto().equals(idLotto)).findFirst().get();
-		if (l == null)
+		Optional<Lotto> opt = listaLotti.stream().filter(x -> x.getIdLotto().equals(idLotto)).findFirst();
+		if (opt.isEmpty())
 			return false;
-		l.setnPezzi(nPezzi);
-		l.setTempoLavorazionePezzoFresa(tempoLavorazionePezzoFresa);
-		l.setTempoLavorazionePezzoTornio(tempoLavorazionePezzoTornio);
-		l.setPriorita(PrioritaLotto.valueOf(priorita));
-		return true;
+		else {
+			Lotto l = opt.get();
+			l.setnPezzi(nPezzi);
+			l.setTempoLavorazionePezzoFresa(tempoLavorazionePezzoFresa);
+			l.setTempoLavorazionePezzoTornio(tempoLavorazionePezzoTornio);
+			l.setPriorita(PrioritaLotto.valueOf(priorita));
+			return true;
+		}
 	}
 
 	public List<Lavorazione> getPianificazioneByMacchina(String idMacchina) {
