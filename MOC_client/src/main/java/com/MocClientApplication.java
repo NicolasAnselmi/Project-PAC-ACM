@@ -1,5 +1,8 @@
 package com;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 
 import org.springframework.boot.SpringApplication;
@@ -24,22 +27,22 @@ public class MocClientApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MocClientApplication.class, args);
 	}
-	
+
 	@Bean
 	RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 
 	@Bean
-	CommandLineRunner run(RestTemplateBuilder restTemplate) {
+	CommandLineRunner run(RestTemplate restTemplate) {
 		return args -> {
-			Runnable[] macchine = new ThreadMacchina[5];
-		
+			List<Runnable> macchine = new ArrayList<Runnable>();
+
 			for (int i = 0; i < nTorni; i++)
-				macchine[i] = new ThreadMacchina(quant, new Tornio(pg, pf));
+				macchine.add(new ThreadMacchina(quant, new Tornio(pg, pf, restTemplate)));
 
 			for (int i = 0; i < nFrese; i++)
-				macchine[i] = new ThreadMacchina(quant, new Fresa(pg, pf));
+				macchine.add(new ThreadMacchina(quant, new Fresa(pg, pf, restTemplate)));
 
 			for (Runnable runnable : macchine)
 				runnable.run();

@@ -1,13 +1,12 @@
 package com.macchine;
 
-public class Fresa extends Macchina
-{
+import org.springframework.web.client.RestTemplate;
+
+public class Fresa extends Macchina {
 	private static int numFrese = 1;
-	
-	public Fresa(float probGuasto, float probFineMateriali)
-	{
-		super(probGuasto, probFineMateriali, "FRESA-"+numFrese);
+
+	public Fresa(float probGuasto, float probFineMateriali, RestTemplate restTemplate) {
+		super(probGuasto, probFineMateriali, "FRESA-" + numFrese,restTemplate);
 		numFrese++;
 	}
 }
-

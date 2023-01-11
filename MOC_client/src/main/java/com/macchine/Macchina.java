@@ -2,6 +2,8 @@ package com.macchine;
 
 import java.util.ArrayDeque;
 
+import org.springframework.web.client.RestTemplate;
+
 import com.accessori.Lavorazione;
 
 public class Macchina implements Machinable {
@@ -11,15 +13,19 @@ public class Macchina implements Machinable {
 	protected String IDMacchina;
 	protected StatoMacchina statoMacchina;
 	protected ArrayDeque<Lavorazione> codaLavorazioni;
+	
+	private RestTemplate restTemplate;
 
-	public Macchina(float probGuasto, float probFineMateriali, String IDMacchina) {
+	public Macchina(float probGuasto, float probFineMateriali, String IDMacchina, RestTemplate restTemplate) {
 		this.probFineMateriali = probFineMateriali;
 		this.probGuasto = probGuasto;
 		this.IDMacchina = IDMacchina;
+		this.restTemplate = restTemplate;
 	}
 
 	@Override
 	public void caricaSuServer() {
+		
 		// TODO Auto-generated method stub
 
 		// calcolo time stamp
