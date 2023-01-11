@@ -1,21 +1,21 @@
 package com.models.data;
 
+import com.models.macchine.TipoMacchina;
+
 public class Lotto {
 
 	private String idLotto;
 	private String idProdotto;
 	private int nPezzi;
 	private PrioritaLotto priorita;
-	private float tempoLavorazionePezzoTornio;
-	private float tempoLavorazionePezzoFresa;
+	private TipoMacchina listaLavorazioni[];
 
-	public Lotto(String idLotto, String idProdotto, int nPezzi, String priorita, float tempoLavorazionePezzoTornio, float tempoLavorazionePezzoFresa) {
+	public Lotto(String idLotto, String idProdotto, int nPezzi, String priorita, float tempoLavorazionePezzoTornio, float tempoLavorazionePezzoFresa, TipoMacchina[] listaLavorazioni) {
 		this.idLotto = idLotto;
 		this.idProdotto = idProdotto;
 		this.nPezzi = nPezzi;
 		this.priorita = PrioritaLotto.valueOf(priorita);
-		this.tempoLavorazionePezzoFresa = tempoLavorazionePezzoFresa;
-		this.tempoLavorazionePezzoTornio = tempoLavorazionePezzoTornio;
+		this.listaLavorazioni = listaLavorazioni;
 	}
 
 	
@@ -35,15 +35,6 @@ public class Lotto {
 		return priorita;
 	}
 
-	public float getTempoLavorazionePezzoTornio() {
-		return tempoLavorazionePezzoTornio;
-	}
-
-	public float getTempoLavorazionePezzoFresa() {
-		return tempoLavorazionePezzoFresa;
-	}
-
-
 	public void setnPezzi(int nPezzi) {
 		this.nPezzi = nPezzi;
 	}
@@ -52,19 +43,10 @@ public class Lotto {
 	public void setPriorita(PrioritaLotto priorita) {
 		this.priorita = priorita;
 	}
-
-
-	public void setTempoLavorazionePezzoTornio(float tempoLavorazionePezzoTornio) {
-		this.tempoLavorazionePezzoTornio = tempoLavorazionePezzoTornio;
+	
+	public TipoMacchina[] getListaLavorazioni() {
+		return listaLavorazioni;
 	}
-
-
-	public void setTempoLavorazionePezzoFresa(float tempoLavorazionePezzoFresa) {
-		this.tempoLavorazionePezzoFresa = tempoLavorazionePezzoFresa;
-	}
-	
-	
-	
 	
 
 }

@@ -8,6 +8,7 @@ public class Macchina implements Machinable {
 	private int codiceLottoInLavorazione;
 	private String timeStampUltimoMessaggio;
 	private StatoMacchina statoMacchina;
+	private TipoMacchina tipoMacchina;
 
 	private String json;
 
@@ -17,12 +18,13 @@ public class Macchina implements Machinable {
 		gestoreNotifiche = GestoreNotifiche.getGestoreNotifiche();
 	}
 
-	public Macchina(String idMacchina) {
+	public Macchina(String idMacchina, TipoMacchina tipoMacchina) {
 		this();
 		this.idMacchina = idMacchina;
 		this.codiceLottoInLavorazione = 0;
 		this.timeStampUltimoMessaggio = Timestamp.now().toString();
 		this.statoMacchina = StatoMacchina.Fermo;
+		this.tipoMacchina = tipoMacchina;
 	}
 
 	/**

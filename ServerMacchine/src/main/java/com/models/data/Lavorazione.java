@@ -1,12 +1,14 @@
 package com.models.data;
 
+import com.models.macchine.TipoMacchina;
+
 public class Lavorazione {
 	
 	private String idLavorazione;
 	private String idMacchina;
-	private String timeStampInizio;
-	private String timeStampFine;
+	private int slot;
 	private Lotto lotto;
+	private TipoMacchina tipoMacchina;
 	
 	public Lavorazione(String idLavorazione, Lotto lotto) {
 		this.idLavorazione = idLavorazione;
@@ -16,8 +18,6 @@ public class Lavorazione {
 	public Lavorazione(String idLavorazione, Lotto lotto,String idMacchina, String timeStampInizio, String timeStampFine) {
 		this(idLavorazione,lotto);
 		this.idMacchina = idMacchina;
-		this.timeStampInizio = timeStampInizio;
-		this.timeStampFine = timeStampFine;
 	}
 
 	public String getIdLavorazione() {
@@ -28,17 +28,14 @@ public class Lavorazione {
 		return idMacchina;
 	}
 
-	public String getTimeStampInizio() {
-		return timeStampInizio;
-	}
-
-	public String getTimeStampFine() {
-		return timeStampFine;
-	}
-
 	public Lotto getLotto() {
 		return lotto;
 	}
+
+	public TipoMacchina getTipoMacchina() {
+		return tipoMacchina;
+	}
+	
 	
 	
 

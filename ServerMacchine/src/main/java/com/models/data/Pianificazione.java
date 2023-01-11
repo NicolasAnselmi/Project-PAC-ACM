@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.datamanager.MacchineDataManager;
 import com.google.cloud.Timestamp;
+import com.models.macchine.Macchina;
 import com.models.scheduler.Scheduler;
 
 public class Pianificazione implements Comparable<Pianificazione> {
 
 	private List<Lavorazione> listaLavorazioni;
 	private List<Lotto> listaLotti;
+	private List<Macchina> listaMacchine = MacchineDataManager.getMacchineDataManager().getAllMacchine();
 	private boolean confermata;
 	private String timeStampInizioPeriodo;
 	private String timeStampFinePeriodo;
@@ -31,7 +34,7 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		this.confermata = true;
 	}
 
-	public List<Lotto> calcoloPianificazione() {
+	public List<Lavorazione> calcoloPianificazione(List<Lotto> listaLotti) {
 		Scheduler pippo = new Scheduler();
 		pippo.setLottiDaSchedulare(listaLotti);
 		listaLavorazioni = pippo.getScheule();
@@ -52,8 +55,6 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		else {
 			Lotto l = opt.get();
 			l.setnPezzi(nPezzi);
-			l.setTempoLavorazionePezzoFresa(tempoLavorazionePezzoFresa);
-			l.setTempoLavorazionePezzoTornio(tempoLavorazionePezzoTornio);
 			l.setPriorita(PrioritaLotto.valueOf(priorita));
 			return true;
 		}
