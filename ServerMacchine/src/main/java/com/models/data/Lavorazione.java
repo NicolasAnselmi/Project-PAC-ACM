@@ -15,9 +15,10 @@ public class Lavorazione {
 		this.lotto = lotto;
 	}
 	
-	public Lavorazione(String idLavorazione, Lotto lotto,String idMacchina, String timeStampInizio, String timeStampFine) {
+	public Lavorazione(String idLavorazione, Lotto lotto,String idMacchina, int slot) {
 		this(idLavorazione,lotto);
 		this.idMacchina = idMacchina;
+		this.slot = slot;
 	}
 
 	public String getIdLavorazione() {

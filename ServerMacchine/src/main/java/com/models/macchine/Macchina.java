@@ -80,5 +80,10 @@ public class Macchina implements Machinable {
 	public String getTimeStampUltimoMessaggio() {
 		return timeStampUltimoMessaggio;
 	}
+	
+	public TipoMacchina getTipoMacchina()
+	{
+		return tipoMacchina;
+	}
 
 }

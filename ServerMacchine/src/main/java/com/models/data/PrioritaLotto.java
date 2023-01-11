@@ -1,5 +1,5 @@
 package com.models.data;
 
 public enum PrioritaLotto {
-	bassa,media,alta
+	alta, media, bassa;
 }
