@@ -28,9 +28,10 @@ public class MacchineDataManager {
 	}
 	
 	/* PUSH */
-	public void addMacchina(String idMacchina) {
+	public Macchina addMacchina(String idMacchina) {
 		Macchina m = new Macchina(idMacchina);
 		listaMacchine.add(m);
+		return m;
 	}
 	
 	/* PUT */

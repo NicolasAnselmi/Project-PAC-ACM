@@ -43,7 +43,7 @@ public class MocClientApplication {
 
 			for (int i = 0; i < nFrese; i++)
 				macchine.add(new ThreadMacchina(quant, new Fresa(pg, pf, restTemplate)));
-
+			
 			for (Runnable runnable : macchine)
 				runnable.run();
 		};

@@ -1,22 +1,26 @@
 package com.macchine;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import com.models.macchine.Macchina;
 
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.accessori.Lavorazione;
 
-public class Macchina implements Machinable {
+public class MacchinaFisica implements Machinable {
 	protected float probGuasto;
 	protected float probFineMateriali;
 
 	protected String IDMacchina;
 	protected StatoMacchina statoMacchina;
 	protected ArrayDeque<Lavorazione> codaLavorazioni;
-	
+
 	private RestTemplate restTemplate;
 
-	public Macchina(float probGuasto, float probFineMateriali, String IDMacchina, RestTemplate restTemplate) {
+	public MacchinaFisica(float probGuasto, float probFineMateriali, String IDMacchina, RestTemplate restTemplate) {
 		this.probFineMateriali = probFineMateriali;
 		this.probGuasto = probGuasto;
 		this.IDMacchina = IDMacchina;
@@ -25,7 +29,7 @@ public class Macchina implements Machinable {
 
 	@Override
 	public void caricaSuServer() {
-		
+
 		// TODO Auto-generated method stub
 
 		// calcolo time stamp
@@ -37,9 +41,13 @@ public class Macchina implements Machinable {
 
 	@Override
 	public void inizializzaMacchina() {
-		// TODO Auto-generated method stub
 
-		// scarica lista lavorazioni con api
+		/* Aggiungo la macchina al server */
+		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+		map.add("idMacchina", IDMacchina);
+		restTemplate.postForObject("http://localhost:8081/macchine/aggiungi", map, Macchina.class);
+
+		// TODO scarica lista lavorazioni con api
 	}
 
 	@Override
