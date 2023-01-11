@@ -20,11 +20,6 @@ public class MacchineWebController {
 	@Autowired
 	private ServiceMacchina serviceMacchine;
 	
-	@PostMapping("/log")
-	public void registraLog(@RequestBody LogMacchina log) {
-		serviceMacchine.registraLog(log);
-	}
-	
 	@PostMapping("/macchine/aggiungi")
 	public Macchina aggiungiMacchina(@RequestParam String idMacchina) {
 		return serviceMacchine.aggiungiMacchina(idMacchina);
