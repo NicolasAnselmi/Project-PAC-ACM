@@ -44,7 +44,7 @@ public class Scheduler implements SchedulerInterface {
 						isOccupato[i][countSlot] = true;
 						countLavorazioni++;
 						lavorazioni.add(
-								new Lavorazione(lotto.getIdLotto() + "-" + countLavorazioni, lotto,lotto.getListaLavorazioni().get(0) ,macchine.get(i).getidMacchina(), countSlot+1));
+								new Lavorazione(lotto.getIdLotto() + "-" + countLavorazioni, lotto, lotto.getListaLavorazioni().get(0), macchine.get(i).getidMacchina(), countSlot+1));
 						lotto.getListaLavorazioni().remove(0);
 					}
 					countSlot++;
