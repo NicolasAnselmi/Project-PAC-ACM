@@ -71,4 +71,8 @@ public class ServicePianificazione {
 		return pianificazioniDataManager.getPianificazioneCorrente().getPianificazioneByMacchina(idMacchina);
 	
 	}
+
+	public List<Lotto> getLottiResiduiPianificazioneCorrente() {
+		return pianificazioniDataManager.getPianificazioneCorrente().getLottiResidui();
+	}
 }

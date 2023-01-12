@@ -11,7 +11,7 @@ import com.models.macchine.Macchina;
 
 public class Scheduler implements SchedulerInterface {
 
-	private List<Lotto> residui;
+	private static List<Lotto> residui;
 
 	private static Scheduler scheduler = null;
 	private int maxSlot;
@@ -37,7 +37,7 @@ public class Scheduler implements SchedulerInterface {
 		for (Lotto lotto : lotti) {
 			int countLavorazioni = 0;
 			int countSlot = 0;
-			while (!lotto.getListaLavorazioni().isEmpty() && countSlot < maxSlot-lotto.getListaLavorazioni().size()) {
+			while (!lotto.getListaLavorazioni().isEmpty() && countSlot < maxSlot) {
 				boolean assegnato = false;
 				for (int i = 0; i < macchine.size(); i++) {
 					if (lotto.getListaLavorazioni().get(0).equals(macchine.get(i).getTipoMacchina())
@@ -51,13 +51,15 @@ public class Scheduler implements SchedulerInterface {
 						countSlot++;
 					}
 					if(lotto.getListaLavorazioni().isEmpty()) break;
-					if (!(countSlot < maxSlot)) {
-						lotto.setPriorita(PrioritaLotto.alta);
-						residui.add(lotto);
-					}
+				
 				}
+				
 				if(!assegnato)
 					countSlot++;
+				if (!(countSlot < maxSlot)) {
+					lotto.setPriorita(PrioritaLotto.alta);
+					residui.add(lotto);
+				}
 			}
 		}
 		return lavorazioni;

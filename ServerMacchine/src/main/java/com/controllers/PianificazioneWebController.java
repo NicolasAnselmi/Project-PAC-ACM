@@ -54,5 +54,10 @@ public class PianificazioneWebController {
 	public List<Lavorazione> calcoloPianificazione(@RequestParam String[] listaMacchine, int slotSettimanali){
 		return servicePianificazione.calcoloPianificazione(listaMacchine, slotSettimanali);
 	}
+	
+	@GetMapping("/pianificazione/residui")
+	public List<Lotto> getLottiResiduiPianificazioneCorrente(){
+		return servicePianificazione.getLottiResiduiPianificazioneCorrente();
+	}
 
 }

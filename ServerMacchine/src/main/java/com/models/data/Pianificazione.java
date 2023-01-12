@@ -99,4 +99,8 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		this.listaLotti = listaLotti;
 	}
 
+	public List<Lotto> getLottiResidui() {
+		return Scheduler.getScheduler(10).getLottiResidui();
+	}
+
 }
