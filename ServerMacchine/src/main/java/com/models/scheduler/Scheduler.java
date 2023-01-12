@@ -38,6 +38,7 @@ public class Scheduler implements SchedulerInterface {
 			int countLavorazioni = 0;
 			int countSlot = 0;
 			while (!lotto.getListaLavorazioni().isEmpty() && countSlot < maxSlot-lotto.getListaLavorazioni().size()) {
+				boolean assegnato = false;
 				for (int i = 0; i < macchine.size(); i++) {
 					if (lotto.getListaLavorazioni().get(0).equals(macchine.get(i).getTipoMacchina())
 							&& !isOccupato[i][countSlot]) {
@@ -46,13 +47,17 @@ public class Scheduler implements SchedulerInterface {
 						lavorazioni.add(
 								new Lavorazione(lotto.getIdLotto() + "-" + countLavorazioni, lotto,lotto.getListaLavorazioni().get(0) ,macchine.get(i).getidMacchina(), countSlot+1));
 						lotto.getListaLavorazioni().remove(0);
+						assegnato = true;
+						countSlot++;
 					}
-					countSlot++;
+					if(lotto.getListaLavorazioni().isEmpty()) break;
 					if (!(countSlot < maxSlot)) {
 						lotto.setPriorita(PrioritaLotto.alta);
 						residui.add(lotto);
 					}
 				}
+				if(!assegnato)
+					countSlot++;
 			}
 		}
 		return lavorazioni;
