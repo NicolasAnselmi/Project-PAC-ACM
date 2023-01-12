@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.google.cloud.Timestamp;
 import com.models.data.Lavorazione;
+import com.models.data.Lotto;
 import com.models.data.Pianificazione;
+import com.models.macchine.Macchina;
 
 public class PianificazioniDataManager {
 
@@ -38,6 +40,11 @@ public class PianificazioniDataManager {
 			return creaPianificazioneCorrente();
 	}
 	
+	public boolean thereIsPianificazioni() {
+		if(listaPianificazioni == null) return false;
+		return listaPianificazioni.isEmpty();
+	}
+	
 	@SuppressWarnings("deprecation")
 	private Pianificazione creaPianificazioneCorrente() {
 		Date d = Timestamp.now().toDate();
@@ -54,6 +61,10 @@ public class PianificazioniDataManager {
 	public void addPianificazione(String timeStampInizioPeriodo, String timeStampFinePeriodo) {
 		Pianificazione p = new Pianificazione(timeStampInizioPeriodo, timeStampFinePeriodo);
 		listaPianificazioni.add(p);
+	}
+	
+	public List<Lavorazione> getCalcoloPianificazione(List<Lotto> listaLotti, List<Macchina> listaMacchine, int slotSettimanali){
+		return this.getPianificazioneCorrente().calcoloPianificazione(listaLotti, listaMacchine, slotSettimanali);
 	}
 
 }

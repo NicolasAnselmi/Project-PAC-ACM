@@ -4,21 +4,24 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.datamanager.MacchineDataManager;
 import com.datamanager.PianificazioniDataManager;
 import com.models.data.Lavorazione;
 import com.models.data.Lotto;
 import com.models.data.Pianificazione;
+import com.models.macchine.Macchina;
 ;
 
 @Service
 public class ServicePianificazione {
 	
 	private PianificazioniDataManager pianificazioniDataManager = PianificazioniDataManager.getPianificazioniDataManager();
+	private MacchineDataManager macchineDataManager = MacchineDataManager.getMacchineDataManager();
 	
-	public boolean inserisciLotto(String idLotto, String idProdotto, int nPezzi, String priorita, float tempoLavorazionePezzoTornio, float tempoLavorazionePezzoFresa) {
+	public boolean inserisciLotto(String idLotto, String idProdotto, int nPezzi, String priorita, String[] sequenzaLavorazioni) {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return false;
-		pianificazioniDataManager.getPianificazioneCorrente().inserisciLotto(new Lotto(idLotto, idProdotto, nPezzi, priorita, tempoLavorazionePezzoTornio, tempoLavorazionePezzoFresa));
+		pianificazioniDataManager.getPianificazioneCorrente().inserisciLotto(new Lotto(idLotto, idProdotto, nPezzi, priorita, sequenzaLavorazioni));
 		return true;
 	}
 
@@ -29,14 +32,9 @@ public class ServicePianificazione {
 		return true;
 	}
 
-	public boolean calcoloPianificazione() {
-		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
-			return false;
-		List<Lotto> residui = pianificazioniDataManager.getPianificazioneCorrente().calcoloPianificazione();
-		Pianificazione nuova = new Pianificazione(null, null);
-		nuova.setListaLotti(residui);
-		pianificazioniDataManager.addPianificazione(null, null);
-		return true;
+	public List<Lavorazione> calcoloPianificazione(String[] listaMacchine, int slotSettimanali) {
+		List<Macchina> macchine= macchineDataManager.getMacchineById(listaMacchine);
+		return pianificazioniDataManager.getCalcoloPianificazione(getPianificazioneCorrente().getListaLotti(),macchine, slotSettimanali);
 	}
 
 	public boolean cancellaLotto(String idLotto) {
@@ -60,10 +58,10 @@ public class ServicePianificazione {
 	
 	}
 
-	public List<Lavorazione> getPianificazioneCorrente() {
+	public Pianificazione getPianificazioneCorrente() {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return null;
-		return pianificazioniDataManager.getPianificazioneCorrente().getPianificazione();
+		return pianificazioniDataManager.getPianificazioneCorrente();
 	
 	}
 

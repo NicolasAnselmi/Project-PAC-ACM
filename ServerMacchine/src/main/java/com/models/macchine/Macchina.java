@@ -10,30 +10,26 @@ public class Macchina implements Machinable {
 	private StatoMacchina statoMacchina;
 	private TipoMacchina tipoMacchina;
 
-	private String json;
-
 	private GestoreNotifiche gestoreNotifiche;
 
 	private Macchina() {
 		gestoreNotifiche = GestoreNotifiche.getGestoreNotifiche();
 	}
 
-	public Macchina(String idMacchina, TipoMacchina tipoMacchina) {
+	public Macchina(String idMacchina, String tipoMacchina) {
 		this();
 		this.idMacchina = idMacchina;
 		this.codiceLottoInLavorazione = 0;
 		this.timeStampUltimoMessaggio = Timestamp.now().toString();
 		this.statoMacchina = StatoMacchina.Fermo;
-		this.tipoMacchina = tipoMacchina;
+		this.tipoMacchina = TipoMacchina.valueOf(tipoMacchina);
 	}
 
 	/**
 	 * scompatta json, aggiunge log, DOVE AGGIUNGE LOG? manda solo notifiche mi
 	 * sembra
 	 */
-	public void aggiornaMacchina(int codiceLottoInLavorazione, String timeStampMessaggio, StatoMacchina statoMacchina,
-			String json) {
-		this.json = json;
+	public void aggiornaMacchina(int codiceLottoInLavorazione, String timeStampMessaggio, StatoMacchina statoMacchina) {
 		this.codiceLottoInLavorazione = codiceLottoInLavorazione;
 		this.timeStampUltimoMessaggio = timeStampMessaggio;
 		if (!this.statoMacchina.equals(statoMacchina)) {
@@ -66,11 +62,6 @@ public class Macchina implements Machinable {
 
 	public StatoMacchina getStatoMacchina() {
 		return statoMacchina;
-	}
-
-	@Override
-	public String getInfoMacchina() {
-		return json;
 	}
 
 	public String getidMacchina() {

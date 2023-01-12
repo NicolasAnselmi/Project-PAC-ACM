@@ -26,8 +26,8 @@ public class ServiceMacchina {
 		return macchineDataManager.getMacchineByStato(stato);
 	}
 	
-	public Macchina aggiungiMacchina(String m) {
-		return macchineDataManager.addMacchina(m);
+	public Macchina aggiungiMacchina(String idMacchina, String tipoMacchina) {
+		return macchineDataManager.addMacchina(idMacchina, tipoMacchina);
 	}
 	
 	public boolean rimuoviMacchina(String idMacchina) {

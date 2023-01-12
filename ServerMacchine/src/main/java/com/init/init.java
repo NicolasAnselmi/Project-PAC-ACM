@@ -16,9 +16,9 @@ public class init implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		macchineDataManager.addMacchina("tornio1");
-		macchineDataManager.addMacchina("tornio2");
-		macchineDataManager.addMacchina("tornio3");
+		macchineDataManager.addMacchina("tornio1","tornio");
+		macchineDataManager.addMacchina("tornio2","tornio");
+		macchineDataManager.addMacchina("tornio3","tornio");
 		String title1 = "RICHIESTA MATERIALI";
 		String title2 = "FINE LOTTO";
 		String title3 = "GUASTO";

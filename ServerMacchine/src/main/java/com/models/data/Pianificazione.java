@@ -8,17 +8,19 @@ import com.datamanager.MacchineDataManager;
 import com.google.cloud.Timestamp;
 import com.models.macchine.Macchina;
 import com.models.scheduler.Scheduler;
+import com.models.scheduler.SchedulerInterface;
 
 public class Pianificazione implements Comparable<Pianificazione> {
-
+	
+	private String idPianificazione;
 	private List<Lavorazione> listaLavorazioni;
 	private List<Lotto> listaLotti;
-	private List<Macchina> listaMacchine = MacchineDataManager.getMacchineDataManager().getAllMacchine();
 	private boolean confermata;
 	private String timeStampInizioPeriodo;
 	private String timeStampFinePeriodo;
 
 	public Pianificazione(String timeStampInizioPeriodo, String timeStampFinePeriodo) {
+		this.idPianificazione = timeStampInizioPeriodo + "-" + timeStampFinePeriodo;
 		listaLavorazioni = null;
 		listaLotti = new ArrayList<Lotto>();
 		this.confermata = false;
@@ -34,13 +36,11 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		this.confermata = true;
 	}
 
-	public List<Lavorazione> calcoloPianificazione(List<Lotto> listaLotti) {
-		Scheduler pippo = new Scheduler();
-		pippo.setLottiDaSchedulare(listaLotti);
-		listaLavorazioni = pippo.getScheule();
-		List<Lotto> residui = pippo.getLottiResidui();
-		listaLotti.removeIf(x -> residui.contains(x));
-		return residui;
+	public List<Lavorazione> calcoloPianificazione(List<Lotto> listaLotti, List<Macchina> listaMacchine, int slotSettimanali) {
+		SchedulerInterface scheduler = Scheduler.getScheduler(slotSettimanali);
+		listaLavorazioni = scheduler.getSchedule(listaLotti, listaMacchine);
+		listaLotti = scheduler.getLottiResidui();
+		return listaLavorazioni;
 	}
 
 	public boolean cancellaLotto(String idLotto) {
@@ -80,6 +80,10 @@ public class Pianificazione implements Comparable<Pianificazione> {
 
 	public String getTimeStampFinePeriodo() {
 		return timeStampFinePeriodo;
+	}
+	
+	public String getIdPianificazione() {
+		return this.idPianificazione;
 	}
 
 	@Override

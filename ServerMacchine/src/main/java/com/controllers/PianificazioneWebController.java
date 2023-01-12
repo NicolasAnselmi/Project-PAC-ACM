@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,10 +23,8 @@ public class PianificazioneWebController {
 
 	@PostMapping("/pianificazione/lotto/aggiungi")
 	public void inserisciLotto(@RequestParam String idLotto, @RequestParam String idProdotto, @RequestParam int nPezzi,
-			@RequestParam String priorita, @RequestParam float tempoLavorazionePezzoTornio,
-			@RequestParam float tempoLavorazionePezzoFresa) {
-		servicePianificazione.inserisciLotto(idLotto, idProdotto, nPezzi, priorita, tempoLavorazionePezzoTornio,
-				tempoLavorazionePezzoFresa);
+			@RequestParam String priorita, @RequestParam String[] sequenzaLavorazioni) {
+		servicePianificazione.inserisciLotto(idLotto, idProdotto, nPezzi, priorita, sequenzaLavorazioni);
 	}
 
 	@DeleteMapping("/pianificazione/lotto/elimina")
@@ -46,14 +45,14 @@ public class PianificazioneWebController {
 				tempoLavorazionePezzoTornio, priorita);
 	}
 	
-	@GetMapping("/pianificazione")
-	public List<Lavorazione> getPianificazioneCorrente() {
-		return servicePianificazione.getPianificazioneCorrente();
-	}
-	
 	@GetMapping("/pianificazione/idMacchina/{idMacchina}")
 	public List<Lavorazione> getPianificazioneByMacchina(@PathVariable String idMacchina){
 		return servicePianificazione.visualizzaPianificazioneByMacchina(idMacchina);
+	}
+	
+	@GetMapping("/pianificazione/calcolo")
+	public List<Lavorazione> calcoloPianificazione(@RequestParam String[] listaMacchine, int slotSettimanali){
+		return servicePianificazione.calcoloPianificazione(listaMacchine, slotSettimanali);
 	}
 
 }

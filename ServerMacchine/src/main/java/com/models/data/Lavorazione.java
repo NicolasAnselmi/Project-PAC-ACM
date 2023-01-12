@@ -10,15 +10,20 @@ public class Lavorazione {
 	private Lotto lotto;
 	private TipoMacchina tipoMacchina;
 	
-	public Lavorazione(String idLavorazione, Lotto lotto) {
+	public Lavorazione(String idLavorazione, Lotto lotto, TipoMacchina tipoMacchina) {
 		this.idLavorazione = idLavorazione;
 		this.lotto = lotto;
+		this.tipoMacchina = tipoMacchina;
 	}
 	
-	public Lavorazione(String idLavorazione, Lotto lotto,String idMacchina, int slot) {
-		this(idLavorazione,lotto);
+	public Lavorazione(String idLavorazione, Lotto lotto, TipoMacchina tipoMacchina,String idMacchina, int slot) {
+		this(idLavorazione,lotto, tipoMacchina);
 		this.idMacchina = idMacchina;
 		this.slot = slot;
+	}
+	
+	public int getSlot() {
+		return slot;
 	}
 
 	public String getIdLavorazione() {
@@ -29,8 +34,8 @@ public class Lavorazione {
 		return idMacchina;
 	}
 
-	public Lotto getLotto() {
-		return lotto;
+	public String getLotto() {
+		return lotto.getIdLotto();
 	}
 
 	public TipoMacchina getTipoMacchina() {

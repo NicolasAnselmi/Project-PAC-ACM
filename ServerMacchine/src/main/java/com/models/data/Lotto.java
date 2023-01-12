@@ -1,31 +1,35 @@
 package com.models.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.models.macchine.TipoMacchina;
 
-public class Lotto implements Comparable{
+public class Lotto implements Comparable<Lotto>{
 
 	private String idLotto;
 	private String idProdotto;
 	private int nPezzi;
 	private PrioritaLotto priorita;
-	private List<TipoMacchina> listaLavorazioni;
+	private List<TipoMacchina> sequenzaLavorazioni;
 
-	/*public Lotto(String idLotto, String idProdotto, int nPezzi, String priorita, String[] listaLavorazioni) {
+	public Lotto(String idLotto, String idProdotto, int nPezzi, String priorita, String[] sequenzaLavorazioni) {
 		this.idLotto = idLotto;
 		this.idProdotto = idProdotto;
 		this.nPezzi = nPezzi;
 		this.priorita = PrioritaLotto.valueOf(priorita);
-		this.listaLavorazioni = listaLavorazioni;
-	}*/
+		this.sequenzaLavorazioni = new ArrayList<TipoMacchina>();
+		for (String s : sequenzaLavorazioni) {
+			this.sequenzaLavorazioni.add(TipoMacchina.valueOf(s));
+		}
+	}
 	
 	public Lotto(String idLotto, String idProdotto, int nPezzi, PrioritaLotto priorita, List<TipoMacchina> listaLavorazioni) {
 		this.idLotto = idLotto;
 		this.idProdotto = idProdotto;
 		this.nPezzi = nPezzi;
 		this.priorita = priorita;
-		this.listaLavorazioni = listaLavorazioni;
+		this.sequenzaLavorazioni = listaLavorazioni;
 	}
 
 	
@@ -55,17 +59,19 @@ public class Lotto implements Comparable{
 	}
 	
 	public List<TipoMacchina> getListaLavorazioni() {
-		return listaLavorazioni;
+		return sequenzaLavorazioni;
 	}
 
 
 	@Override
-	public int compareTo(Object o) {
-		if(!(o instanceof Lotto))
-			return -2000000;
-		
+	public int compareTo(Lotto o) {
 		Lotto that = (Lotto)o;
-		return priorita.ordinal()*1000 - listaLavorazioni.size() - (that.getPriorita().ordinal()*1000 - that.getListaLavorazioni().size());
+		return priorita.ordinal()*1000 - sequenzaLavorazioni.size() - (that.getPriorita().ordinal()*1000 - that.getListaLavorazioni().size());
+	}
+	
+	@Override
+	public String toString() {
+		return idLotto + " - " + priorita + " - " + sequenzaLavorazioni.toString();
 	}
 	
 

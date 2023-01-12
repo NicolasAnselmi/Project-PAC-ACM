@@ -21,8 +21,8 @@ public class MacchineWebController {
 	private ServiceMacchina serviceMacchine;
 	
 	@PostMapping("/macchine/aggiungi")
-	public Macchina aggiungiMacchina(@RequestParam String idMacchina) {
-		return serviceMacchine.aggiungiMacchina(idMacchina);
+	public Macchina aggiungiMacchina(@RequestParam String idMacchina, @RequestParam String tipoMacchina) {
+		return serviceMacchine.aggiungiMacchina(idMacchina, tipoMacchina);
 	}
 	
 	@GetMapping("/macchine")
