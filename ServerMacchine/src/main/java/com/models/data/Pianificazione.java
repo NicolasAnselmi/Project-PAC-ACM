@@ -1,6 +1,7 @@
 package com.models.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,7 @@ public class Pianificazione implements Comparable<Pianificazione> {
 	public List<Lavorazione> getPianificazioneByMacchina(String idMacchina) {
 		if (listaLavorazioni == null)
 			return null;
+		Collections.sort(listaLavorazioni);
 		return listaLavorazioni.stream().filter(x -> x.getIdMacchina().equals(idMacchina)).toList();
 	}
 

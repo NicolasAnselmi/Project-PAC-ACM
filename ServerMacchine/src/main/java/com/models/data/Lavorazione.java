@@ -2,7 +2,7 @@ package com.models.data;
 
 import com.models.macchine.TipoMacchina;
 
-public class Lavorazione {
+public class Lavorazione implements Comparable<Lavorazione> {
 	
 	private String idLavorazione;
 	private String idMacchina;
@@ -40,6 +40,11 @@ public class Lavorazione {
 
 	public TipoMacchina getTipoMacchina() {
 		return tipoMacchina;
+	}
+
+	@Override
+	public int compareTo(Lavorazione o) {
+		return this.slot - o.slot;
 	}
 	
 	
