@@ -6,6 +6,8 @@ import 'package:pianificatore/pages/root_page.dart';
 import 'package:pianificatore/providers/auth_providers.dart';
 import 'package:pianificatore/utils/enums.dart';
 
+// flutter run -d chrome --web-browser-flag "--disable-web-security"
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(

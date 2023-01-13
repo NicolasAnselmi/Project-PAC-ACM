@@ -39,12 +39,9 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
     };
     var body = {for (String v in seqLavorazioni) "sequenzaLavorazioni": v};
     print(body);
-    print(
-        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    var response = await http.post(
-        Uri.http(
-            "http://localhost:8081", "/pianificazione/lotto/aggiungi", params),
-        body: body);
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    var response =
+        await http.post(Uri.http("http://localhost:8081", "/pianificazione/lotto/aggiungi", params), body: body);
 
     if (response.statusCode == 200) {
       return true;
@@ -95,7 +92,7 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
             children: [
               // ID LOTTO
               Container(
-                margin: const EdgeInsets.only(top: 20, bottom: 40),
+                margin: const EdgeInsets.only(top: 20, bottom: 20),
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: TextField(
                   controller: idLottoCtr,
@@ -112,7 +109,7 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
 
               // ID Prodotto
               Container(
-                margin: const EdgeInsets.only(top: 20, bottom: 40),
+                margin: const EdgeInsets.only(top: 20, bottom: 20),
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: TextField(
                   controller: idProdottoCtr,
@@ -129,7 +126,7 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
 
               // N Pezzi
               Container(
-                margin: const EdgeInsets.only(top: 20, bottom: 40),
+                margin: const EdgeInsets.only(top: 20, bottom: 20),
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: TextField(
                   controller: nPezziCtr,
@@ -200,8 +197,7 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
                         ),
                       ),
                     ),
-                    separatorBuilder: (context, index) =>
-                        const Icon(Icons.arrow_forward_ios),
+                    separatorBuilder: (context, index) => const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
@@ -242,8 +238,8 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
               // PULSANTE INVIO
               Container(
                 width: 150,
-                height: 30,
-                margin: const EdgeInsets.only(top: 30, bottom: 30),
+                height: 50,
+                margin: const EdgeInsets.only(top: 50, bottom: 30),
                 child: ElevatedButton(
                   child: const Text("Inserisci"),
                   onPressed: () async {
