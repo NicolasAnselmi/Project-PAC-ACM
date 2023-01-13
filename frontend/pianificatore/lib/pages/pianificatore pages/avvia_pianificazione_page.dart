@@ -12,6 +12,13 @@ class AvviaPianificazionePage extends StatefulWidget {
 
 class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
   List<bool> listaMacchineSelezionate = [];
+  late TextEditingController slotCtr;
+
+  @override
+  void initState() {
+    slotCtr = TextEditingController();
+    super.initState();
+  }
 
   Future<List<Macchina>> getMacchine() async {
     List<Macchina> listaMacchine = [];
@@ -26,6 +33,8 @@ class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
     }
     return listaMacchine;
   }
+
+  Future<void> avvioCalcolo() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -75,13 +84,36 @@ class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
                   ),
                 ),
 
+                // TEXTFIELD + LABEL SLOT SETTIMANALI
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Slot Settimanali: "),
+                      Container(
+                        width: 60,
+                        margin: const EdgeInsets.only(left: 10),
+                        child: TextField(
+                          controller: slotCtr,
+                          style: const TextStyle(fontSize: 20),
+                          decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 // PULSANTE AVVIO PIANIFICAZIONE
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 30),
+                    margin: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
                       child: const Text("Avvia Pianificazione"),
-                      onPressed: () {},
+                      onPressed: () => avvioCalcolo(),
                     ),
                   ),
                 )
