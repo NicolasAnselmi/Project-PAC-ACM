@@ -1,3 +1,5 @@
+import '../utils/enums.dart';
+
 class Macchina {
   final String idMacchina;
   final int codiceLottoInLavorazione;
@@ -22,16 +24,4 @@ class Macchina {
       tipoMacchina: TipoMacchina.values.byName(json["tipoMacchina"]),
     );
   }
-}
-
-enum StatoMacchina {
-  Lavorazione,
-  Fermo,
-  AttesaMateriale,
-  Guasta,
-}
-
-enum TipoMacchina {
-  fresa,
-  tornio,
 }
