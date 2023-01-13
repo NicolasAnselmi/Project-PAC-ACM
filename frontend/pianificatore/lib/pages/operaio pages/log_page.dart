@@ -5,14 +5,14 @@ import 'package:pianificatore/models/machina.dart';
 import 'package:http/http.dart' as http;
 import 'log_macchina_page.dart';
 
-class ReportsPage extends StatefulWidget {
-  const ReportsPage({super.key});
+class LogPage extends StatefulWidget {
+  const LogPage({super.key});
 
   @override
-  State<ReportsPage> createState() => _ReportsPageState();
+  State<LogPage> createState() => _LogPageState();
 }
 
-class _ReportsPageState extends State<ReportsPage> {
+class _LogPageState extends State<LogPage> {
   Future<List<Macchina>> getMacchine() async {
     List<Macchina> listaMacchine = [];
     var response = await http.get(Uri.parse("http://localhost:8081/macchine"));

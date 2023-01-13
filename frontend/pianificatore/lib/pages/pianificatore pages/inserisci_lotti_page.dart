@@ -31,14 +31,16 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
   }
 
   Future<bool> inserisciLotto() async {
-    return true;
     var params = {
       "idLotto": idLottoCtr.text,
       "idProdotto": idProdottoCtr.text,
       "nPezzi": nPezziCtr.text,
       "priorita": priorita.name,
     };
-    var body = seqLavorazioni.asMap();
+    var body = {for (String v in seqLavorazioni) "sequenzaLavorazioni": v};
+    print(body);
+    print(
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     var response = await http.post(
         Uri.http(
             "http://localhost:8081", "/pianificazione/lotto/aggiungi", params),

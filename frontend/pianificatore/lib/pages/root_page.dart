@@ -6,7 +6,7 @@ import 'package:pianificatore/pages/pianificatore%20pages/avvia_pianificazione_p
 import 'package:pianificatore/pages/manager%20pages/gestisci_macchine_page.dart';
 import 'package:pianificatore/pages/manager%20pages/gestisci_utenti_page.dart';
 import 'package:pianificatore/pages/pianificatore%20pages/inserisci_lotti_page.dart';
-import 'package:pianificatore/pages/operaio%20pages/reports.dart';
+import 'package:pianificatore/pages/operaio%20pages/log_page.dart';
 import 'package:pianificatore/pages/pianificatore%20pages/visualizza_lotti_page.dart';
 import 'package:pianificatore/pages/pianificatore%20pages/visualizza_pianificazioni_page.dart';
 import 'package:pianificatore/providers/auth_providers.dart';
@@ -40,7 +40,7 @@ class _RootPageState extends ConsumerState<RootPage> {
       "Visualizza Pianificazioni": const VisualizzaPianificazioniPage(),
     },
     "operaio": {
-      "Reports": const ReportsPage(),
+      "Reports": const LogPage(),
     }
   };
 
@@ -97,8 +97,12 @@ class _RootPageState extends ConsumerState<RootPage> {
       // LISTA PULSANTI
       body: ListView.builder(
         itemBuilder: (context, index) => PulsanteSezioniHome(
-          titolo: listaPermessi[ref.watch(loginStateProvider).name]!.keys.elementAt(index),
-          pagina: listaPermessi[ref.watch(loginStateProvider).name]!.values.elementAt(index),
+          titolo: listaPermessi[ref.watch(loginStateProvider).name]!
+              .keys
+              .elementAt(index),
+          pagina: listaPermessi[ref.watch(loginStateProvider).name]!
+              .values
+              .elementAt(index),
         ),
         itemCount: listaPermessi[ref.watch(loginStateProvider).name]!.length,
       ),

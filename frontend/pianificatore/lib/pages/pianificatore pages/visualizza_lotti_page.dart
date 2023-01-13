@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pianificatore/models/lotto.dart';
+import 'package:http/http.dart' as http;
 
 class VisualizzaLottiPage extends StatefulWidget {
   const VisualizzaLottiPage({super.key});
@@ -9,12 +12,15 @@ class VisualizzaLottiPage extends StatefulWidget {
 }
 
 class _VisualizzaLottiPageState extends State<VisualizzaLottiPage> {
-  Future<List<Lotto>> getReports() async {
-    // TODO: rimuovere
-    await Future.delayed(const Duration(seconds: 2));
-    return [
-      Lotto(),
-    ];
+  Future<List<Lotto>> getLotti() async {
+    List<Lotto> listaLotti = [];
+    var response = await http.get(Uri.parse("http://localhost:8081/residui"));
+
+    if (response.statusCode == 200) {
+      Lotto m = Lotto.fromJson(jsonDecode(response.body));
+      listaLotti.add(m);
+    }
+    return listaLotti;
   }
 
   @override
@@ -22,14 +28,14 @@ class _VisualizzaLottiPageState extends State<VisualizzaLottiPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Reports"),
+        title: const Text("Visualizza Lotti"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: FutureBuilder(
-        future: getReports(),
+        future: getLotti(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -41,7 +47,23 @@ class _VisualizzaLottiPageState extends State<VisualizzaLottiPage> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.blue[200],
                     ),
-                    child: Container(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // ID LOTTO
+                        Text("ID Lotto:  ${snapshot.data![index].idLotto}"),
+
+                        // ID PRODOTTO
+                        Text(snapshot.data![index].idProdotto),
+
+                        // N PEZZI
+                        Text("N Pezzi:  ${snapshot.data![index].nPezzi}"),
+
+                        // PRIORITA
+                        Text(
+                            "Priorità: ${snapshot.data![index].priorita.name}"),
+                      ],
+                    ),
                   )),
             );
           } else {
