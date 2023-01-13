@@ -1,6 +1,7 @@
 package com.controllers;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.api.client.json.Json;
+import com.google.api.client.json.JsonParser;
 import com.models.data.Lavorazione;
 import com.models.data.Lotto;
 import com.services.ServicePianificazione;
@@ -23,8 +26,13 @@ public class PianificazioneWebController {
 
 	@PostMapping("/pianificazione/lotto/aggiungi")
 	public void inserisciLotto(@RequestParam String idLotto, @RequestParam String idProdotto, @RequestParam int nPezzi,
-			@RequestParam String priorita, @RequestParam String[] sequenzaLavorazioni) {
-		servicePianificazione.inserisciLotto(idLotto, idProdotto, nPezzi, priorita, sequenzaLavorazioni);
+			@RequestParam String priorita, @RequestParam String sequenzaLavorazioni) {
+		StringTokenizer tokenizer = new StringTokenizer(sequenzaLavorazioni, ",");
+		String[] token = new String[tokenizer.countTokens()];
+		for (int i = 0; i < token.length; i++) {
+			token[i] = tokenizer.nextToken();
+		}
+		servicePianificazione.inserisciLotto(idLotto, idProdotto, nPezzi, priorita, token);
 	}
 
 	@DeleteMapping("/pianificazione/lotto/elimina")
@@ -44,19 +52,25 @@ public class PianificazioneWebController {
 		return servicePianificazione.updateLotto(idLotto, nPezzi, tempoLavorazionePezzoFresa,
 				tempoLavorazionePezzoTornio, priorita);
 	}
-	
+
 	@GetMapping("/pianificazione/idMacchina/{idMacchina}")
-	public List<Lavorazione> getPianificazioneByMacchina(@PathVariable String idMacchina){
+	public List<Lavorazione> getPianificazioneByMacchina(@PathVariable String idMacchina) {
 		return servicePianificazione.visualizzaPianificazioneByMacchina(idMacchina);
 	}
-	
+
 	@GetMapping("/pianificazione/calcolo")
-	public List<Lavorazione> calcoloPianificazione(@RequestParam String[] listaMacchine, int slotSettimanali){
-		return servicePianificazione.calcoloPianificazione(listaMacchine, slotSettimanali);
+	public List<Lavorazione> calcoloPianificazione(@RequestParam String listaMacchine,
+			@RequestParam int slotSettimanali) {
+		StringTokenizer tokenizer = new StringTokenizer(listaMacchine, ",");
+		String[] token = new String[tokenizer.countTokens()];
+		for (int i = 0; i < token.length; i++) {
+			token[i] = tokenizer.nextToken();
+		}
+		return servicePianificazione.calcoloPianificazione(token, slotSettimanali);
 	}
-	
+
 	@GetMapping("/pianificazione/residui")
-	public List<Lotto> getLottiResiduiPianificazioneCorrente(){
+	public List<Lotto> getLottiResiduiPianificazioneCorrente() {
 		return servicePianificazione.getLottiResiduiPianificazioneCorrente();
 	}
 
