@@ -14,12 +14,15 @@ class VisualizzaLottiPage extends StatefulWidget {
 class _VisualizzaLottiPageState extends State<VisualizzaLottiPage> {
   Future<List<Lotto>> getLotti() async {
     List<Lotto> listaLotti = [];
-    var response = await http.get(Uri.parse("http://localhost:8081/residui"));
+    var response = await http.get(Uri.parse("http://localhost:8081/pianificazione/residui"));
 
     if (response.statusCode == 200) {
-      Lotto m = Lotto.fromJson(jsonDecode(response.body));
-      listaLotti.add(m);
+      jsonDecode(response.body).forEach((json) {
+        Lotto m = Lotto.fromJson(json);
+        listaLotti.add(m);
+      });
     }
+
     return listaLotti;
   }
 
@@ -60,8 +63,7 @@ class _VisualizzaLottiPageState extends State<VisualizzaLottiPage> {
                         Text("N Pezzi:  ${snapshot.data![index].nPezzi}"),
 
                         // PRIORITA
-                        Text(
-                            "Priorità: ${snapshot.data![index].priorita.name}"),
+                        Text("Priorità: ${snapshot.data![index].priorita.name}"),
                       ],
                     ),
                   )),

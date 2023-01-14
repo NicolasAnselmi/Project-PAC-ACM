@@ -2,27 +2,29 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../../models/log.dart';
+import '../../models/lavorazione.dart';
 
-class LogMacchinaPage extends StatefulWidget {
+class PianificazioneMacchinaPage extends StatefulWidget {
   final String macchina;
-  const LogMacchinaPage({super.key, required this.macchina});
+  const PianificazioneMacchinaPage({super.key, required this.macchina});
 
   @override
-  State<LogMacchinaPage> createState() => _LogMacchinaPageState();
+  State<PianificazioneMacchinaPage> createState() => _PianificazioneMacchinaPageState();
 }
 
-class _LogMacchinaPageState extends State<LogMacchinaPage> {
-  Future<List<Log>> getLogs() async {
-    List<Log> listaLog = [];
-    var response = await http.get(Uri.parse("http://localhost:8081/log/${widget.macchina}"));
+class _PianificazioneMacchinaPageState extends State<PianificazioneMacchinaPage> {
+  Future<List<Lavorazione>> getLavorazioni() async {
+    List<Lavorazione> listaLavorazioni = [];
+    var response = await http.get(Uri.parse("http://localhost:8081/pianificazione/idMacchina/${widget.macchina}"));
+
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((json) {
-        Log l = Log.fromJson(json);
-        listaLog.add(l);
+        Lavorazione m = Lavorazione.fromJson(json);
+        listaLavorazioni.add(m);
       });
     }
-    return listaLog;
+
+    return listaLavorazioni;
   }
 
   @override
@@ -37,7 +39,7 @@ class _LogMacchinaPageState extends State<LogMacchinaPage> {
         ),
       ),
       body: FutureBuilder(
-        future: getLogs(),
+        future: getLavorazioni(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -52,20 +54,17 @@ class _LogMacchinaPageState extends State<LogMacchinaPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // ID LOG
-                        Text("Id Log:  ${snapshot.data![index].idLog}"),
+                        // IDLavorazione
+                        Text("Id Lavorazione:  ${snapshot.data![index].idLavorazione}"),
 
-                        // ID LOGGER
-                        Text("Logger: ${snapshot.data![index].idLogger}"),
+                        // SLOT
+                        Text("SLOT: ${snapshot.data![index].slot}"),
 
-                        // TITLE
-                        Text("Titolo:  ${snapshot.data![index].title}"),
+                        // LOTTO
+                        Text("Lotto:  ${snapshot.data![index].lotto}"),
 
-                        // BODY
-                        Text("Body: ${snapshot.data![index].body}"),
-
-                        // TIMESTAMP
-                        Text("Timestamp: ${snapshot.data![index].timeStamp}"),
+                        // TipoMacchina
+                        Text("Tipo Macchina: ${snapshot.data![index].tipoMacchina.name}"),
                       ],
                     ),
                   )),

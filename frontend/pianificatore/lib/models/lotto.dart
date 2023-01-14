@@ -5,7 +5,7 @@ class Lotto {
   final String idProdotto;
   final int nPezzi;
   final Priorita priorita;
-  final List<String> listaLavorazioni;
+  final List<dynamic> listaLavorazioni;
 
   Lotto({
     required this.idProdotto,

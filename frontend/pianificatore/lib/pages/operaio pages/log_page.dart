@@ -18,9 +18,12 @@ class _LogPageState extends State<LogPage> {
     var response = await http.get(Uri.parse("http://localhost:8081/macchine"));
 
     if (response.statusCode == 200) {
-      Macchina m = Macchina.fromJson(jsonDecode(response.body));
-      listaMacchine.add(m);
+      jsonDecode(response.body).forEach((json) {
+        Macchina m = Macchina.fromJson(json);
+        listaMacchine.add(m);
+      });
     }
+
     return listaMacchine;
   }
 
@@ -29,7 +32,7 @@ class _LogPageState extends State<LogPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Reports"),
+        title: const Text("Log Macchine"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
@@ -57,29 +60,24 @@ class _LogPageState extends State<LogPage> {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue[200],
                       ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // ID MACCHINA
-                                Text(
-                                    "Id Macchina:  ${snapshot.data![index].idMacchina}"),
+                            // ID MACCHINA
+                            Text("Id Macchina:  ${snapshot.data![index].idMacchina}"),
 
-                                // STATO MACCHINA
-                                Text(snapshot.data![index].statoMacchina.name)
-                              ],
-                            ),
+                            // STATO MACCHINA
+                            Text(snapshot.data![index].statoMacchina.name)
+                          ],
+                        ),
 
-                            // ID LOTTO LAVORAZIONE
-                            Text(
-                                "Id Lotto In Lavorazione:  ${snapshot.data![index].codiceLottoInLavorazione}"),
+                        // ID LOTTO LAVORAZIONE
+                        Text("Id Lotto In Lavorazione:  ${snapshot.data![index].codiceLottoInLavorazione}"),
 
-                            // ULTIMO LOGTIME
-                            Text(
-                                "Ultimo Logtime: ${snapshot.data![index].lastTimestamp}"),
-                          ]),
+                        // ULTIMO LOGTIME
+                        Text("Ultimo Logtime: ${snapshot.data![index].lastTimestamp}"),
+                      ]),
                     ),
                   )),
             );
