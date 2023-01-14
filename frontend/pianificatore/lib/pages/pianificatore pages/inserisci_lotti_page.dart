@@ -30,21 +30,25 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
     super.initState();
   }
 
-  Future<bool> inserisciLotto() async {
+  Future<void> inserisciLotto() async {
+    var stringaLavorazioni = "";
+    seqLavorazioni.forEach((val) {
+      stringaLavorazioni += "$val,";
+    });
+
     var params = {
       "idLotto": idLottoCtr.text,
       "idProdotto": idProdottoCtr.text,
       "nPezzi": nPezziCtr.text,
       "priorita": priorita.name,
+      "sequenzaLavorazioni": stringaLavorazioni.substring(0, stringaLavorazioni.length - 1),
     };
-    var body = {for (String v in seqLavorazioni) "sequenzaLavorazioni": v};
-    var response =
-        await http.post(Uri.http("http://localhost:8081", "/pianificazione/lotto/aggiungi", params), body: body);
+
+    var response = await http.post(Uri.http("localhost:8081", "/pianificazione/lotto/aggiungi", params));
 
     if (response.statusCode == 200) {
-      return true;
+      _showToast();
     }
-    return false;
   }
 
   _showToast() {
@@ -95,7 +99,6 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
                 child: TextField(
                   controller: idLottoCtr,
                   style: const TextStyle(fontSize: 15),
-                  obscureText: true,
                   decoration: const InputDecoration(
                     label: Text("ID Lotto"),
                     enabledBorder: OutlineInputBorder(
@@ -112,7 +115,6 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
                 child: TextField(
                   controller: idProdottoCtr,
                   style: const TextStyle(fontSize: 15),
-                  obscureText: true,
                   decoration: const InputDecoration(
                     label: Text("ID Prodotto"),
                     enabledBorder: OutlineInputBorder(
@@ -123,17 +125,18 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
               ),
 
               // N Pezzi
-              Container(
-                margin: const EdgeInsets.only(top: 20, bottom: 20),
-                width: MediaQuery.of(context).size.width / 1.2,
-                child: TextField(
-                  controller: nPezziCtr,
-                  style: const TextStyle(fontSize: 15),
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    label: Text("ID Prodotto"),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 20, bottom: 20),
+                  width: 150,
+                  child: TextField(
+                    controller: nPezziCtr,
+                    style: const TextStyle(fontSize: 15),
+                    decoration: const InputDecoration(
+                      label: Text("Numero Pezzi"),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      ),
                     ),
                   ),
                 ),
@@ -204,30 +207,36 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        seqLavorazioni.add("tornio");
-                      });
-                    },
-                    child: Row(
-                      children: const [
-                        Icon(Icons.add),
-                        Text("Tornio"),
-                      ],
+                  SizedBox(
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          seqLavorazioni.add("tornio");
+                        });
+                      },
+                      child: Row(
+                        children: const [
+                          Icon(Icons.add),
+                          Text("Tornio"),
+                        ],
+                      ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        seqLavorazioni.add("fresa");
-                      });
-                    },
-                    child: Row(
-                      children: const [
-                        Icon(Icons.add),
-                        Text("Fresa"),
-                      ],
+                  SizedBox(
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          seqLavorazioni.add("fresa");
+                        });
+                      },
+                      child: Row(
+                        children: const [
+                          Icon(Icons.add),
+                          Text("Fresa"),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -240,12 +249,7 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
                 margin: const EdgeInsets.only(top: 50, bottom: 30),
                 child: ElevatedButton(
                   child: const Text("Inserisci"),
-                  onPressed: () async {
-                    var res = await inserisciLotto();
-                    if (res) {
-                      _showToast();
-                    }
-                  },
+                  onPressed: () => inserisciLotto(),
                 ),
               )
             ],
