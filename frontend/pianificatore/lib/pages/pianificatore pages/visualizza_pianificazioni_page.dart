@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:pianificatore/models/pianificazione.dart';
-import 'package:pianificatore/pages/pianificatore%20pages/pianificazione_page.dart';
+import 'package:pianificatore/pages/pianificatore%20pages/pianificazione_macchina_page.dart';
+import '../../models/machina.dart';
 
 class VisualizzaPianificazioniPage extends StatefulWidget {
   const VisualizzaPianificazioniPage({super.key});
@@ -11,15 +12,18 @@ class VisualizzaPianificazioniPage extends StatefulWidget {
 }
 
 class _VisualizzaPianificazioniPageState extends State<VisualizzaPianificazioniPage> {
-  Future<List<Pianificazione>> getReports() async {
-    // TODO: rimuovere
-    await Future.delayed(const Duration(seconds: 2));
-    return [
-      Pianificazione(),
-      Pianificazione(),
-      Pianificazione(),
-      Pianificazione(),
-    ];
+  Future<List<Macchina>> getMacchine() async {
+    List<Macchina> listaMacchine = [];
+
+    var response = await http.get(Uri.parse("http://localhost:8081/macchine"));
+
+    if (response.statusCode == 200) {
+      jsonDecode(response.body).forEach((json) {
+        Macchina m = Macchina.fromJson(json);
+        listaMacchine.add(m);
+      });
+    }
+    return listaMacchine;
   }
 
   @override
@@ -27,14 +31,14 @@ class _VisualizzaPianificazioniPageState extends State<VisualizzaPianificazioniP
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Pianificazioni"),
+        title: const Text("Visualizza Pianificazioni"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: FutureBuilder(
-        future: getReports(),
+        future: getMacchine(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -42,7 +46,11 @@ class _VisualizzaPianificazioniPageState extends State<VisualizzaPianificazioniP
               itemBuilder: ((context, index) => GestureDetector(
                     onTap: () => Navigator.push(
                       context,
-                      CupertinoPageRoute(builder: (context) => const PianificazionePage()),
+                      MaterialPageRoute(
+                        builder: (context) => PianificazioneMacchinaPage(
+                          macchina: snapshot.data![index].idMacchina,
+                        ),
+                      ),
                     ),
                     child: Container(
                       margin: const EdgeInsets.all(15),
@@ -51,8 +59,8 @@ class _VisualizzaPianificazioniPageState extends State<VisualizzaPianificazioniP
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue[200],
                       ),
-                      child: const Center(
-                        child: Text("PIANO"),
+                      child: Text(
+                        "Id Macchina:  ${snapshot.data![index].idMacchina}",
                       ),
                     ),
                   )),
