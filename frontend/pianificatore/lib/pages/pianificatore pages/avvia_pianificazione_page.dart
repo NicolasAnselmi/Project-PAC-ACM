@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:pianificatore/models/machina.dart';
@@ -11,13 +12,42 @@ class AvviaPianificazionePage extends StatefulWidget {
 }
 
 class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
-  List<bool> listaMacchineSelezionate = [];
+  Map<String, bool> listaMacchineSelezionate = {};
   late TextEditingController slotCtr;
+  late FToast ftoast;
 
   @override
   void initState() {
     slotCtr = TextEditingController();
+    ftoast = FToast();
+    ftoast.init(context);
     super.initState();
+  }
+
+  _showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Pianificazione Avviata Correttamente"),
+        ],
+      ),
+    );
+
+    ftoast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 4),
+    );
   }
 
   Future<List<Macchina>> getMacchine() async {
@@ -28,13 +58,29 @@ class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
       for (Map<String, dynamic> el in jsonDecode(response.body)) {
         Macchina m = Macchina.fromJson(el);
         listaMacchine.add(m);
-        listaMacchineSelezionate.add(false);
+        listaMacchineSelezionate.putIfAbsent(m.idMacchina, () => false);
       }
     }
     return listaMacchine;
   }
 
-  Future<void> avvioCalcolo() async {}
+  Future<void> avvioCalcolo() async {
+    var stringaMacchine = "";
+    listaMacchineSelezionate.forEach((key, val) {
+      if (val) {
+        stringaMacchine += "$key,";
+      }
+    });
+    var params = {
+      "slotSettimanali": slotCtr.text,
+      "listaMacchine": stringaMacchine.substring(0, stringaMacchine.length - 1),
+    };
+    var response = await http.get(Uri.http("localhost:8081", "/pianificazione/calcolo", params));
+    if (response.statusCode == 200) {
+      _showToast();
+      if (mounted) Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +119,10 @@ class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
 
                             // CHECKBOX
                             Checkbox(
-                                value: listaMacchineSelezionate[index],
+                                value: listaMacchineSelezionate[snapshot.data![index].idMacchina],
                                 onChanged: (val) {
                                   setState(() {
-                                    listaMacchineSelezionate[index] = val ?? false;
+                                    listaMacchineSelezionate[snapshot.data![index].idMacchina] = val ?? false;
                                   });
                                 })
                           ],

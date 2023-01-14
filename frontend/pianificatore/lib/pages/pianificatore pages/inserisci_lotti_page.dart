@@ -38,8 +38,6 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
       "priorita": priorita.name,
     };
     var body = {for (String v in seqLavorazioni) "sequenzaLavorazioni": v};
-    print(body);
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     var response =
         await http.post(Uri.http("http://localhost:8081", "/pianificazione/lotto/aggiungi", params), body: body);
 
