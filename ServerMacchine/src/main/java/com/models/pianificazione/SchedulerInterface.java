@@ -1,4 +1,4 @@
-package com.models.scheduler;
+package com.models.pianificazione;
 
 import java.util.List;
 

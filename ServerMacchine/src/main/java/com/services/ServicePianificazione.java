@@ -8,8 +8,8 @@ import com.datamanager.MacchineDataManager;
 import com.datamanager.PianificazioniDataManager;
 import com.models.data.Lavorazione;
 import com.models.data.Lotto;
-import com.models.data.Pianificazione;
 import com.models.macchine.Macchina;
+import com.models.pianificazione.Pianificazione;
 ;
 
 @Service
@@ -49,11 +49,11 @@ public class ServicePianificazione {
 		return pianificazioniDataManager.getPianificazioneCorrente().getListaLotti();
 	}
 
-	public boolean updateLotto(String idLotto, int nPezzi, String priorita, String[] listaLavorazioni) {
+	public boolean updateLotto(String idLotto, String idProdotto, int nPezzi, String priorita, String[] listaLavorazioni) {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return false;
 		return pianificazioniDataManager.getPianificazioneCorrente()
-				.updateLotto(idLotto, nPezzi, priorita, listaLavorazioni);
+				.updateLotto(idLotto, idProdotto, nPezzi, priorita, listaLavorazioni);
 	
 	}
 

@@ -81,6 +81,10 @@ public class Lotto implements Comparable<Lotto>{
 		}
 
 	}
+
+	public void setIdProdotto(String idProdotto) {
+		this.idProdotto = idProdotto;
+	}
 	
 
 }

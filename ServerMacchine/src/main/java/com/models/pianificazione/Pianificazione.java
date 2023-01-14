@@ -1,4 +1,4 @@
-package com.models.data;
+package com.models.pianificazione;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,9 +7,10 @@ import java.util.Optional;
 
 import com.datamanager.MacchineDataManager;
 import com.google.cloud.Timestamp;
+import com.models.data.Lavorazione;
+import com.models.data.Lotto;
+import com.models.data.PrioritaLotto;
 import com.models.macchine.Macchina;
-import com.models.scheduler.Scheduler;
-import com.models.scheduler.SchedulerInterface;
 
 public class Pianificazione implements Comparable<Pianificazione> {
 	
@@ -48,12 +49,13 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		return listaLotti.removeIf(x -> x.getIdLotto().equals(idLotto));
 	}
 
-	public boolean updateLotto(String idLotto, int nPezzi, String priorita, String[] listaLavorazioni) {
+	public boolean updateLotto(String idLotto, String idProdotto, int nPezzi, String priorita, String[] listaLavorazioni) {
 		Optional<Lotto> opt = listaLotti.stream().filter(x -> x.getIdLotto().equals(idLotto)).findFirst();
 		if (opt.isEmpty())
 			return false;
 		else {
 			Lotto l = opt.get();
+			l.setIdProdotto(idProdotto);
 			l.setnPezzi(nPezzi);
 			l.setPriorita(PrioritaLotto.valueOf(priorita));
 			l.setListaLavorazioni(listaLavorazioni);
