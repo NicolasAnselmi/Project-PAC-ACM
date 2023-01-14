@@ -46,11 +46,16 @@ public class PianificazioneWebController {
 	}
 
 	@PostMapping("/pianificazione/lotto")
-	public boolean updateLotto(@RequestParam String idLotto, @RequestParam int nPezzi,
-			@RequestParam float tempoLavorazionePezzoFresa, @RequestParam float tempoLavorazionePezzoTornio,
-			@RequestParam String priorita) {
-		return servicePianificazione.updateLotto(idLotto, nPezzi, tempoLavorazionePezzoFresa,
-				tempoLavorazionePezzoTornio, priorita);
+	public boolean updateLotto(@RequestParam String idLotto, @RequestParam String idProdotto, @RequestParam int nPezzi,
+			@RequestParam String priorita, @RequestParam String sequenzaLavorazioni) {
+		StringTokenizer tokenizer = new StringTokenizer(sequenzaLavorazioni, ",");
+		String[] token = new String[tokenizer.countTokens()];
+		for (int i = 0; i < token.length; i++) {
+			token[i] = tokenizer.nextToken();
+		}
+		servicePianificazione.inserisciLotto(idLotto, idProdotto, nPezzi, priorita, token);
+
+		return servicePianificazione.updateLotto(idLotto, idProdotto, nPezzi, priorita, token);
 	}
 
 	@GetMapping("/pianificazione/idMacchina/{idMacchina}")

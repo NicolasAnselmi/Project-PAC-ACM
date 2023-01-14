@@ -49,12 +49,11 @@ public class ServicePianificazione {
 		return pianificazioniDataManager.getPianificazioneCorrente().getListaLotti();
 	}
 
-	public boolean updateLotto(String idLotto, int nPezzi, float tempoLavorazionePezzoFresa,
-			float tempoLavorazionePezzoTornio, String priorita) {
+	public boolean updateLotto(String idLotto, int nPezzi, String priorita, String[] listaLavorazioni) {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return false;
 		return pianificazioniDataManager.getPianificazioneCorrente()
-				.updateLotto(idLotto, nPezzi, tempoLavorazionePezzoFresa, tempoLavorazionePezzoTornio, priorita);
+				.updateLotto(idLotto, nPezzi, priorita, listaLavorazioni);
 	
 	}
 

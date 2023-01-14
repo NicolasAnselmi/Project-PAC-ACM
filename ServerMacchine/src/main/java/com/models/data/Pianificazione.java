@@ -48,8 +48,7 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		return listaLotti.removeIf(x -> x.getIdLotto().equals(idLotto));
 	}
 
-	public boolean updateLotto(String idLotto, int nPezzi, float tempoLavorazionePezzoFresa,
-			float tempoLavorazionePezzoTornio, String priorita) {
+	public boolean updateLotto(String idLotto, int nPezzi, String priorita, String[] listaLavorazioni) {
 		Optional<Lotto> opt = listaLotti.stream().filter(x -> x.getIdLotto().equals(idLotto)).findFirst();
 		if (opt.isEmpty())
 			return false;
@@ -57,6 +56,7 @@ public class Pianificazione implements Comparable<Pianificazione> {
 			Lotto l = opt.get();
 			l.setnPezzi(nPezzi);
 			l.setPriorita(PrioritaLotto.valueOf(priorita));
+			l.setListaLavorazioni(listaLavorazioni);
 			return true;
 		}
 	}

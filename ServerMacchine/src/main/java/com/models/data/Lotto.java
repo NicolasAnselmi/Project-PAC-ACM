@@ -73,6 +73,14 @@ public class Lotto implements Comparable<Lotto>{
 	public String toString() {
 		return idLotto + " - " + priorita + " - " + sequenzaLavorazioni.toString();
 	}
+
+	public void setListaLavorazioni(String[] listaLavorazioni) {
+		for (String s : listaLavorazioni) {
+			sequenzaLavorazioni = new ArrayList<>();
+			this.sequenzaLavorazioni.add(TipoMacchina.valueOf(s));
+		}
+
+	}
 	
 
 }
