@@ -16,7 +16,6 @@ class _LogMacchinaPageState extends State<LogMacchinaPage> {
   Future<List<Log>> getLogs() async {
     List<Log> listaLog = [];
     var response = await http.get(Uri.parse("http://localhost:8081/log/${widget.macchina}"));
-    print(jsonDecode(response.body));
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((json) {
         Log l = Log.fromJson(json);
