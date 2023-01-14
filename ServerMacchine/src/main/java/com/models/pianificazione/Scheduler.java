@@ -11,7 +11,7 @@ import com.models.macchine.Macchina;
 
 public class Scheduler implements SchedulerInterface {
 
-	private static List<Lotto> residui;
+	private static List<Lotto> residui = null;
 
 	private static Scheduler scheduler = null;
 	private int maxSlot;
