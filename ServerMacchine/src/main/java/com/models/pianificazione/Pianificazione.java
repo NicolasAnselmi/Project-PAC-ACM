@@ -103,7 +103,7 @@ public class Pianificazione implements Comparable<Pianificazione> {
 
 	public List<Lotto> getLottiResidui() {
 		List<Lotto> residui = Scheduler.getScheduler(0).getLottiResidui();
-		if(residui == null || residui.isEmpty())
+		if(residui == null)
 			return this.listaLotti;
 		return residui;
 	}
