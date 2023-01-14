@@ -1,5 +1,5 @@
 class Log {
-  final String idLog;
+  final int idLog;
   final String idLogger;
   final String title;
   final String body;
