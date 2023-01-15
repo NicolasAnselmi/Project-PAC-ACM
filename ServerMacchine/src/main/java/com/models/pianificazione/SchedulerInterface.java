@@ -12,7 +12,7 @@ public interface SchedulerInterface {
 	 * @param lotti
 	 * @return
 	 */
-	public List<Lavorazione> getSchedule(List<Lotto> lotti, List<Macchina> macchine);
+	public List<Lavorazione> getSchedule(List<Lotto> lotti, List<Macchina> macchine, int maxSlot);
 	/**
 	 * serve per ottenere il residuo di schedulazione
 	 * @return

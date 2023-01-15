@@ -39,9 +39,10 @@ public class Pianificazione implements Comparable<Pianificazione> {
 	}
 
 	public List<Lavorazione> calcoloPianificazione(List<Lotto> listaLotti, List<Macchina> listaMacchine, int slotSettimanali) {
-		SchedulerInterface scheduler = Scheduler.getScheduler(slotSettimanali);
-		listaLavorazioni = scheduler.getSchedule(listaLotti, listaMacchine);
+		SchedulerInterface scheduler = Scheduler.getScheduler();
+		listaLavorazioni = scheduler.getSchedule(listaLotti, listaMacchine, slotSettimanali);
 		listaLotti = scheduler.getLottiResidui();
+		Collections.sort(listaLavorazioni);
 		return listaLavorazioni;
 	}
 
@@ -66,7 +67,6 @@ public class Pianificazione implements Comparable<Pianificazione> {
 	public List<Lavorazione> getPianificazioneByMacchina(String idMacchina) {
 		if (listaLavorazioni == null)
 			return null;
-		Collections.sort(listaLavorazioni);
 		return listaLavorazioni.stream().filter(x -> x.getIdMacchina().equals(idMacchina)).toList();
 	}
 
@@ -102,10 +102,9 @@ public class Pianificazione implements Comparable<Pianificazione> {
 	}
 
 	public List<Lotto> getLottiResidui() {
-		List<Lotto> residui = Scheduler.getScheduler(0).getLottiResidui();
+		List<Lotto> residui = Scheduler.getScheduler().getLottiResidui();
 		if(residui == null)
 			return this.listaLotti;
 		return residui;
 	}
-
 }

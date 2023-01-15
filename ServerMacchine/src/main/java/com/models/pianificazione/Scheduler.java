@@ -14,20 +14,18 @@ public class Scheduler implements SchedulerInterface {
 	private static List<Lotto> residui = null;
 
 	private static Scheduler scheduler = null;
-	private int maxSlot;
 
-	private Scheduler(int maxSlot) {
-		this.maxSlot = maxSlot;
+	private Scheduler() {
 	}
 
-	public static Scheduler getScheduler(int maxSlot) {
+	public static Scheduler getScheduler() {
 		if (scheduler == null)
-			scheduler = new Scheduler(maxSlot);
+			scheduler = new Scheduler();
 		return scheduler;
 	}
 
 	@Override
-	public List<Lavorazione> getSchedule(List<Lotto> lotti, List<Macchina> macchine) {
+	public List<Lavorazione> getSchedule(List<Lotto> lotti, List<Macchina> macchine, int maxSlot) {
 		List<Lavorazione> lavorazioni = new ArrayList<>();
 		boolean isOccupato[][] = new boolean[macchine.size()][maxSlot]; // default is false
 		residui = new ArrayList<>();
