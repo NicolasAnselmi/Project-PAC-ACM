@@ -21,7 +21,21 @@ public class GestoreNotifiche {
 	private static GestoreNotifiche g = null;
 
 	private GestoreNotifiche() {
-
+		tokenOperai = new ArrayList<>();
+		tokenManager = new ArrayList<>();
+		
+		tokenOperai.add("token");
+		tokenManager.add("token");
+		
+		try {
+			FileInputStream f = new FileInputStream(
+					"src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
+			FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(f)).build();
+			FirebaseApp.initializeApp(options);
+		} catch (IOException e) {
+			System.out.println("IO ex");
+			e.printStackTrace();
+		}
 	}
 
 	public static GestoreNotifiche getGestoreNotifiche() {
@@ -43,16 +57,7 @@ public class GestoreNotifiche {
 	 * li dentro, così non si rininizalizza tutto ogni volta, LMK...
 	 */
 	private String send(String body, String title, String reciever) {
-		try {
-			FileInputStream f = new FileInputStream(
-					"/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
-			FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(f)).build();
-			FirebaseApp.initializeApp(options);
-		} catch (IOException e) {
-			System.out.println("IO ex");
-			e.printStackTrace();
-		}
-
+		
 		Message message = Message.builder().putData("Body", body) // info a caso del json che sarà da inviare al client
 				.putData("Title", title)
 				.setToken(reciever) // we have to use who to decide which devices get the notification
@@ -61,12 +66,15 @@ public class GestoreNotifiche {
 		String response;
 		try {
 			response = FirebaseMessaging.getInstance().send(message);
+
 			return response;
+			
 		} catch (Exception e) {
-			System.out.println(e.getClass());
+			//System.out.println(e.getClass());
+
 			return null;
 		}
-
+		
 	}
 
 	private List<String> send(String body, String title, ArrayList<String> recieversList) {

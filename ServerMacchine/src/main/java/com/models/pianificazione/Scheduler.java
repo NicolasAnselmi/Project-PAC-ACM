@@ -8,14 +8,17 @@ import com.models.data.Lavorazione;
 import com.models.data.Lotto;
 import com.models.data.PrioritaLotto;
 import com.models.macchine.Macchina;
+import com.notifiche.GestoreNotifiche;
 
 public class Scheduler implements SchedulerInterface {
 
 	private static List<Lotto> residui = null;
 
 	private static Scheduler scheduler = null;
+	GestoreNotifiche g;
 
 	private Scheduler() {
+		g = GestoreNotifiche.getGestoreNotifiche();
 	}
 
 	public static Scheduler getScheduler() {
@@ -54,6 +57,7 @@ public class Scheduler implements SchedulerInterface {
 				}
 			}
 		}
+		g.sendManager("SCHEDULING TERMINATO", "Visualizzare pianificazione inserita");
 		return lavorazioni;
 	}
 
