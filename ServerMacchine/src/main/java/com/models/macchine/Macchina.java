@@ -5,7 +5,7 @@ import com.notifiche.GestoreNotifiche;
 
 public class Macchina implements Machinable {
 	private String idMacchina;
-	private int codiceLottoInLavorazione;
+	private String codiceLottoInLavorazione;
 	private String timeStampUltimoMessaggio;
 	private StatoMacchina statoMacchina;
 	private TipoMacchina tipoMacchina;
@@ -19,7 +19,7 @@ public class Macchina implements Machinable {
 	public Macchina(String idMacchina, String tipoMacchina) {
 		this();
 		this.idMacchina = idMacchina;
-		this.codiceLottoInLavorazione = 0;
+		this.codiceLottoInLavorazione = "";
 		this.timeStampUltimoMessaggio = Timestamp.now().toString();
 		this.statoMacchina = StatoMacchina.Fermo;
 		this.tipoMacchina = TipoMacchina.valueOf(tipoMacchina);
@@ -29,7 +29,7 @@ public class Macchina implements Machinable {
 	 * scompatta json, aggiunge log, DOVE AGGIUNGE LOG? manda solo notifiche mi
 	 * sembra
 	 */
-	public void aggiornaMacchina(int codiceLottoInLavorazione, String timeStampMessaggio, StatoMacchina statoMacchina) {
+	public void aggiornaMacchina(String codiceLottoInLavorazione, String timeStampMessaggio, StatoMacchina statoMacchina) {
 		this.codiceLottoInLavorazione = codiceLottoInLavorazione;
 		this.timeStampUltimoMessaggio = timeStampMessaggio;
 		if (!this.statoMacchina.equals(statoMacchina)) {
@@ -52,11 +52,11 @@ public class Macchina implements Machinable {
 		}
 	}
 
-	public int getCodiceLottoInLavorazione() {
+	public String getCodiceLottoInLavorazione() {
 		return codiceLottoInLavorazione;
 	}
 
-	public void setCodiceLottoInLavorazione(int codiceLottoInLavorazione) {
+	public void setCodiceLottoInLavorazione(String codiceLottoInLavorazione) {
 		this.codiceLottoInLavorazione = codiceLottoInLavorazione;
 	}
 

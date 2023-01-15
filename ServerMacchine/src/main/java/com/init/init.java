@@ -58,9 +58,9 @@ public class init implements CommandLineRunner{
 		String body1 = "Richiedo 100pz di A";
 		String body2 = "Fine lavorazione lotto 134312";
 		String body3 = "Guasto a ventola di raffreddamento";
-		LogMacchina l1 = new LogMacchina(1, "tornio1", title1, body1);
-		LogMacchina l2 = new LogMacchina(2, "tornio2", title2, body2);
-		LogMacchina l3 = new LogMacchina(3, "tornio3", title3, body3);
+		LogMacchina l1 = new LogMacchina(1, "tornio1", title1, body1, "Lavorazione", lotto1.getIdLotto());
+		LogMacchina l2 = new LogMacchina(2, "tornio2", title2, body2, "Lavorazione", lotto2.getIdLotto());
+		LogMacchina l3 = new LogMacchina(3, "tornio3", title3, body3, "Lavorazione", lotto3.getIdLotto());
 		logDataManager.addLogMacchina(l1);
 		logDataManager.addLogMacchina(l2);
 		logDataManager.addLogMacchina(l3);

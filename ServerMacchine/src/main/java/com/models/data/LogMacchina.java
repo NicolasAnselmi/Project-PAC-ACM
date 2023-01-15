@@ -11,10 +11,10 @@ public class LogMacchina implements Comparable<LogMacchina>{
 	private String body;
 	private String timeStamp;
 	private StatoMacchina statoMacchina;
-	private int codiceLotto;
+	private String codiceLotto;
 	
 	
-	public LogMacchina(long idLog, String idLogger, String title, String body, String statoMacchina, int codiceLotto) {
+	public LogMacchina(long idLog, String idLogger, String title, String body, String statoMacchina, String codiceLotto) {
 		this.idLog = idLog;
 		this.idLogger = idLogger;
 		this.title = title;
@@ -28,7 +28,7 @@ public class LogMacchina implements Comparable<LogMacchina>{
 		return statoMacchina;
 	}
 	
-	public int getCodiceLotto() {
+	public String getCodiceLotto() {
 		return codiceLotto;
 	}
 

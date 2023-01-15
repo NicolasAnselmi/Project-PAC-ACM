@@ -20,7 +20,7 @@ public class LogWebController {
 
 	@PostMapping("/log/addLog")
 	public void addLogMacchina(@RequestParam long idLog, @RequestParam String idLogger, @RequestParam String title,
-			@RequestParam String body, @RequestParam String statoMacchina, @RequestParam int codiceLotto) {
+			@RequestParam String body, @RequestParam String statoMacchina, @RequestParam String codiceLotto) {
 		logService.addLogMacchina(new LogMacchina(idLog, idLogger, title, body, statoMacchina, codiceLotto));
 	}
 	

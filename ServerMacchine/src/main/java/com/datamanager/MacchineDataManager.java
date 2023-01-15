@@ -59,7 +59,7 @@ public class MacchineDataManager {
 		return this.listaMacchine.stream().filter(x-> equalsAnyOf(x.getidMacchina(), listaMacchine)).toList();
 	}
 	
-	public void aggiornaMacchina(String IDMacchina, int codiceLotto, String timestamp, StatoMacchina statoMacchina)
+	public void aggiornaMacchina(String IDMacchina, String codiceLotto, String timestamp, StatoMacchina statoMacchina)
 	{
 		for (Macchina macchina : listaMacchine) {
 			if (macchina.getidMacchina().equals(IDMacchina)) {
