@@ -1,17 +1,14 @@
 package com.macchine;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
-
-import com.models.macchine.Macchina;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import com.models.data.Lotto;
+
 import com.models.data.Lavorazione;
-import com.models.data.PrioritaLotto;
+import com.models.macchine.Macchina;
+import java.time.LocalDateTime;
 
 public class MacchinaFisica implements Machinable {
 	protected float probGuasto;
@@ -47,7 +44,7 @@ public class MacchinaFisica implements Machinable {
 	@Override
 	public void caricaSuServer() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-		map.add("idLog", IDMacchina + 1);
+		map.add("idLog", IDMacchina + "--" + LocalDateTime.now());
 		map.add("idLogger", IDMacchina);
 		map.add("title", "titolo log");
 		map.add("body", "body log");
