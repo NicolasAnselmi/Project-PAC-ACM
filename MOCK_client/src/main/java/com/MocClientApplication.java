@@ -24,6 +24,7 @@ public class MocClientApplication {
 	static float nFrese = 3;
 	static int quant = 3;
 	static int slotPart = 5;
+	static int waitTime = 3;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MocClientApplication.class, args);
@@ -40,10 +41,10 @@ public class MocClientApplication {
 			List<Runnable> macchine = new ArrayList<Runnable>();
 
 			for (int i = 0; i < nTorni; i++)
-				macchine.add(new ThreadMacchina(quant, new Tornio(pg, pf, restTemplate)));
+				macchine.add(new ThreadMacchina(quant, new Tornio(pg, pf, restTemplate, slotPart, waitTime)));
 
 			for (int i = 0; i < nFrese; i++)
-				macchine.add(new ThreadMacchina(quant, new Fresa(pg, pf, restTemplate)));
+				macchine.add(new ThreadMacchina(quant, new Fresa(pg, pf, restTemplate, slotPart, waitTime)));
 			
 			for (Runnable runnable : macchine)
 				runnable.run();

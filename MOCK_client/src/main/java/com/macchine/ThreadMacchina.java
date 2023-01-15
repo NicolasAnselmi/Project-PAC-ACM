@@ -9,6 +9,11 @@ public class ThreadMacchina implements Runnable {
 		this.machine = machine;
 	}
 
+	/**
+	 * Un thread simula il comportamento di una singola macchina: prima la inizializza,
+	 * poi ad ogni iterazione (ogni quant secondi) aggiorna lo stato della macchina e lo
+	 * carica sul server
+	 */
 	public void run() {
 		machine.inizializzaMacchina();
 
@@ -23,6 +28,7 @@ public class ThreadMacchina implements Runnable {
 
 		System.out.println(machine.toString() + " finish ");
 		machine.aggiornaMacchina();
+		machine.caricaSuServer();
 		}
 	}
 
