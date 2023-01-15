@@ -28,7 +28,6 @@ public class Scheduler implements SchedulerInterface {
 	public List<Lavorazione> getSchedule(List<Lotto> lotti, List<Macchina> macchine, int maxSlot) {
 		List<Lavorazione> lavorazioni = new ArrayList<>();
 		boolean isOccupato[][] = new boolean[macchine.size()][maxSlot]; // default is false
-		int conteggioSchedulatiPerSlot[] = new int[maxSlot];
 		residui = new ArrayList<>();
 		Collections.sort(lotti);
 		System.out.println(lotti.toString());
@@ -38,7 +37,7 @@ public class Scheduler implements SchedulerInterface {
 			int countSlot = 0;
 			while (!lotto.getListaLavorazioni().isEmpty() && countSlot < maxSlot) {
 				for (int i = 0; i < macchine.size(); i++) {
-					if (conteggioSchedulatiPerSlot[countSlot] == macchine.size() && lotto.getListaLavorazioni().get(0).equals(macchine.get(i).getTipoMacchina())
+					if (lotto.getListaLavorazioni().get(0).equals(macchine.get(i).getTipoMacchina())
 							&& !isOccupato[i][countSlot]) {
 						isOccupato[i][countSlot] = true;
 						countLavorazioni++;
