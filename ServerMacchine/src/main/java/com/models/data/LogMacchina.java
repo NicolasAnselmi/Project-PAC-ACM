@@ -5,7 +5,7 @@ import com.models.macchine.StatoMacchina;
 
 public class LogMacchina implements Comparable<LogMacchina>{
 
-	private long idLog;
+	private String idLog;
 	private String idLogger;
 	private String title;
 	private String body;
@@ -14,7 +14,7 @@ public class LogMacchina implements Comparable<LogMacchina>{
 	private String codiceLotto;
 	
 	
-	public LogMacchina(long idLog, String idLogger, String title, String body, String statoMacchina, String codiceLotto) {
+	public LogMacchina(String idLog, String idLogger, String title, String body, String statoMacchina, String codiceLotto) {
 		this.idLog = idLog;
 		this.idLogger = idLogger;
 		this.title = title;
@@ -32,7 +32,7 @@ public class LogMacchina implements Comparable<LogMacchina>{
 		return codiceLotto;
 	}
 
-	public long getIdLog() {
+	public String getIdLog() {
 		return idLog;
 	}
 

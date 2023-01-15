@@ -12,16 +12,18 @@ public class ThreadMacchina implements Runnable {
 	public void run() {
 		machine.inizializzaMacchina();
 
+		while(true)
+		{
 		try {
-			Thread.sleep(300);
+			Thread.sleep(quant*1000);
 			System.out.println(machine.toString() + " run ");
-		} catch (InterruptedException e) {
+			} catch (InterruptedException e) {
 			System.err.println("errore " + e.toString());
 		}
 
 		System.out.println(machine.toString() + " finish ");
 		machine.aggiornaMacchina();
-		machine.caricaSuServer();
+		}
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.models.data.LogMacchina;
 import com.services.ServiceLog;
 
@@ -19,7 +20,7 @@ public class LogWebController {
 	private ServiceLog logService;
 
 	@PostMapping("/log/addLog")
-	public void addLogMacchina(@RequestParam long idLog, @RequestParam String idLogger, @RequestParam String title,
+	public void addLogMacchina(@RequestParam String idLog, @RequestParam String idLogger, @RequestParam String title,
 			@RequestParam String body, @RequestParam String statoMacchina, @RequestParam String codiceLotto) {
 		logService.addLogMacchina(new LogMacchina(idLog, idLogger, title, body, statoMacchina, codiceLotto));
 	}

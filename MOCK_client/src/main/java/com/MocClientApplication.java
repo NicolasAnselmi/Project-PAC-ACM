@@ -22,7 +22,8 @@ public class MocClientApplication {
 	static float pf = 0.9f;
 	static float nTorni = 2;
 	static float nFrese = 3;
-	static int quant = 30;
+	static int quant = 3;
+	static int slotPart = 5;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MocClientApplication.class, args);
