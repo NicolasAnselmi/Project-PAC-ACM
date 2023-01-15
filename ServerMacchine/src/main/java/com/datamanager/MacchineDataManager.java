@@ -14,10 +14,10 @@ public class MacchineDataManager {
 	private static MacchineDataManager m = null;
 
 	// Array che rappresenta il DB delle macchine
-	private ArrayList<Macchina> listaMacchine = new ArrayList<Macchina>();
+	private ArrayList<Macchina> listaMacchine = null;
 
 	private MacchineDataManager() {
-
+		listaMacchine = new ArrayList<Macchina>();
 	}
 
 	@Bean("macchineDataManager")
@@ -57,6 +57,16 @@ public class MacchineDataManager {
 
 	public List<Macchina> getMacchineById(String[] listaMacchine) {
 		return this.listaMacchine.stream().filter(x-> equalsAnyOf(x.getidMacchina(), listaMacchine)).toList();
+	}
+	
+	public void aggiornaMacchina(String IDMacchina, int codiceLotto, String timestamp, StatoMacchina statoMacchina)
+	{
+		for (Macchina macchina : listaMacchine) {
+			if (macchina.getidMacchina().equals(IDMacchina)) {
+				macchina.aggiornaMacchina(codiceLotto, timestamp, statoMacchina);
+				break;
+			}		
+		}
 	}
 	
 	private boolean equalsAnyOf(String string, String[] list) {

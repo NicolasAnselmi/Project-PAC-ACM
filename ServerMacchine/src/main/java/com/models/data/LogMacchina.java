@@ -1,6 +1,7 @@
 package com.models.data;
 
 import com.google.cloud.Timestamp;
+import com.models.macchine.StatoMacchina;
 
 public class LogMacchina implements Comparable<LogMacchina>{
 
@@ -9,13 +10,26 @@ public class LogMacchina implements Comparable<LogMacchina>{
 	private String title;
 	private String body;
 	private String timeStamp;
+	private StatoMacchina statoMacchina;
+	private int codiceLotto;
 	
-	public LogMacchina(long idLog, String idLogger, String title, String body) {
+	
+	public LogMacchina(long idLog, String idLogger, String title, String body, String statoMacchina, int codiceLotto) {
 		this.idLog = idLog;
 		this.idLogger = idLogger;
 		this.title = title;
 		this.body = body;
 		this.timeStamp = Timestamp.now().toString();
+		this.codiceLotto = codiceLotto;
+		this.statoMacchina = StatoMacchina.valueOf(statoMacchina);
+	}
+	
+	public StatoMacchina getStatoMacchina() {
+		return statoMacchina;
+	}
+	
+	public int getCodiceLotto() {
+		return codiceLotto;
 	}
 
 	public long getIdLog() {

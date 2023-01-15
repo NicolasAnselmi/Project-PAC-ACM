@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.models.data.LogMacchina;
+import com.models.macchine.Macchina;
 
 public class LogDataManager {
 
@@ -11,10 +12,12 @@ public class LogDataManager {
 	private static LogDataManager m = null;
 
 	// Array che rappresenta il DB dei Log
-	private List<LogMacchina> listaLog = new ArrayList<LogMacchina>();
+	private List<LogMacchina> listaLog = null;
+	private MacchineDataManager macchineDataManager;
 
 	private LogDataManager() {
-		
+		listaLog = new ArrayList<LogMacchina>();
+		macchineDataManager = MacchineDataManager.getMacchineDataManager();
 	}
 
 	public static LogDataManager getLogDataManager() {
@@ -26,6 +29,7 @@ public class LogDataManager {
 	/* PUSH */
 	public void addLogMacchina(LogMacchina log) {
 		listaLog.add(log);
+		macchineDataManager.aggiornaMacchina(log.getIdLogger(), log.getCodiceLotto(), log.getTimeStamp(), log.getStatoMacchina());
 	}
 
 	/* PUT */
