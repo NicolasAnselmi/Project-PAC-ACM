@@ -2,7 +2,7 @@ import '../utils/enums.dart';
 
 class Macchina {
   final String idMacchina;
-  final int codiceLottoInLavorazione;
+  final String codiceLottoInLavorazione;
   final String lastTimestamp;
   final StatoMacchina statoMacchina;
   final TipoMacchina tipoMacchina;

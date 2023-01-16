@@ -53,6 +53,7 @@ class _VisualizzaPianificazioniPageState extends State<VisualizzaPianificazioniP
                       ),
                     ),
                     child: Container(
+                      height: 50,
                       margin: const EdgeInsets.all(15),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
