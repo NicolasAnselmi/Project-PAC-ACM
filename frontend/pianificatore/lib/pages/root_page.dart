@@ -40,7 +40,7 @@ class _RootPageState extends ConsumerState<RootPage> {
       "Visualizza Pianificazioni": const VisualizzaPianificazioniPage(),
     },
     "operaio": {
-      "Reports": const LogPage(),
+      "Log Macchine": const LogPage(),
     }
   };
 
@@ -97,12 +97,8 @@ class _RootPageState extends ConsumerState<RootPage> {
       // LISTA PULSANTI
       body: ListView.builder(
         itemBuilder: (context, index) => PulsanteSezioniHome(
-          titolo: listaPermessi[ref.watch(loginStateProvider).name]!
-              .keys
-              .elementAt(index),
-          pagina: listaPermessi[ref.watch(loginStateProvider).name]!
-              .values
-              .elementAt(index),
+          titolo: listaPermessi[ref.watch(loginStateProvider).name]!.keys.elementAt(index),
+          pagina: listaPermessi[ref.watch(loginStateProvider).name]!.values.elementAt(index),
         ),
         itemCount: listaPermessi[ref.watch(loginStateProvider).name]!.length,
       ),

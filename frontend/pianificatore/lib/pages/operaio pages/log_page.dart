@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pianificatore/models/machina.dart';
 import 'package:http/http.dart' as http;
+import '../../utils/ip_address.dart';
 import 'log_macchina_page.dart';
 
 class LogPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class LogPage extends StatefulWidget {
 class _LogPageState extends State<LogPage> {
   Future<List<Macchina>> getMacchine() async {
     List<Macchina> listaMacchine = [];
-    var response = await http.get(Uri.parse("http://localhost:8081/macchine"));
+    var response = await http.get(Uri.parse("http://$k_ip_address:8081/macchine"));
 
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((json) {
@@ -65,10 +66,16 @@ class _LogPageState extends State<LogPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // ID MACCHINA
-                            Text("Id Macchina:  ${snapshot.data![index].idMacchina}"),
+                            Text(
+                              "Id Macchina:  ${snapshot.data![index].idMacchina}",
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
 
                             // STATO MACCHINA
-                            Text(snapshot.data![index].statoMacchina.name)
+                            Text(
+                              snapshot.data![index].statoMacchina.name,
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                            )
                           ],
                         ),
 

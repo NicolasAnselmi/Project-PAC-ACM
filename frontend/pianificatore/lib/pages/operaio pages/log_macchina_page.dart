@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../models/log.dart';
+import '../../utils/ip_address.dart';
 
 class LogMacchinaPage extends StatefulWidget {
   final String macchina;
@@ -15,7 +16,7 @@ class LogMacchinaPage extends StatefulWidget {
 class _LogMacchinaPageState extends State<LogMacchinaPage> {
   Future<List<Log>> getLogs() async {
     List<Log> listaLog = [];
-    var response = await http.get(Uri.parse("http://localhost:8081/log/${widget.macchina}"));
+    var response = await http.get(Uri.parse("http://$k_ip_address:8081/log/${widget.macchina}"));
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((json) {
         Log l = Log.fromJson(json);
@@ -30,7 +31,7 @@ class _LogMacchinaPageState extends State<LogMacchinaPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Macchina: ${widget.macchina}"),
+        title: Text(widget.macchina),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../models/lavorazione.dart';
+import '../../utils/ip_address.dart';
 
 class PianificazioneMacchinaPage extends StatefulWidget {
   final String macchina;
@@ -15,7 +16,7 @@ class PianificazioneMacchinaPage extends StatefulWidget {
 class _PianificazioneMacchinaPageState extends State<PianificazioneMacchinaPage> {
   Future<List<Lavorazione>> getLavorazioni() async {
     List<Lavorazione> listaLavorazioni = [];
-    var response = await http.get(Uri.parse("http://localhost:8081/pianificazione/idMacchina/${widget.macchina}"));
+    var response = await http.get(Uri.parse("http://$k_ip_address:8081/pianificazione/idMacchina/${widget.macchina}"));
 
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((json) {

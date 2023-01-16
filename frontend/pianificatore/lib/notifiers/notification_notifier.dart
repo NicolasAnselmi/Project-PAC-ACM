@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:pianificatore/models/notifica.dart';
-
 import '../models/push_notification.dart';
 
 class NotificationNotifier extends Notifier<List<Notifica>> {
@@ -16,7 +15,6 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
   /// Setup firebase e listener per la ricezione notifiche push
   Future<void> initRicezioneNotifiche() async {
     await Firebase.initializeApp();
-
     // Print Device Token
     String? token = await FirebaseMessaging.instance.getToken();
     // ignore: avoid_print
@@ -32,7 +30,6 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
       provisional: false,
       sound: true,
     );
-
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       // For handling the received notifications
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -47,7 +44,7 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
         // For displaying the notification as an overlay
         showSimpleNotification(
           Text(notification.title!),
-          leading: const Text("CIAO"),
+          leading: Text(notification.title!),
           subtitle: Text(notification.body!),
           background: Colors.cyan.shade700,
           duration: const Duration(seconds: 2),
@@ -57,5 +54,7 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
       // ignore: avoid_print
       print('User declined or has not accepted permission');
     }
+
+    print("FIN");
   }
 }

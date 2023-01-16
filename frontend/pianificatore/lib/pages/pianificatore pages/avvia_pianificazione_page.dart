@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:pianificatore/models/machina.dart';
 
+import '../../utils/ip_address.dart';
+
 class AvviaPianificazionePage extends StatefulWidget {
   const AvviaPianificazionePage({super.key});
 
@@ -52,7 +54,7 @@ class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
 
   Future<List<Macchina>> getMacchine() async {
     List<Macchina> listaMacchine = [];
-    var response = await http.get(Uri.parse("http://localhost:8081/macchine"));
+    var response = await http.get(Uri.parse("http://$k_ip_address:8081/macchine"));
 
     if (response.statusCode == 200) {
       for (Map<String, dynamic> el in jsonDecode(response.body)) {
@@ -75,7 +77,7 @@ class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
       "slotSettimanali": slotCtr.text,
       "listaMacchine": stringaMacchine.substring(0, stringaMacchine.length - 1),
     };
-    var response = await http.get(Uri.http("localhost:8081", "/pianificazione/calcolo", params));
+    var response = await http.get(Uri.http("$k_ip_address:8081", "/pianificazione/calcolo", params));
     if (response.statusCode == 200) {
       _showToast();
       if (mounted) Navigator.pop(context);

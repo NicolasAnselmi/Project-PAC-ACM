@@ -20,12 +20,13 @@ class Log {
   });
 
   factory Log.fromJson(Map<String, dynamic> json) {
+    String timeStamp = json["timeStamp"];
     return Log(
       idLogger: json["idLogger"],
       idLog: json["idLog"],
       title: json["title"],
       body: json["body"],
-      timeStamp: json["timeStamp"],
+      timeStamp: timeStamp.substring(0, 22),
       statoMacchina: StatoMacchina.values.byName(json["statoMacchina"]),
       codiceLotto: json["codiceLotto"],
     );

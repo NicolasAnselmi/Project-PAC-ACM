@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pianificatore/models/lotto.dart';
 import 'package:http/http.dart' as http;
 
+import '../../utils/ip_address.dart';
+
 class VisualizzaLottiPage extends StatefulWidget {
   const VisualizzaLottiPage({super.key});
 
@@ -14,7 +16,7 @@ class VisualizzaLottiPage extends StatefulWidget {
 class _VisualizzaLottiPageState extends State<VisualizzaLottiPage> {
   Future<List<Lotto>> getLotti() async {
     List<Lotto> listaLotti = [];
-    var response = await http.get(Uri.parse("http://localhost:8081/pianificazione/residui"));
+    var response = await http.get(Uri.parse("http://$k_ip_address:8081/pianificazione/residui"));
 
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((json) {

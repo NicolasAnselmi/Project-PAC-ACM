@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:pianificatore/pages/pianificatore%20pages/pianificazione_macchina_page.dart';
 import '../../models/machina.dart';
+import '../../utils/ip_address.dart';
 
 class VisualizzaPianificazioniPage extends StatefulWidget {
   const VisualizzaPianificazioniPage({super.key});
@@ -15,7 +16,7 @@ class _VisualizzaPianificazioniPageState extends State<VisualizzaPianificazioniP
   Future<List<Macchina>> getMacchine() async {
     List<Macchina> listaMacchine = [];
 
-    var response = await http.get(Uri.parse("http://localhost:8081/macchine"));
+    var response = await http.get(Uri.parse("http://$k_ip_address:8081/macchine"));
 
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((json) {

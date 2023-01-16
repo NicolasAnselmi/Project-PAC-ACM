@@ -4,6 +4,8 @@ import 'package:pianificatore/models/machina.dart';
 import 'package:pianificatore/utils/enums.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../utils/ip_address.dart';
+
 class InserisciLottiPage extends StatefulWidget {
   const InserisciLottiPage({super.key});
   @override
@@ -44,7 +46,7 @@ class _InserisciLottiPageState extends State<InserisciLottiPage> {
       "sequenzaLavorazioni": stringaLavorazioni.substring(0, stringaLavorazioni.length - 1),
     };
 
-    var response = await http.post(Uri.http("localhost:8081", "/pianificazione/lotto/aggiungi", params));
+    var response = await http.post(Uri.http("$k_ip_address:8081", "/pianificazione/lotto/aggiungi", params));
 
     if (response.statusCode == 200) {
       _showToast();
