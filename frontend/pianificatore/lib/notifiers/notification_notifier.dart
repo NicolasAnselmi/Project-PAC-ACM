@@ -39,12 +39,12 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
           body: message.notification?.body,
         );
 
-        state.add(Notifica(descrizione: notification.body!, titolo: notification.title!));
+        state.add(Notifica(
+            descrizione: notification.body!, titolo: notification.title!));
 
         // For displaying the notification as an overlay
         showSimpleNotification(
           Text(notification.title!),
-          leading: Text(notification.title!),
           subtitle: Text(notification.body!),
           background: Colors.cyan.shade700,
           duration: const Duration(seconds: 2),
@@ -54,7 +54,5 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
       // ignore: avoid_print
       print('User declined or has not accepted permission');
     }
-
-    print("FIN");
   }
 }
