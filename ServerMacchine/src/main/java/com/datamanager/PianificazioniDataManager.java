@@ -64,7 +64,11 @@ public class PianificazioniDataManager {
 	}
 	
 	public List<Lavorazione> getCalcoloPianificazione(List<Lotto> listaLotti, List<Macchina> listaMacchine, int slotSettimanali){
-		return this.getPianificazioneCorrente().calcoloPianificazione(listaLotti, listaMacchine, slotSettimanali);
+		List<Lavorazione> result = this.getPianificazioneCorrente().calcoloPianificazione(listaLotti, listaMacchine, slotSettimanali);
+		List<Lotto> residui = this.getPianificazioneCorrente().getLottiResidui();
+		Pianificazione p = creaPianificazioneCorrente();
+		p.setListaLotti(residui);
+		return result;
 	}
 
 }

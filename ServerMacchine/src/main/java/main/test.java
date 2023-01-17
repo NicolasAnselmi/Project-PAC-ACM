@@ -10,9 +10,9 @@ public class test {
 	
 	public static void main(String[] args) {
 		System.out.println("Actual time: " + Timestamp.now().toDate());
-		LogMacchina l1 = new LogMacchina(0, "tornio1", "FINITO MATERIALI", "finiti materiali");
+		LogMacchina l1 = new LogMacchina("0", "tornio1", "FINITO MATERIALI", "finiti materiali","ferma","pippo");
 		System.out.println(l1);
-		LogMacchina l2 = new LogMacchina(1, "tornio2", "FINITO MATERIALI", "finiti materiali");
+		LogMacchina l2 = new LogMacchina("1", "tornio2", "FINITO MATERIALI", "finiti materiali","ferma","pippo");
 		System.out.println(l2);
 		
 		ArrayList<LogMacchina> list = new ArrayList<LogMacchina>();
