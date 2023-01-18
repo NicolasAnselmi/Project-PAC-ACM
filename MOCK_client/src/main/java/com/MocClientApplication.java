@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import com.macchine.Fresa;
+import com.macchine.MacchinaFisica;
 import com.macchine.ThreadMacchina;
 import com.macchine.Tornio;
 
@@ -20,8 +21,8 @@ public class MocClientApplication {
 
 	static float pg = 0.9f;
 	static float pf = 0.9f;
-	static float nTorni = 2;
-	static float nFrese = 3;
+	static float nTorni = 1;
+	static float nFrese = 1;
 	static int quant = 3;
 	static int slotPart = 5;
 	static int waitTime = 3;
@@ -38,7 +39,7 @@ public class MocClientApplication {
 	@Bean
 	CommandLineRunner run(RestTemplate restTemplate) {
 		return args -> {
-			List<Runnable> macchine = new ArrayList<Runnable>();
+			List<Thread> macchine = new ArrayList<>();
 
 			for (int i = 0; i < nTorni; i++)
 				macchine.add(new ThreadMacchina(quant, new Tornio(pg, pf, restTemplate, slotPart, waitTime)));
@@ -46,8 +47,10 @@ public class MocClientApplication {
 			for (int i = 0; i < nFrese; i++)
 				macchine.add(new ThreadMacchina(quant, new Fresa(pg, pf, restTemplate, slotPart, waitTime)));
 			
-			for (Runnable runnable : macchine)
-				runnable.run();
+			for (Thread t : macchine) {
+				t.start();
+				Thread.sleep(500);
+			}
 		};
 	}
 

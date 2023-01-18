@@ -3,9 +3,13 @@ package com.models.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.models.macchine.TipoMacchina;
 
-public class Lotto implements Comparable<Lotto>{
+public class Lotto implements Comparable<Lotto> {
 
 	private String idLotto;
 	private String idProdotto;
@@ -23,8 +27,9 @@ public class Lotto implements Comparable<Lotto>{
 			this.sequenzaLavorazioni.add(TipoMacchina.valueOf(s));
 		}
 	}
-	
-	public Lotto(String idLotto, String idProdotto, int nPezzi, PrioritaLotto priorita, List<TipoMacchina> listaLavorazioni) {
+
+	public Lotto(String idLotto, String idProdotto, int nPezzi, PrioritaLotto priorita,
+			List<TipoMacchina> listaLavorazioni) {
 		this.idLotto = idLotto;
 		this.idProdotto = idProdotto;
 		this.nPezzi = nPezzi;
@@ -32,7 +37,13 @@ public class Lotto implements Comparable<Lotto>{
 		this.sequenzaLavorazioni = listaLavorazioni;
 	}
 
-	
+	@JsonCreator
+	public Lotto(@JsonProperty("idLotto") String idLotto, @JsonProperty("idProdotto") String idProdotto,
+			@JsonProperty("nPezzi") String nPezzi, @JsonProperty("priorita") String priorita,
+			@JsonProperty("sequenzaLavorazioni") String[] sequenzaLavorazioni) {
+		this(idLotto, idProdotto, Integer.parseInt(nPezzi), priorita, sequenzaLavorazioni);
+	}
+
 	public String getIdLotto() {
 		return idLotto;
 	}
@@ -53,22 +64,21 @@ public class Lotto implements Comparable<Lotto>{
 		this.nPezzi = nPezzi;
 	}
 
-
 	public void setPriorita(PrioritaLotto priorita) {
 		this.priorita = priorita;
 	}
-	
+
 	public List<TipoMacchina> getListaLavorazioni() {
 		return sequenzaLavorazioni;
 	}
 
-
 	@Override
 	public int compareTo(Lotto o) {
-		Lotto that = (Lotto)o;
-		return priorita.ordinal()*1000 - sequenzaLavorazioni.size() - (that.getPriorita().ordinal()*1000 - that.getListaLavorazioni().size());
+		Lotto that = (Lotto) o;
+		return priorita.ordinal() * 1000 - sequenzaLavorazioni.size()
+				- (that.getPriorita().ordinal() * 1000 - that.getListaLavorazioni().size());
 	}
-	
+
 	@Override
 	public String toString() {
 		return idLotto + " - " + priorita + " - " + sequenzaLavorazioni.toString();
@@ -85,6 +95,5 @@ public class Lotto implements Comparable<Lotto>{
 	public void setIdProdotto(String idProdotto) {
 		this.idProdotto = idProdotto;
 	}
-	
 
 }

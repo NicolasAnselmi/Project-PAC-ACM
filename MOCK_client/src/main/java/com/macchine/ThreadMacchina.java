@@ -1,6 +1,6 @@
 package com.macchine;
 
-public class ThreadMacchina implements Runnable {
+public class ThreadMacchina extends Thread {
 	private Machinable machine;
 	static int quant;
 
@@ -21,13 +21,11 @@ public class ThreadMacchina implements Runnable {
 		{
 		try {
 			Thread.sleep(quant*1000);
-			System.out.println(machine.toString() + " run ");
 			} catch (InterruptedException e) {
 			System.err.println("errore " + e.toString());
 		}
-
-		System.out.println(machine.toString() + " finish ");
 		machine.aggiornaMacchina();
+		System.out.println(machine.getStato());
 		machine.caricaSuServer();
 		}
 	}

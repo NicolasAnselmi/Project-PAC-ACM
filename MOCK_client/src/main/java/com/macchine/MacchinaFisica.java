@@ -1,11 +1,15 @@
 package com.macchine;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.models.data.Lavorazione;
 import com.models.macchine.Macchina;
 import com.models.macchine.TipoMacchina;
@@ -29,7 +33,8 @@ public class MacchinaFisica implements Machinable {
 
 	protected RestTemplate restTemplate;
 
-	public MacchinaFisica(float probGuasto, float probFineMateriali, String IDMacchina, String tipoMacchina, RestTemplate restTemplate, int maxSlotPart, int maxWaitTime) {
+	public MacchinaFisica(float probGuasto, float probFineMateriali, String IDMacchina, String tipoMacchina,
+			RestTemplate restTemplate, int maxSlotPart, int maxWaitTime) {
 		this.probFineMateriali = probFineMateriali;
 		this.probGuasto = probGuasto;
 		this.IDMacchina = IDMacchina;
@@ -59,7 +64,8 @@ public class MacchinaFisica implements Machinable {
 	}
 
 	/**
-	 * metodo che registra la macchina sul server e scarica la coda delle lavorazioni
+	 * metodo che registra la macchina sul server e scarica la coda delle
+	 * lavorazioni
 	 */
 	@Override
 	public void inizializzaMacchina() {
@@ -70,60 +76,103 @@ public class MacchinaFisica implements Machinable {
 		map.add("tipoMacchina", tipoMacchina.toString());
 		restTemplate.postForObject("http://localhost:8081/macchine/aggiungi", map, Macchina.class);
 
-		codaLavorazioni = restTemplate.getForObject("http://localhost:8081/pianificazione/idMacchina/" + IDMacchina, ArrayList.class);
+		codaLavorazioni = restTemplate.getForObject("http://localhost:8081/pianificazione/idMacchina/" + IDMacchina,
+				ArrayList.class);
+		if(codaLavorazioni != null)
+			this.maxSlotPart = codaLavorazioni.size();
 	}
-	
+
 	/**
 	 * Metodo che simula il cambiamento di stati della macchina e che gestisce
 	 * l'avanzamento delle lavorazioni
 	 */
+	
 	@Override
 	public void aggiornaMacchina() {
-		
-		if(statoMacchina.equals(StatoMacchina.Lavorazione)) 
-		{
+		double g;
+		switch (statoMacchina) {
+		case Lavorazione:
 			countSlotPart++;
-		
-			if(countSlotPart >= maxSlotPart) {
+
+			if (countSlotPart >= maxSlotPart || codaLavorazioni == null || codaLavorazioni.isEmpty()) {
 				countSlotPart = 0;
-				if(!codaLavorazioni.isEmpty())
-					inCorso = codaLavorazioni.remove(0);
-				else statoMacchina = StatoMacchina.Fermo;
+				statoMacchina = StatoMacchina.Fermo;
+				break;
 			}
-		
+			
+			if(codaLavorazioni instanceof ArrayList<Lavorazione>)
+				codaLavorazioni = (ArrayList<Lavorazione>) codaLavorazioni;
+			else
+				System.out.println("noon ok");
+			
+			inCorso = (Lavorazione)codaLavorazioni.get(0);
+
 			double fm = Math.random();
-			if(fm > probFineMateriali)
+			if (fm > probFineMateriali)
 				statoMacchina = StatoMacchina.AttesaMateriale;
-		
-			double g = Math.random();
-			if(g > probGuasto)
+
+			g = Math.random();
+			if (g > probGuasto)
 				statoMacchina = StatoMacchina.Guasta;
-		}
-		else if (statoMacchina.equals(StatoMacchina.AttesaMateriale))
-		{
+
+			break;
+
+		case AttesaMateriale:
 			waitTimeMateriale++;
-			if(waitTimeMateriale >= maxWaitTime) {
+			if (waitTimeMateriale >= maxWaitTime) {
 				waitTimeMateriale = 0;
 				statoMacchina = StatoMacchina.Lavorazione;
-			};
-			
-			double g = Math.random();
-			if(g > probGuasto)
-			{
-				statoMacchina = StatoMacchina.Guasta;
-				waitTimeMateriale = 0;
 			}
-		}
-		else if (statoMacchina.equals(StatoMacchina.Guasta))
-		{
+			break;
+
+		case Guasta:
 			waitTimeRiparazione++;
-			if(waitTimeRiparazione >= maxWaitTime)
-			{
+			if (waitTimeRiparazione >= maxWaitTime) {
 				waitTimeRiparazione = 0;
 				statoMacchina = StatoMacchina.Lavorazione;
 			}
+			break;
+
+		case Fermo:
+			String json = restTemplate. getForObject("http://localhost:8081/pianificazione/idMacchina/" + IDMacchina,
+					String.class);
+			if(json != null) {
+				System.out.println(json);
+				try {
+					codaLavorazioni = (ArrayList<Lavorazione>) getObjectList(json, Lavorazione.class);
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonProcessingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (codaLavorazioni != null && !codaLavorazioni.isEmpty()) {
+				statoMacchina = StatoMacchina.Lavorazione;
+				maxSlotPart = codaLavorazioni.size();
+			}
+			break;
+
+		default:
+			break;
 		}
 
+	}
+
+	@Override
+	public String getStato() {
+		return IDMacchina + ": stato " + statoMacchina + " "
+				+ (statoMacchina.equals(StatoMacchina.Fermo) || this.inCorso == null ? "" : inCorso.toString());
+	}
+	
+	public static <T> List<T> getObjectList(final String json, final Class<T> cls) throws JsonMappingException, JsonProcessingException 
+	{
+		ObjectMapper objectMapper = new ObjectMapper();
+	    return objectMapper
+	        .readValue(json, objectMapper.getTypeFactory()
+	        .constructCollectionType(ArrayList.class, cls));
 	}
 
 }
