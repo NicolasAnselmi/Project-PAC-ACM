@@ -56,9 +56,9 @@ public class PianificazioniDataManager {
 	}
 
 	public Pianificazione getPianificazioneInLavorazione() {
-		if(listaPianificazioni.size() < 2)
-			return null;
-		return listaPianificazioni.get(listaPianificazioni.size()-2);
+		if(listaPianificazioni.size() > 1)
+			return listaPianificazioni.get(listaPianificazioni.size()-2);
+		return null;
 	}
 	
 	public void addPianificazione(String timeStampInizioPeriodo, String timeStampFinePeriodo) {

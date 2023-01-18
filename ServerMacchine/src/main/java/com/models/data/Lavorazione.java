@@ -13,27 +13,27 @@ public class Lavorazione implements Comparable<Lavorazione> {
 	private String idLavorazione;
 	private String idMacchina;
 	private int slot;
-	private Lotto lotto;
+	private String idLotto;
 	private TipoMacchina tipoMacchina;
 	
 	@JsonCreator
-	public Lavorazione(@JsonProperty("idLavorazione")String idLavorazione, @JsonProperty("lotto")Lotto lotto, @JsonProperty("tipoMacchina")String tipoMacchina,@JsonProperty("idMacchina")String idMacchina, @JsonProperty("slot")String slot) {
-		this(idLavorazione, lotto, tipoMacchina, idMacchina, Integer.parseInt(slot));
+	public Lavorazione(@JsonProperty("idLavorazione")String idLavorazione, @JsonProperty("lotto")String idLotto, @JsonProperty("tipoMacchina")String tipoMacchina,@JsonProperty("idMacchina")String idMacchina, @JsonProperty("slot")String slot) {
+		this(idLavorazione, idLotto, tipoMacchina, idMacchina, Integer.parseInt(slot));
 	}
 	
-	public Lavorazione(String idLavorazione, Lotto lotto, TipoMacchina tipoMacchina) {
+	public Lavorazione(String idLavorazione, String idLotto, TipoMacchina tipoMacchina) {
 		this.idLavorazione = idLavorazione;
-		this.lotto = lotto;
+		this.idLotto = idLotto;
 		this.tipoMacchina = tipoMacchina;
 	}
 	
-	public Lavorazione(String idLavorazione, Lotto lotto, TipoMacchina tipoMacchina,String idMacchina, int slot) {
-		this(idLavorazione,lotto, tipoMacchina);
+	public Lavorazione(String idLavorazione, String idLotto, TipoMacchina tipoMacchina,String idMacchina, int slot) {
+		this(idLavorazione,idLotto, tipoMacchina);
 		this.idMacchina = idMacchina;
 		this.slot = slot;
 	}
-	public Lavorazione(String idLavorazione, Lotto lotto, String tipoMacchina,String idMacchina, int slot) {
-		this(idLavorazione,lotto, TipoMacchina.valueOf(tipoMacchina));
+	public Lavorazione(String idLavorazione, String idLotto, String tipoMacchina,String idMacchina, int slot) {
+		this(idLavorazione,idLotto, TipoMacchina.valueOf(tipoMacchina));
 		this.idMacchina = idMacchina;
 		this.slot = slot;
 	}
@@ -50,8 +50,8 @@ public class Lavorazione implements Comparable<Lavorazione> {
 		return idMacchina;
 	}
 
-	public String getLotto() {
-		return lotto.getIdLotto();
+	public String getIdLotto() {
+		return idLotto;
 	}
 
 	public TipoMacchina getTipoMacchina() {
@@ -61,6 +61,11 @@ public class Lavorazione implements Comparable<Lavorazione> {
 	@Override
 	public int compareTo(Lavorazione o) {
 		return this.slot - o.slot;
+	}
+	
+	@Override
+	public String toString() {
+		return "lotto " + idLotto + ", slot: " + slot;
 	}
 	
 	
