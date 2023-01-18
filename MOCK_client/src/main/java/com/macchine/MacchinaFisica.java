@@ -50,6 +50,10 @@ public class MacchinaFisica extends Thread implements Machinable {
 
 		while (codaLavorazioni != null && !codaLavorazioni.isEmpty()) {
 			aggiornaMacchina();
+			if (codaLavorazioni.isEmpty()) {
+				System.out.println(IDMacchina + ": finito");
+				this.statoMacchina = StatoMacchina.Fermo;
+			}
 			caricaSuServer();
 		}
 
@@ -89,11 +93,6 @@ public class MacchinaFisica extends Thread implements Machinable {
 		double g;
 		switch (statoMacchina) {
 		case Lavorazione:
-			if (codaLavorazioni.isEmpty()) {
-				System.out.println(IDMacchina + ": finito");
-				this.statoMacchina = StatoMacchina.Fermo;
-				break;
-			}
 			System.out.println(IDMacchina + " in lavorazione: " + codaLavorazioni.get(0));
 			try {
 				Thread.sleep(1000);
