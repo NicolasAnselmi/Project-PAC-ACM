@@ -65,10 +65,10 @@ public class ServicePianificazione {
 	}
 
 	public List<Lavorazione> visualizzaPianificazioneByMacchina(String idMacchina) {
-		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
+		if(pianificazioniDataManager.getPianificazioneInLavorazione() == null)
 			return null;
-		return pianificazioniDataManager.getPianificazioneInLavorazione().getPianificazioneByMacchina(idMacchina);
-	
+		else
+			return pianificazioniDataManager.getPianificazioneInLavorazione().getPianificazioneByMacchina(idMacchina);
 	}
 
 	public List<Lotto> getLottiResiduiPianificazioneCorrente() {

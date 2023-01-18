@@ -29,7 +29,7 @@ public class GestoreNotifiche {
 		
 		try {
 			FileInputStream f = new FileInputStream(
-					"src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
+					"/Users/anselminicolas/Desktop/Project-PAC-ACM/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
 			FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(f)).build();
 			FirebaseApp.initializeApp(options);
 		} catch (IOException e) {

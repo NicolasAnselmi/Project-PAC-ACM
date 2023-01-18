@@ -47,14 +47,17 @@ public class PianificazioniDataManager {
 	
 	@SuppressWarnings("deprecation")
 	private Pianificazione creaPianificazioneCorrente() {
-		Date d = Timestamp.now().toDate();
-		d.setHours(d.getHours()+3);
-		Pianificazione p = new Pianificazione(Timestamp.now().toString(), Timestamp.of(d).toString());
+		Date start = Timestamp.now().toDate();
+		Date finish = new Date(start.getYear(), start.getMonth(), start.getDate(), start.getHours(), start.getMinutes(), start.getSeconds());
+		finish.setHours(finish.getHours()+3);
+		Pianificazione p = new Pianificazione(Timestamp.of(start).toString(), Timestamp.of(finish).toString());
 		listaPianificazioni.add(p);
 		return p;
 	}
 
 	public Pianificazione getPianificazioneInLavorazione() {
+		if(listaPianificazioni.size() < 2)
+			return null;
 		return listaPianificazioni.get(listaPianificazioni.size()-2);
 	}
 	

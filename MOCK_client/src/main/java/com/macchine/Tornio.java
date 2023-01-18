@@ -9,7 +9,7 @@ public class Tornio extends MacchinaFisica {
 	private static int numTorni = 1;
 
 	public Tornio(float probGuasto, float probFineMateriali, RestTemplate restTemplate, int s, int w) {
-		super(probGuasto, probFineMateriali, "TORNIO-" + numTorni, restTemplate, s, w);
+		super(probGuasto, probFineMateriali, "TORNIO-" + numTorni, "tornio", restTemplate, s, w);
 		numTorni++;
 	}
 }

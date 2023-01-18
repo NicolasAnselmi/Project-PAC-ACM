@@ -10,7 +10,7 @@ public class Fresa extends MacchinaFisica {
 	private static int numFrese = 1;
 
 	public Fresa(float probGuasto, float probFineMateriali, RestTemplate restTemplate, int s, int w) {
-		super(probGuasto, probFineMateriali, "FRESA-" + numFrese,restTemplate, s, w);
+		super(probGuasto, probFineMateriali, "FRESA-" + numFrese,"fresa",restTemplate, s, w);
 		numFrese++;
 	}
 }
