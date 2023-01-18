@@ -67,7 +67,7 @@ public class ServicePianificazione {
 	public List<Lavorazione> visualizzaPianificazioneByMacchina(String idMacchina) {
 		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
 			return null;
-		return pianificazioniDataManager.getPianificazioneCorrente().getPianificazioneByMacchina(idMacchina);
+		return pianificazioniDataManager.getPianificazioneInLavorazione().getPianificazioneByMacchina(idMacchina);
 	
 	}
 
