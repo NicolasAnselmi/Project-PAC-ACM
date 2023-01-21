@@ -1,5 +1,7 @@
 package com.macchine;
 
+import java.util.concurrent.Semaphore;
+
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -9,8 +11,9 @@ import org.springframework.web.client.RestTemplate;
 public class Fresa extends MacchinaFisica {
 	private static int numFrese = 1;
 
-	public Fresa(float probGuasto, float probFineMateriali, RestTemplate restTemplate, int s, int w) {
-		super(probGuasto, probFineMateriali, "FRESA-" + numFrese,"fresa",restTemplate, s, w);
+	public Fresa(float probGuasto, float probFineMateriali, int waitTime, RestTemplate restTemplate, Semaphore s) {
+		super(probGuasto, probFineMateriali, "FRESA-" + numFrese,"fresa",waitTime, restTemplate, s);
 		numFrese++;
 	}
+
 }

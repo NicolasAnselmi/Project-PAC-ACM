@@ -20,9 +20,6 @@ public class init implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		macchineDataManager.addMacchina("tornio1","tornio");
-		macchineDataManager.addMacchina("tornio2","tornio");
-		macchineDataManager.addMacchina("fresa1","fresa");
 		String[] s1 = {"tornio","fresa","tornio"};
 		String[] s2 = {"fresa","tornio"};
 		String[] s3 = {"tornio","tornio","fresa"};
@@ -51,20 +48,6 @@ public class init implements CommandLineRunner{
 		a.inserisciLotto(lotto6);
 		a.inserisciLotto(lotto7);
 		a.inserisciLotto(lotto8);
-
-		String title1 = "RICHIESTA MATERIALI";
-		String title2 = "FINE LOTTO";
-		String title3 = "GUASTO";
-		String body1 = "Richiedo 100pz di A";
-		String body2 = "Fine lavorazione lotto 134312";
-		String body3 = "Guasto a ventola di raffreddamento";
-		LogMacchina l1 = new LogMacchina(Long.toString(1), "tornio1", title1, body1, "Lavorazione", lotto1.getIdLotto());
-		LogMacchina l2 = new LogMacchina(Long.toString(2), "tornio2", title2, body2, "Lavorazione", lotto2.getIdLotto());
-		LogMacchina l3 = new LogMacchina(Long.toString(3), "tornio3", title3, body3, "Lavorazione", lotto3.getIdLotto());
-		logDataManager.addLogMacchina(l1);
-		logDataManager.addLogMacchina(l2);
-		logDataManager.addLogMacchina(l3);
-		
 		
 	}
 	

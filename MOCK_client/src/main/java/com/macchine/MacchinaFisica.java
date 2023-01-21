@@ -1,18 +1,18 @@
 package com.macchine;
 
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.models.data.Lavorazione;
-import com.models.macchine.Macchina;
 import com.models.macchine.TipoMacchina;
 
 import java.time.LocalDateTime;
 
-public class MacchinaFisica implements Machinable {
+public class MacchinaFisica extends Thread implements Machinable {
 	protected float probGuasto;
 	protected float probFineMateriali;
 	protected int countSlotPart;
@@ -26,21 +26,37 @@ public class MacchinaFisica implements Machinable {
 	protected StatoMacchina statoMacchina;
 	protected ArrayList<Lavorazione> codaLavorazioni;
 	protected Lavorazione inCorso;
+	private Semaphore s;
 
 	protected RestTemplate restTemplate;
 
-	public MacchinaFisica(float probGuasto, float probFineMateriali, String IDMacchina, String tipoMacchina, RestTemplate restTemplate, int maxSlotPart, int maxWaitTime) {
+	public MacchinaFisica(float probGuasto, float probFineMateriali, String IDMacchina, String tipoMacchina,
+			int waitTime, RestTemplate restTemplate, Semaphore s) {
+		this.s = s;
 		this.probFineMateriali = probFineMateriali;
 		this.probGuasto = probGuasto;
 		this.IDMacchina = IDMacchina;
 		this.tipoMacchina = TipoMacchina.valueOf(tipoMacchina);
 		this.statoMacchina = StatoMacchina.Fermo;
 		this.restTemplate = restTemplate;
-		this.countSlotPart = maxSlotPart;
-		this.maxSlotPart = maxSlotPart;
+		this.countSlotPart = 0;
 		this.waitTimeRiparazione = 0;
 		this.waitTimeMateriale = 0;
-		this.maxWaitTime = maxWaitTime;
+		this.maxWaitTime = waitTime;
+	}
+
+	@Override
+	public void run() {
+
+		while (codaLavorazioni != null && !codaLavorazioni.isEmpty()) {
+			aggiornaMacchina();
+			if (codaLavorazioni.isEmpty()) {
+				System.out.println(IDMacchina + ": finito");
+				this.statoMacchina = StatoMacchina.Fermo;
+			}
+			caricaSuServer();
+		}
+
 	}
 
 	/**
@@ -49,81 +65,112 @@ public class MacchinaFisica implements Machinable {
 	@Override
 	public void caricaSuServer() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-		map.add("idLog", IDMacchina + "--" + LocalDateTime.now());
-		map.add("idLogger", IDMacchina);
+		map.add("idLog", getIDMacchina() + "--" + LocalDateTime.now());
+		map.add("idLogger", getIDMacchina());
 		map.add("title", "titolo log");
 		map.add("body", "body log");
 		map.add("statoMacchina", statoMacchina.toString());
-		map.add("codiceLotto", inCorso == null ? "" : inCorso.getLotto());
+		map.add("codiceLotto", inCorso == null ? "" : inCorso.getIdLotto());
+
+		try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		restTemplate.postForObject("http://localhost:8081/log/addLog", map, Object.class);
+		s.release();
+
 	}
 
-	/**
-	 * metodo che registra la macchina sul server e scarica la coda delle lavorazioni
-	 */
-	@Override
-	public void inizializzaMacchina() {
-
-		/* Aggiungo la macchina al server */
-		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-		map.add("idMacchina", IDMacchina);
-		map.add("tipoMacchina", tipoMacchina.toString());
-		restTemplate.postForObject("http://localhost:8081/macchine/aggiungi", map, Macchina.class);
-
-		codaLavorazioni = restTemplate.getForObject("http://localhost:8081/pianificazione/idMacchina/" + IDMacchina, ArrayList.class);
-	}
-	
 	/**
 	 * Metodo che simula il cambiamento di stati della macchina e che gestisce
 	 * l'avanzamento delle lavorazioni
 	 */
+
 	@Override
 	public void aggiornaMacchina() {
-		
-		if(statoMacchina.equals(StatoMacchina.Lavorazione)) 
-		{
-			countSlotPart++;
-		
-			if(countSlotPart >= maxSlotPart) {
-				countSlotPart = 0;
-				if(!codaLavorazioni.isEmpty())
-					inCorso = codaLavorazioni.remove(0);
-				else statoMacchina = StatoMacchina.Fermo;
+		double g;
+		switch (statoMacchina) {
+		case Lavorazione:
+			System.out.println(IDMacchina + " in lavorazione: " + codaLavorazioni.get(0));
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		
+			countSlotPart++;
+			inCorso = codaLavorazioni.remove(0);
 			double fm = Math.random();
-			if(fm > probFineMateriali)
+			if (fm > probFineMateriali)
 				statoMacchina = StatoMacchina.AttesaMateriale;
-		
-			double g = Math.random();
-			if(g > probGuasto)
+
+			g = Math.random();
+			if (g > probGuasto)
 				statoMacchina = StatoMacchina.Guasta;
-		}
-		else if (statoMacchina.equals(StatoMacchina.AttesaMateriale))
-		{
+
+			break;
+
+		case AttesaMateriale:
+			System.out.println(IDMacchina + " attende materiali");
 			waitTimeMateriale++;
-			if(waitTimeMateriale >= maxWaitTime) {
+			if (waitTimeMateriale >= maxWaitTime) {
 				waitTimeMateriale = 0;
 				statoMacchina = StatoMacchina.Lavorazione;
-			};
-			
-			double g = Math.random();
-			if(g > probGuasto)
-			{
-				statoMacchina = StatoMacchina.Guasta;
-				waitTimeMateriale = 0;
+				System.out.println(IDMacchina + " ha ricevuto i materiali");
+				countSlotPart--;
 			}
-		}
-		else if (statoMacchina.equals(StatoMacchina.Guasta))
-		{
+			break;
+
+		case Guasta:
+			System.out.println(IDMacchina + " guasta.");
 			waitTimeRiparazione++;
-			if(waitTimeRiparazione >= maxWaitTime)
-			{
+			if (waitTimeRiparazione >= maxWaitTime) {
 				waitTimeRiparazione = 0;
 				statoMacchina = StatoMacchina.Lavorazione;
+				System.out.println(IDMacchina + " aggiustata;");
+				countSlotPart--;
 			}
+			break;
+
+		case Fermo:
+			System.out.println(IDMacchina + " ferma.");
+			break;
+
+		default:
+			break;
 		}
 
+	}
+
+	@Override
+	public String getStato() {
+		return getIDMacchina() + ": stato " + statoMacchina + ", "
+				+ (statoMacchina.equals(StatoMacchina.Fermo) ? "" : inCorso.toString());
+	}
+
+	public String getIDMacchina() {
+		return IDMacchina;
+	}
+
+	public TipoMacchina getTipoMacchina() {
+		return tipoMacchina;
+	}
+
+	public void setListaLavorazioni(ArrayList<Lavorazione> codaLavorazioni) {
+		this.codaLavorazioni = codaLavorazioni;
+		this.maxSlotPart = getMaxSlot(codaLavorazioni);
+		this.statoMacchina = StatoMacchina.Lavorazione;
+	}
+
+	private int getMaxSlot(ArrayList<Lavorazione> codaLavorazioni) {
+		int max = -1;
+		for (int i = 0; i < codaLavorazioni.size(); i++) {
+			if (codaLavorazioni.get(i).getSlot() > max)
+				max = codaLavorazioni.get(i).getSlot();
+		}
+		return max;
 	}
 
 }

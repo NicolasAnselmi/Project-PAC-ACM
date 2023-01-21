@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -66,9 +67,12 @@ public class ServicePianificazione {
 
 	public List<Lavorazione> visualizzaPianificazioneByMacchina(String idMacchina) {
 		if(pianificazioniDataManager.getPianificazioneInLavorazione() == null)
-			return null;
-		else
+			return new ArrayList<Lavorazione>();
+		else if(pianificazioniDataManager.getPianificazioneInLavorazione().getPianificazioneByMacchina(idMacchina) == null)
+			return new ArrayList<Lavorazione>();
+		else 
 			return pianificazioniDataManager.getPianificazioneInLavorazione().getPianificazioneByMacchina(idMacchina);
+		
 	}
 
 	public List<Lotto> getLottiResiduiPianificazioneCorrente() {

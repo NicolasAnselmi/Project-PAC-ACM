@@ -1,5 +1,7 @@
 package com.macchine;
 
+import java.util.concurrent.Semaphore;
+
 import org.springframework.web.client.RestTemplate;
 /**
  * particolare implementazione della macchina
@@ -8,8 +10,8 @@ import org.springframework.web.client.RestTemplate;
 public class Tornio extends MacchinaFisica {
 	private static int numTorni = 1;
 
-	public Tornio(float probGuasto, float probFineMateriali, RestTemplate restTemplate, int s, int w) {
-		super(probGuasto, probFineMateriali, "TORNIO-" + numTorni, "tornio", restTemplate, s, w);
+	public Tornio(float probGuasto, float probFineMateriali, int waitTime, RestTemplate restTemplate, Semaphore s) {
+		super(probGuasto, probFineMateriali, "TORNIO-" + numTorni, "tornio", waitTime, restTemplate, s);
 		numTorni++;
 	}
 }
