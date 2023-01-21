@@ -17,8 +17,8 @@ class _LogPageState extends State<LogPage> {
   Future<List<Macchina>> getMacchine() async {
     List<Macchina> listaMacchine = [];
     var response = await http.get(Uri.parse("http://$k_ip_address:8081/macchine"));
-
     if (response.statusCode == 200) {
+      print(jsonDecode(response.body));
       jsonDecode(response.body).forEach((json) {
         Macchina m = Macchina.fromJson(json);
         listaMacchine.add(m);

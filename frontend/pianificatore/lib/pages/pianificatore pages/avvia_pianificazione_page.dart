@@ -89,7 +89,7 @@ class _AvviaPianificazionePageState extends State<AvviaPianificazionePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Avvia Pianificazione"),
+        title: const Text("Avvia Calcolo Pianificazione"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),

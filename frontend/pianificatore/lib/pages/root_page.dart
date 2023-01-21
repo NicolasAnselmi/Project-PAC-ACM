@@ -28,7 +28,7 @@ class _RootPageState extends ConsumerState<RootPage> {
     "manager": {
       "Inserisci Lotti": const InserisciLottiPage(),
       "Visualizza Lotti": const VisualizzaLottiPage(),
-      "Avvia Pianificazione": const AvviaPianificazionePage(),
+      "Avvia Calcolo Pianificazione": const AvviaPianificazionePage(),
       "Visualizza Pianificazioni": const VisualizzaPianificazioniPage(),
       "Gestisci Utenti": const GestisciUtentiPage(),
       "Gestisci Macchine": const GestisciMacchinePage(),
@@ -36,11 +36,12 @@ class _RootPageState extends ConsumerState<RootPage> {
     "pianificatore": {
       "Inserisci Lotti": const InserisciLottiPage(),
       "Visualizza Lotti": const VisualizzaLottiPage(),
-      "Avvia Pianificazione": const AvviaPianificazionePage(),
+      "Avvia Calcolo Pianificazione": const AvviaPianificazionePage(),
       "Visualizza Pianificazioni": const VisualizzaPianificazioniPage(),
     },
     "operaio": {
       "Log Macchine": const LogPage(),
+      "Visualizza Pianificazioni": const VisualizzaPianificazioniPage(),
     }
   };
 
@@ -58,7 +59,7 @@ class _RootPageState extends ConsumerState<RootPage> {
         leadingWidth: 150,
         title: const Text("Home"),
         centerTitle: true,
-        // PULSANTE LOGOUT
+        // PULSANTE LOGOU
         leading: Container(
           margin: const EdgeInsets.all(12),
           child: ElevatedButton(
