@@ -26,6 +26,7 @@ import com.models.macchine.Macchina;
 @SpringBootApplication
 public class MocClientApplication {
 
+	private String ip = "localhost";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;
@@ -75,7 +76,7 @@ public class MocClientApplication {
 		}
 		
 		for (MacchinaFisica m : macchine) {
-			restTemplate.delete("http://localhost:8081/macchine/delete/" + m.getIDMacchina());
+			restTemplate.delete("http://" + ip + ":8081/macchine/delete/" + m.getIDMacchina());
 		}
 		s.release();
 	}
@@ -145,7 +146,7 @@ public class MocClientApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		restTemplate.postForObject("http://localhost:8081/macchine/aggiungi", map, Macchina.class);
+		restTemplate.postForObject("http://" + ip + ":8081/macchine/aggiungi", map, Macchina.class);
 
 		s.release();
 
@@ -159,7 +160,7 @@ public class MocClientApplication {
 	}
 
 	private ArrayList<Lavorazione> getCodaLavorazioni(RestTemplate restTemplate, String IDMacchina) {
-		String json = restTemplate.getForObject("http://localhost:8081/pianificazione/idMacchina/" + IDMacchina,
+		String json = restTemplate.getForObject("http:" + ip + ":8081/pianificazione/idMacchina/" + IDMacchina,
 				String.class);
 		ArrayList<Lavorazione> list = null;
 		if (json != null) {

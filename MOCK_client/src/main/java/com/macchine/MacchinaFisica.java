@@ -13,6 +13,7 @@ import com.models.macchine.TipoMacchina;
 import java.time.LocalDateTime;
 
 public class MacchinaFisica extends Thread implements Machinable {
+	private String ip = "localhost";
 	protected float probGuasto;
 	protected float probFineMateriali;
 	protected int countSlotPart;
@@ -78,7 +79,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		restTemplate.postForObject("http://localhost:8081/log/addLog", map, Object.class);
+		restTemplate.postForObject("http://" + ip + ":8081/log/addLog", map, Object.class);
 		s.release();
 
 	}
