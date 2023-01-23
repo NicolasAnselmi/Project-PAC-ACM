@@ -26,7 +26,7 @@ import com.models.macchine.Macchina;
 @SpringBootApplication
 public class MocClientApplication {
 
-	private String ip = "localhost";
+	private String ip = "3.121.133.213";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;
@@ -160,7 +160,7 @@ public class MocClientApplication {
 	}
 
 	private ArrayList<Lavorazione> getCodaLavorazioni(RestTemplate restTemplate, String IDMacchina) {
-		String json = restTemplate.getForObject("http:" + ip + ":8081/pianificazione/idMacchina/" + IDMacchina,
+		String json = restTemplate.getForObject("http://" + ip + ":8081/pianificazione/idMacchina/" + IDMacchina,
 				String.class);
 		ArrayList<Lavorazione> list = null;
 		if (json != null) {
