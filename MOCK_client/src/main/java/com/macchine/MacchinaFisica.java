@@ -13,6 +13,8 @@ import com.models.macchine.TipoMacchina;
 import java.time.LocalDateTime;
 
 public class MacchinaFisica extends Thread implements Machinable {
+	
+	//private String ip = "localhost";
 	private String ip = "3.121.133.213";
 	protected float probGuasto;
 	protected float probFineMateriali;
@@ -66,12 +68,17 @@ public class MacchinaFisica extends Thread implements Machinable {
 	@Override
 	public void caricaSuServer() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+		MultiValueMap<String, String> map2 = new LinkedMultiValueMap<String, String>();
 		map.add("idLog", getIDMacchina() + "--" + LocalDateTime.now());
 		map.add("idLogger", getIDMacchina());
 		map.add("title", "titolo log");
 		map.add("body", "body log");
 		map.add("statoMacchina", statoMacchina.toString());
 		map.add("codiceLotto", inCorso == null ? "" : inCorso.getIdLotto());
+		
+		map2.add("idMacchina", IDMacchina);
+		map2.add("codiceLotto", inCorso == null ? "" : inCorso.getIdLotto());
+		map2.add("statoMacchina", statoMacchina.toString());
 
 		try {
 			s.acquire();
@@ -80,6 +87,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 			e.printStackTrace();
 		}
 		restTemplate.postForObject("http://" + ip + ":8081/log/addLog", map, Object.class);
+		restTemplate.postForObject("http://" + ip + ":8081/macchine/update", map2, boolean.class);
 		s.release();
 
 	}

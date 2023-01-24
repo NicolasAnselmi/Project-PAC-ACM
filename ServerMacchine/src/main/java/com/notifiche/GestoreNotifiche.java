@@ -10,7 +10,6 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
-import com.models.data.Lavorazione;
 
 public class GestoreNotifiche {
 	// aggiungere liste dispositivi
@@ -26,6 +25,17 @@ public class GestoreNotifiche {
 		
 		tokenOperai.add("token");
 		tokenManager.add("token");
+		String currentPath = "";
+		String currentDir = "";
+		try {
+			currentPath = new java.io.File(".").getCanonicalPath();
+			currentDir = System.getProperty("user.dir");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println(currentPath);
+		System.out.println(currentDir);
 		
 		try {
 			FileInputStream f = new FileInputStream(

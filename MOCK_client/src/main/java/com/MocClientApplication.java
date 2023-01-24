@@ -27,6 +27,7 @@ import com.models.macchine.Macchina;
 public class MocClientApplication {
 
 	private String ip = "3.121.133.213";
+	//private String ip = "localhost";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;

@@ -48,6 +48,7 @@ public class Macchina implements Machinable {
 				title = this.idMacchina + " LAVORAZIONE RIPRESA";
 			}
 			gestoreNotifiche.sendOperai(body, title);
+			System.out.println("send notifica");
 			this.statoMacchina = statoMacchina;
 		}
 	}

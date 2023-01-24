@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.services.ServiceMacchina;
-import com.models.data.LogMacchina;
 import com.models.macchine.Macchina;
 
 @RestController
@@ -43,6 +41,11 @@ public class MacchineWebController {
 	@DeleteMapping("/macchine/delete/{idMacchina}")
 	public boolean rimuoviMacchina(@PathVariable String idMacchina) {
 		return serviceMacchine.rimuoviMacchina(idMacchina);
+	}
+	
+	@PostMapping("/macchine/update")
+	public boolean updateMacchina(@RequestParam String idMacchina, @RequestParam String codiceLotto, @RequestParam String statoMacchina) {
+		return serviceMacchine.updateMacchina(idMacchina, codiceLotto, statoMacchina);
 	}
 
 }

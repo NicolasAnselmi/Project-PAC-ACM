@@ -5,9 +5,10 @@ package com.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import com.datamanager.MacchineDataManager;
+import com.google.cloud.Timestamp;
 import com.models.macchine.Macchina;
+import com.models.macchine.StatoMacchina;
 
 @Service
 public class ServiceMacchina {
@@ -32,5 +33,9 @@ public class ServiceMacchina {
 	
 	public boolean rimuoviMacchina(String idMacchina) {
 		return macchineDataManager.deleteMacchina(idMacchina);
+	}
+
+	public boolean updateMacchina(String idMacchina, String codiceLottoInLavorazione, String statoMacchina) {
+		return macchineDataManager.aggiornaMacchina(idMacchina, codiceLottoInLavorazione, Timestamp.now().toString(), StatoMacchina.valueOf(statoMacchina));
 	}
 }

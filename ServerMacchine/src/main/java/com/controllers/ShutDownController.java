@@ -2,7 +2,6 @@ package com.controllers;
 
 import javax.annotation.PreDestroy;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,8 +11,9 @@ import com.ServerMacchineApplication;
 public class ShutDownController {
 	
 	@PostMapping("shutdown")
-	public void shutDown() {
+	public boolean shutDown() {
 		ServerMacchineApplication.ctx.close();
+		return true;
 	}
 	
 	@PreDestroy
