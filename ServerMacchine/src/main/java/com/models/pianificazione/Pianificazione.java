@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import com.datamanager.MacchineDataManager;
 import com.google.cloud.Timestamp;
 import com.models.data.Lavorazione;
 import com.models.data.Lotto;
@@ -15,6 +14,10 @@ import com.models.macchine.Macchina;
 public class Pianificazione implements Comparable<Pianificazione> {
 	
 	private String idPianificazione;
+	public boolean isConfermata() {
+		return confermata;
+	}
+
 	private List<Lavorazione> listaLavorazioni;
 	private List<Lotto> listaLotti;
 	private boolean confermata;
@@ -106,5 +109,13 @@ public class Pianificazione implements Comparable<Pianificazione> {
 		if(residui == null)
 			return this.listaLotti;
 		return residui;
+	}
+	
+	public void setIdPianificazione(String idPianificazione) {
+		this.idPianificazione = idPianificazione;
+	}
+
+	public void setConfermata(boolean confermata) {
+		this.confermata = confermata;
 	}
 }

@@ -26,8 +26,8 @@ import com.models.macchine.Macchina;
 @SpringBootApplication
 public class MocClientApplication {
 
-	private String ip = "3.121.133.213";
-	//private String ip = "localhost";
+	//private String ip = "3.121.133.213";
+	private String ip = "localhost";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;
@@ -50,53 +50,57 @@ public class MocClientApplication {
 		return args -> {
 			Semaphore s = new Semaphore(1);
 			List<MacchinaFisica> macchine = inizializzaMacchine(restTemplate, s);
+			avviaMacchine(macchine, restTemplate);
 
 			while (true) {
-				if (therIsLavorazioni(restTemplate, macchine)) {
-					avviaMacchine(macchine, restTemplate);
-					joinAllMacchine(macchine);
-					postLavorazioniEseguite(macchine, restTemplate,s);
-					macchine = inizializzaMacchine(restTemplate, s);
+				if (therIsLavorazioni(restTemplate, macchine) && lavorazioniFinite(macchine)) {
+					assegnaLavorazioni(macchine, restTemplate);
+					while(!lavorazioniFinite(macchine)) {
+						Thread.sleep(1000);
+					}
+					if (lavorazioniFinite(macchine))
+						postLavorazioniEseguite(macchine, restTemplate, s);
 				}
+
 				Thread.sleep(1000);
 			}
 		};
 	}
 
-	private void postLavorazioniEseguite(List<MacchinaFisica> macchine, RestTemplate restTemplate, Semaphore s) {
-		deleteMacchine(macchine,restTemplate, s);
-
+	private void assegnaLavorazioni(List<MacchinaFisica> macchine, RestTemplate restTemplate) {
+		for (MacchinaFisica m : macchine) {
+			List<Lavorazione> list = getCodaLavorazioni(restTemplate, m.getIDMacchina());
+			if (list != null && !list.isEmpty())
+				m.setListaLavorazioni(list);
+		}
 	}
 
-	private void deleteMacchine(List<MacchinaFisica> macchine, RestTemplate restTemplate, Semaphore s) {
+	private boolean lavorazioniFinite(List<MacchinaFisica> macchine) {
+		boolean res = true;
+		for (MacchinaFisica m : macchine) {
+			res = res && m.getFinito();
+		}
+		return res;
+	}
+
+	private void postLavorazioniEseguite(List<MacchinaFisica> macchine, RestTemplate restTemplate, Semaphore s) {
+		// deleteMacchine(macchine,restTemplate, s);
 		try {
 			s.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		for (MacchinaFisica m : macchine) {
-			restTemplate.delete("http://" + ip + ":8081/macchine/delete/" + m.getIDMacchina());
-		}
+		restTemplate.postForEntity("http://" + ip + ":8081/pianificazione/conferma", null, null);
 		s.release();
 	}
 
-	private void joinAllMacchine(List<MacchinaFisica> macchine) {
-		for (MacchinaFisica m : macchine) {
-			try {
-				m.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
+	
 	private void avviaMacchine(List<MacchinaFisica> macchine, RestTemplate restTemplate) {
 		for (MacchinaFisica m : macchine) {
 			m.setListaLavorazioni(getCodaLavorazioni(restTemplate, m.getIDMacchina()));
 			m.start();
+			System.out.println(m.getIDMacchina() + " running...");
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {

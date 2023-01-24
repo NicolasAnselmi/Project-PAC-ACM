@@ -16,6 +16,7 @@ public class PianificazioniDataManager {
 	private static PianificazioniDataManager pianificazioniDataManager = null;
 	
 	private List<Pianificazione> listaPianificazioni;
+	private Pianificazione inLavorazione = null;
 	
 	private PianificazioniDataManager() {
 		listaPianificazioni = new ArrayList<Pianificazione>();
@@ -56,9 +57,7 @@ public class PianificazioniDataManager {
 	}
 
 	public Pianificazione getPianificazioneInLavorazione() {
-		if(listaPianificazioni.size() > 1)
-			return listaPianificazioni.get(listaPianificazioni.size()-2);
-		return null;
+		return inLavorazione;
 	}
 	
 	public void addPianificazione(String timeStampInizioPeriodo, String timeStampFinePeriodo) {
@@ -69,9 +68,16 @@ public class PianificazioniDataManager {
 	public List<Lavorazione> getCalcoloPianificazione(List<Lotto> listaLotti, List<Macchina> listaMacchine, int slotSettimanali){
 		List<Lavorazione> result = this.getPianificazioneCorrente().calcoloPianificazione(listaLotti, listaMacchine, slotSettimanali);
 		List<Lotto> residui = this.getPianificazioneCorrente().getLottiResidui();
+		inLavorazione = this.getPianificazioneCorrente();
 		Pianificazione p = creaPianificazioneCorrente();
 		p.setListaLotti(residui);
 		return result;
+	}
+	
+	public void confermaPianificazione() {
+		if(inLavorazione != null)
+			inLavorazione.setConfermata(true);
+		inLavorazione = null;
 	}
 
 }

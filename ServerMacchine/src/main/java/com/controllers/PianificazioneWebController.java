@@ -27,7 +27,7 @@ public class PianificazioneWebController {
 	@PostMapping("/pianificazione/lotto/aggiungi")
 	public void inserisciLotto(@RequestParam String idLotto, @RequestParam String idProdotto, @RequestParam int nPezzi,
 			@RequestParam String priorita, @RequestParam String sequenzaLavorazioni) {
-		
+
 		servicePianificazione.inserisciLotto(idLotto, idProdotto, nPezzi, priorita, getToken(sequenzaLavorazioni));
 	}
 
@@ -63,14 +63,18 @@ public class PianificazioneWebController {
 		return servicePianificazione.getLottiResiduiPianificazioneCorrente();
 	}
 	
-	private String[] getToken(String sequenzaLavorazioni)
-	{
+	@PostMapping("/pianificazione/conferma")
+	public void confermaPianificazione() {
+		servicePianificazione.confermaPianificazione();
+	}
+
+	private String[] getToken(String sequenzaLavorazioni) {
 		StringTokenizer tokenizer = new StringTokenizer(sequenzaLavorazioni, ",");
 		String[] token = new String[tokenizer.countTokens()];
 		for (int i = 0; i < token.length; i++) {
 			token[i] = tokenizer.nextToken();
 		}
-		
+
 		return token;
 	}
 
