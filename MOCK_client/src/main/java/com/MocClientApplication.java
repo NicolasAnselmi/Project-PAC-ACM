@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.macchine.Fresa;
 import com.macchine.MacchinaFisica;
 import com.macchine.Tornio;
-import com.models.data.Lavorazione;
+import com.models.lotto.Lavorazione;
 import com.models.macchine.Macchina;
 
 @SpringBootApplication

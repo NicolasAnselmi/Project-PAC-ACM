@@ -1,11 +1,8 @@
-package com.services;
+package com.models.log;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
-import com.datamanager.LogDataManager;
-import com.models.data.LogMacchina;
 
 @Service
 public class ServiceLog {

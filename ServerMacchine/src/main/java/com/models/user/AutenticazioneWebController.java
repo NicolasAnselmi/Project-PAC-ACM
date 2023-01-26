@@ -1,9 +1,7 @@
-package com.controllers;
+package com.models.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.services.ServiceAutenticazione;
 
 @RestController
 public class AutenticazioneWebController {

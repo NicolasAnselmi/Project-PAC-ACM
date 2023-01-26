@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.models.data.Lavorazione;
-import com.models.data.Lotto;
-import com.models.data.PrioritaLotto;
+import com.models.lotto.Lavorazione;
+import com.models.lotto.Lotto;
+import com.models.lotto.PrioritaLotto;
 import com.models.macchine.Macchina;
-import com.notifiche.GestoreNotifiche;
+import com.utility.GestoreNotifiche;
 
 public class Scheduler implements SchedulerInterface {
 

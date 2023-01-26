@@ -1,4 +1,4 @@
-package com.controllers;
+package com.models.pianificazione;
 
 import java.util.List;
 import java.util.StringTokenizer;
@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonParser;
-import com.models.data.Lavorazione;
-import com.models.data.Lotto;
-import com.services.ServicePianificazione;
+import com.models.lotto.Lavorazione;
+import com.models.lotto.Lotto;
 
 @RestController
 public class PianificazioneWebController {

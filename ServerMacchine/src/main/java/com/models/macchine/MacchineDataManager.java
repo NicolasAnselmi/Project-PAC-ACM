@@ -1,10 +1,7 @@
-package com.datamanager;
+package com.models.macchine;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.models.macchine.Macchina;
-import com.models.macchine.StatoMacchina;
 
 public class MacchineDataManager {
 

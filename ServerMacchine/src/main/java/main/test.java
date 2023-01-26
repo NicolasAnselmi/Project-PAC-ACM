@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.google.cloud.Timestamp;
-import com.models.data.LogMacchina;
+import com.models.log.LogMacchina;
 
 public class test {
 	

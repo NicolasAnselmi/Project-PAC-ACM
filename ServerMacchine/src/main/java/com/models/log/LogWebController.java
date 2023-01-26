@@ -1,4 +1,4 @@
-package com.controllers;
+package com.models.log;
 
 import java.util.List;
 
@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
-import com.models.data.LogMacchina;
-import com.services.ServiceLog;
 
 @RestController
 public class LogWebController {

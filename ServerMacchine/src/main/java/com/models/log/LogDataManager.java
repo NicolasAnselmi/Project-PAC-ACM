@@ -1,9 +1,7 @@
-package com.datamanager;
+package com.models.log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.models.data.LogMacchina;
 
 public class LogDataManager {
 

@@ -7,7 +7,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.models.data.Lavorazione;
+import com.models.lotto.Lavorazione;
 import com.models.macchine.TipoMacchina;
 
 import java.time.LocalDateTime;
