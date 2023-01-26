@@ -14,10 +14,6 @@ import com.models.macchine.Macchina;
 public class Pianificazione implements Comparable<Pianificazione> {
 	
 	private String idPianificazione;
-	public boolean isConfermata() {
-		return confermata;
-	}
-
 	private List<Lavorazione> listaLavorazioni;
 	private List<Lotto> listaLotti;
 	private boolean confermata;
@@ -39,6 +35,10 @@ public class Pianificazione implements Comparable<Pianificazione> {
 
 	public void confermaPianificazione() {
 		this.confermata = true;
+	}
+	
+	public boolean isConfermata() {
+		return confermata;
 	}
 
 	public List<Lavorazione> calcoloPianificazione(List<Lotto> listaLotti, List<Macchina> listaMacchine, int slotSettimanali) {
