@@ -26,7 +26,7 @@ import com.models.macchine.Macchina;
 @SpringBootApplication
 public class MocClientApplication {
 
-	//private String ip = "3.121.133.213";
+	//private String ip = "52.58.53.176";
 	private String ip = "localhost";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
@@ -54,6 +54,7 @@ public class MocClientApplication {
 
 			while (true) {
 				if (therIsLavorazioni(restTemplate, macchine) && lavorazioniFinite(macchine)) {
+					Thread.sleep(5000);
 					assegnaLavorazioni(macchine, restTemplate);
 					while(!lavorazioniFinite(macchine)) {
 						Thread.sleep(1000);

@@ -57,7 +57,7 @@ public class Scheduler implements SchedulerInterface {
 				}
 			}
 		}
-		g.sendManager("SCHEDULING TERMINATO", "Visualizzare pianificazione inserita");
+		g.sendManager("Fine Pianificazione", "Fine Pianificazione");
 		return lavorazioni;
 	}
 

@@ -23,20 +23,8 @@ public class GestoreNotifiche {
 		tokenOperai = new ArrayList<>();
 		tokenManager = new ArrayList<>();
 		
-		tokenOperai.add("token");
-		tokenManager.add("token");
-		String currentPath = "";
-		String currentDir = "";
-		try {
-			currentPath = new java.io.File(".").getCanonicalPath();
-			currentDir = System.getProperty("user.dir");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println(currentPath);
-		System.out.println(currentDir);
-		
+		tokenOperai.add("cl96XGoPTm-mKnE9lVH3sb:APA91bGtQ4Fp795KpKnQ9LGR7MTV4WaNRydnCwkd3JdBjNsA6xLuKPqENACQLraDHZN5P3UvOSispCg8xi2WExuNufCRXPnv486X18EBYqQqnZyUyMeTWGG3Cccq2KwOqTtphfwnBSZS");
+		tokenManager.add("cl96XGoPTm-mKnE9lVH3sb:APA91bGtQ4Fp795KpKnQ9LGR7MTV4WaNRydnCwkd3JdBjNsA6xLuKPqENACQLraDHZN5P3UvOSispCg8xi2WExuNufCRXPnv486X18EBYqQqnZyUyMeTWGG3Cccq2KwOqTtphfwnBSZS");
 		try {
 			FileInputStream f = new FileInputStream(
 					"/Users/anselminicolas/Desktop/Project-PAC-ACM/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
@@ -68,19 +56,17 @@ public class GestoreNotifiche {
 	 */
 	private String send(String body, String title, String reciever) {
 		
-		Message message = Message.builder().putData("Body", body) // info a caso del json che sarà da inviare al client
-				.putData("Title", title)
+		Message message = Message.builder().putData("body", body) // info a caso del json che sarà da inviare al client
+				.putData("title", title)
 				.setToken(reciever) // we have to use who to decide which devices get the notification
 				.build();
-
 		String response;
 		try {
 			response = FirebaseMessaging.getInstance().send(message);
-
 			return response;
 			
 		} catch (Exception e) {
-			//System.out.println(e.getClass());
+			System.out.println(e.getClass());
 
 			return null;
 		}

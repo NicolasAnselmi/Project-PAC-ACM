@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class MacchinaFisica extends Thread implements Machinable {
 
 	private String ip = "localhost";
-	//private String ip = "3.121.133.213";
+	//private String ip = "52.58.53.176";
 	protected float probGuasto;
 	protected float probFineMateriali;
 	protected int countSlotPart;

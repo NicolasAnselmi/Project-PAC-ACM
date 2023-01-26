@@ -9,7 +9,13 @@ class UserAuthNotifier extends Notifier<UserStatus> {
 
   void login(String email, String password) {
     // TODO: RIMUOVEREa
-    state = UserStatus.manager;
+    email = email.trim();
+    if (email.contains("operaio"))
+      state = UserStatus.operaio;
+    else if (email.contains("pianificatore"))
+      state = UserStatus.pianificatore;
+    else
+      state = UserStatus.manager;
     return;
 
     email = email.trim();
