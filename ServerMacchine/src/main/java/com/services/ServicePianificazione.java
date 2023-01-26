@@ -26,11 +26,8 @@ public class ServicePianificazione {
 		return true;
 	}
 
-	public boolean confermaPianificazione() {
-		if(pianificazioniDataManager.getPianificazioneCorrente() == null)
-			return false;
-		pianificazioniDataManager.getPianificazioneCorrente().confermaPianificazione();
-		return true;
+	public void confermaPianificazione() {
+		pianificazioniDataManager.confermaPianificazione();
 	}
 
 	public List<Lavorazione> calcoloPianificazione(String[] listaMacchine, int slotSettimanali) {

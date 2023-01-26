@@ -25,17 +25,23 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
         ),
       ),
       body: ListView.builder(
-        itemBuilder: ((context, index) => (ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione" &&
-                    ref.watch(loginStateProvider).name == "manager") ||
-                ref.watch(notificaProvider)[index].titolo != "Fine Pianificazione"
+        itemBuilder: ((context, index) => (ref
+                        .watch(notificaProvider)[index]
+                        .titolo ==
+                    "Fine Pianificazione" &&
+                ref.watch(loginStateProvider).name == "manager")
             ? Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.blue[800],
                 ),
                 margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.only(right: 15, top: 10, bottom: 10, left: 15),
-                height: ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione" ? 150 : 100,
+                padding: const EdgeInsets.only(
+                    right: 15, top: 10, bottom: 10, left: 15),
+                height: ref.watch(notificaProvider)[index].titolo ==
+                        "Fine Pianificazione"
+                    ? 150
+                    : 100,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -50,7 +56,8 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                         ),
 
                         // PULSANTE VISUALIZZA
-                        ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione"
+                        ref.watch(notificaProvider)[index].titolo ==
+                                "Fine Pianificazione"
                             ? SizedBox(
                                 height: 30,
                                 width: 100,
@@ -61,7 +68,8 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                                   onPressed: () => Navigator.push(
                                     context,
                                     CupertinoPageRoute(
-                                      builder: ((context) => const VisualizzaPianificazioniPage()),
+                                      builder: ((context) =>
+                                          const VisualizzaPianificazioniPage()),
                                     ),
                                   ),
                                   child: const Text("Visualizza"),
@@ -74,11 +82,13 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                     // DESCRIZIONE NOTIFICA
                     Expanded(
                       flex: 2,
-                      child: Text(ref.watch(notificaProvider)[index].descrizione),
+                      child:
+                          Text(ref.watch(notificaProvider)[index].descrizione),
                     ),
 
                     // PULSANTI CONFERMA / RIFIUTA (solo per notifiche fine pianificazione)
-                    ref.watch(notificaProvider)[index].titolo == "Fine Pianificazione"
+                    ref.watch(notificaProvider)[index].titolo ==
+                            "Fine Pianificazione"
                         ? Expanded(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +100,12 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                                     onPressed: () {
                                       setState(() {
                                         ref.read(notificaProvider).removeWhere(
-                                            (element) => element.titolo == ref.watch(notificaProvider)[index].titolo);
+                                            (element) =>
+                                                element.titolo ==
+                                                ref
+                                                    .watch(
+                                                        notificaProvider)[index]
+                                                    .titolo);
                                       });
                                     },
                                     child: const Text("Rifiuta"),
@@ -107,7 +122,12 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                                     onPressed: () {
                                       setState(() {
                                         ref.read(notificaProvider).removeWhere(
-                                            (element) => element.titolo == ref.watch(notificaProvider)[index].titolo);
+                                            (element) =>
+                                                element.titolo ==
+                                                ref
+                                                    .watch(
+                                                        notificaProvider)[index]
+                                                    .titolo);
                                       });
                                     },
                                     child: const Text("Conferma"),

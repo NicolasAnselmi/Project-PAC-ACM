@@ -34,5 +34,6 @@ public class LogWebController {
 	public List<LogMacchina> getAllLogMacchina(){
 		return logService.getAllLogMacchina();
 	}
+	
 
 }

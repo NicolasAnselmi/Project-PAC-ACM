@@ -1,6 +1,6 @@
 package com.macchine;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import org.springframework.util.LinkedMultiValueMap;
@@ -13,7 +13,9 @@ import com.models.macchine.TipoMacchina;
 import java.time.LocalDateTime;
 
 public class MacchinaFisica extends Thread implements Machinable {
+
 	private String ip = "localhost";
+	//private String ip = "52.58.53.176";
 	protected float probGuasto;
 	protected float probFineMateriali;
 	protected int countSlotPart;
@@ -25,9 +27,10 @@ public class MacchinaFisica extends Thread implements Machinable {
 	protected String IDMacchina;
 	protected TipoMacchina tipoMacchina;
 	protected StatoMacchina statoMacchina;
-	protected ArrayList<Lavorazione> codaLavorazioni;
+	protected List<Lavorazione> codaLavorazioni;
 	protected Lavorazione inCorso;
 	private Semaphore s;
+	private boolean finito;
 
 	protected RestTemplate restTemplate;
 
@@ -44,18 +47,22 @@ public class MacchinaFisica extends Thread implements Machinable {
 		this.waitTimeRiparazione = 0;
 		this.waitTimeMateriale = 0;
 		this.maxWaitTime = waitTime;
+		this.finito = true;
 	}
 
 	@Override
 	public void run() {
 
-		while (codaLavorazioni != null && !codaLavorazioni.isEmpty()) {
-			aggiornaMacchina();
-			if (codaLavorazioni.isEmpty()) {
-				System.out.println(IDMacchina + ": finito");
-				this.statoMacchina = StatoMacchina.Fermo;
+		while (true) {
+			while (codaLavorazioni != null && !codaLavorazioni.isEmpty()) {
+				aggiornaMacchina();
+				if (codaLavorazioni.isEmpty()) {
+					System.out.println(IDMacchina + ": finito");
+					this.statoMacchina = StatoMacchina.Fermo;
+					this.finito = true;
+				}
+				caricaSuServer();
 			}
-			caricaSuServer();
 		}
 
 	}
@@ -66,12 +73,17 @@ public class MacchinaFisica extends Thread implements Machinable {
 	@Override
 	public void caricaSuServer() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+		MultiValueMap<String, String> map2 = new LinkedMultiValueMap<String, String>();
 		map.add("idLog", getIDMacchina() + "--" + LocalDateTime.now());
 		map.add("idLogger", getIDMacchina());
 		map.add("title", "titolo log");
 		map.add("body", "body log");
 		map.add("statoMacchina", statoMacchina.toString());
 		map.add("codiceLotto", inCorso == null ? "" : inCorso.getIdLotto());
+
+		map2.add("idMacchina", IDMacchina);
+		map2.add("codiceLotto", inCorso == null ? "" : inCorso.getIdLotto());
+		map2.add("statoMacchina", statoMacchina.toString());
 
 		try {
 			s.acquire();
@@ -80,6 +92,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 			e.printStackTrace();
 		}
 		restTemplate.postForObject("http://" + ip + ":8081/log/addLog", map, Object.class);
+		restTemplate.postForObject("http://" + ip + ":8081/macchine/update", map2, boolean.class);
 		s.release();
 
 	}
@@ -159,19 +172,29 @@ public class MacchinaFisica extends Thread implements Machinable {
 		return tipoMacchina;
 	}
 
-	public void setListaLavorazioni(ArrayList<Lavorazione> codaLavorazioni) {
+	public void setListaLavorazioni(List<Lavorazione> codaLavorazioni) {
 		this.codaLavorazioni = codaLavorazioni;
-		this.maxSlotPart = getMaxSlot(codaLavorazioni);
-		this.statoMacchina = StatoMacchina.Lavorazione;
+		if (!codaLavorazioni.isEmpty()) {
+			this.maxSlotPart = getMaxSlot(codaLavorazioni);
+			this.statoMacchina = StatoMacchina.Lavorazione;
+			this.finito = false;
+		} else {
+			this.statoMacchina = StatoMacchina.Fermo;
+			this.finito = true;
+		}
 	}
 
-	private int getMaxSlot(ArrayList<Lavorazione> codaLavorazioni) {
+	private int getMaxSlot(List<Lavorazione> codaLavorazioni) {
 		int max = -1;
 		for (int i = 0; i < codaLavorazioni.size(); i++) {
 			if (codaLavorazioni.get(i).getSlot() > max)
 				max = codaLavorazioni.get(i).getSlot();
 		}
 		return max;
+	}
+
+	public boolean getFinito() {
+		return finito;
 	}
 
 }
