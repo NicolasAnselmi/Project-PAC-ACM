@@ -1,4 +1,4 @@
-package com.controllers;
+package com.utility;
 
 import javax.annotation.PreDestroy;
 

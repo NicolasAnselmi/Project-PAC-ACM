@@ -1,14 +1,12 @@
-package com.services;
+package com.models.macchine;
 
 
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import com.datamanager.MacchineDataManager;
+
 import com.google.cloud.Timestamp;
-import com.models.macchine.Macchina;
-import com.models.macchine.StatoMacchina;
 
 @Service
 public class ServiceMacchina {

@@ -1,4 +1,4 @@
-package com.models.data;
+package com.models.lotto;
 
 import org.json.JSONObject;
 

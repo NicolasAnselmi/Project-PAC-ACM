@@ -1,14 +1,13 @@
-package com.datamanager;
+package com.models.pianificazione;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.google.cloud.Timestamp;
-import com.models.data.Lavorazione;
-import com.models.data.Lotto;
+import com.models.lotto.Lavorazione;
+import com.models.lotto.Lotto;
 import com.models.macchine.Macchina;
-import com.models.pianificazione.Pianificazione;
 
 public class PianificazioniDataManager {
 

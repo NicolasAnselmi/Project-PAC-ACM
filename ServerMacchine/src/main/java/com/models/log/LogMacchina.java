@@ -1,4 +1,4 @@
-package com.models.data;
+package com.models.log;
 
 import com.google.cloud.Timestamp;
 import com.models.macchine.StatoMacchina;

@@ -1,7 +1,7 @@
 package com.models.macchine;
 
 import com.google.cloud.Timestamp;
-import com.notifiche.GestoreNotifiche;
+import com.utility.GestoreNotifiche;
 
 public class Macchina implements Machinable {
 	private String idMacchina;
