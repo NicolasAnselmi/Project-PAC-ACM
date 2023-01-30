@@ -3,18 +3,12 @@ package com.init;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.models.log.LogDataManager;
-import com.models.log.LogMacchina;
 import com.models.lotto.Lotto;
-import com.models.lotto.PrioritaLotto;
-import com.models.macchine.MacchineDataManager;
 import com.models.pianificazione.PianificazioniDataManager;
 
 @Component
 public class init implements CommandLineRunner{
 	
-	private LogDataManager logDataManager = LogDataManager.getLogDataManager();
-	private MacchineDataManager macchineDataManager = MacchineDataManager.getMacchineDataManager();
 	private PianificazioniDataManager pianificazioneDataManager = PianificazioniDataManager.getPianificazioniDataManager();
 	
 	@Override

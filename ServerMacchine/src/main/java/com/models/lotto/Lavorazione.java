@@ -1,11 +1,7 @@
 package com.models.lotto;
 
-import org.json.JSONObject;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.models.macchine.TipoMacchina;
 
 public class Lavorazione implements Comparable<Lavorazione> {
