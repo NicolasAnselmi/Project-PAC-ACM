@@ -7,6 +7,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.MocClientApplication;
 import com.models.lotto.Lavorazione;
 import com.models.macchine.TipoMacchina;
 
@@ -14,8 +15,7 @@ import java.time.LocalDateTime;
 
 public class MacchinaFisica extends Thread implements Machinable {
 
-	private String ip = "localhost";
-	//private String ip = "3.70.128.166";
+	private String ip = MocClientApplication.IP;
 	protected float probGuasto;
 	protected float probFineMateriali;
 	protected int countSlotPart;
@@ -109,7 +109,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 		case Lavorazione:
 			System.out.println(IDMacchina + " in lavorazione: " + codaLavorazioni.get(0));
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

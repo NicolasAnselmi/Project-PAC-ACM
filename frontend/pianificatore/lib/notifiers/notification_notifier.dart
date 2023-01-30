@@ -46,15 +46,17 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
 
         // For displaying the notification as an overlay
         if (notification.title! == "Fine Pianificazione" &&
-            ref.read(loginStateProvider).name == "manager")
+            ref.read(loginStateProvider).name == "manager") {
+          print("notifica manager");
           showSimpleNotification(
             Text(notification.title ?? "default"),
             subtitle: Text(notification.body ?? "default"),
             background: Colors.cyan.shade700,
             duration: const Duration(seconds: 2),
           );
-        else if (notification.title! != "Fine Pianificazione" &&
+        } else if (notification.title! != "Fine Pianificazione" &&
             ref.read(loginStateProvider).name == "operaio") {
+          print("notifica operaio");
           showSimpleNotification(
             Text(notification.title ?? "default"),
             subtitle: Text(notification.body ?? "default"),

@@ -26,8 +26,7 @@ import com.models.macchine.Macchina;
 @SpringBootApplication
 public class MocClientApplication {
 
-	//private String ip = "3.70.128.166";
-	private String ip = "localhost";
+	public static final String IP = "54.93.238.234";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;
@@ -92,7 +91,7 @@ public class MocClientApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		restTemplate.postForEntity("http://" + ip + ":8081/pianificazione/conferma", null, null);
+		restTemplate.postForEntity("http://" + IP + ":8081/pianificazione/conferma", null, null);
 		s.release();
 	}
 
@@ -152,7 +151,7 @@ public class MocClientApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		restTemplate.postForObject("http://" + ip + ":8081/macchine/aggiungi", map, Macchina.class);
+		restTemplate.postForObject("http://" + IP + ":8081/macchine/aggiungi", map, Macchina.class);
 
 		s.release();
 
@@ -166,7 +165,7 @@ public class MocClientApplication {
 	}
 
 	private ArrayList<Lavorazione> getCodaLavorazioni(RestTemplate restTemplate, String IDMacchina) {
-		String json = restTemplate.getForObject("http://" + ip + ":8081/pianificazione/idMacchina/" + IDMacchina,
+		String json = restTemplate.getForObject("http://" + IP + ":8081/pianificazione/idMacchina/" + IDMacchina,
 				String.class);
 		ArrayList<Lavorazione> list = null;
 		if (json != null) {

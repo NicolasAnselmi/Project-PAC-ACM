@@ -62,7 +62,9 @@ public class GestoreNotifiche {
 				.build();
 		String response;
 		try {
+			System.out.println("invio " + message.toString());
 			response = FirebaseMessaging.getInstance().send(message);
+			System.out.println("response " + response);
 			return response;
 			
 		} catch (Exception e) {
