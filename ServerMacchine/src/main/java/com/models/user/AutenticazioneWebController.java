@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AutenticazioneWebController {
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private ServiceAutenticazione serviceAutenticazione;
 }
