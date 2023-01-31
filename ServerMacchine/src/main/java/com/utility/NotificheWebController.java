@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class NotificheWebController {
 	
 	@Autowired
-	private ServiceNotifiche serverNotifiche;
+	private ServiceNotifiche serviceNotifiche;
 	
 	@PostMapping("/notifiche/addToken")
 	public void addToken(@RequestParam String token, @RequestParam String tipo) {
-		serverNotifiche.addToken(token, tipo);
+		serviceNotifiche.addToken(token, tipo);
 	}
 
 }

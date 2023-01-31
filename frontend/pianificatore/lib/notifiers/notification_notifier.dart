@@ -5,7 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:pianificatore/models/notifica.dart';
 import 'package:pianificatore/providers/auth_providers.dart';
+import 'package:pianificatore/utils/enums.dart';
+import 'package:pianificatore/utils/ip_address.dart';
 import '../models/push_notification.dart';
+import 'package:http/http.dart' as http;
 
 class NotificationNotifier extends Notifier<List<Notifica>> {
   @override
@@ -20,6 +23,12 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
     String? token = await FirebaseMessaging.instance.getToken();
     // ignore: avoid_print
     print("TOKEN: $token");
+    Map<String, dynamic> params = {
+      "token": token,
+      "tipo": ref.read(loginStateProvider).name.toLowerCase()
+    };
+    await http
+        .post(Uri.http("$k_ip_address:8081", "/notifiche/addToken", params));
 
     // 2. Instantiate Firebase Messaging
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -45,17 +54,19 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
             descrizione: notification.body ?? "default",
             titolo: notification.title ?? "default"));
 
-        print("notifica manager");
         // For displaying the notification as an overlay
-        if (notification.title! == "Fine Pianificazione" &&
+        print(notification.title);
+        print(ref.read(loginStateProvider).name);
+        if (notification.title == "Fine Pianificazione" &&
             ref.read(loginStateProvider).name == "manager") {
+          print("notifica manager");
           showSimpleNotification(
             Text(notification.title ?? "default"),
             subtitle: Text(notification.body ?? "default"),
             background: Colors.cyan.shade700,
             duration: const Duration(seconds: 2),
           );
-        } else if (notification.title! != "Fine Pianificazione" &&
+        } else if (notification.title != "Fine Pianificazione" &&
             ref.read(loginStateProvider).name == "operaio") {
           print("notifica operaio");
           showSimpleNotification(

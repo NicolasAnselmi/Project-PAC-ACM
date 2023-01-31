@@ -15,6 +15,7 @@ public class GestoreNotifiche {
 	// aggiungere liste dispositivi
 	private ArrayList<String> tokenOperai;
 	private ArrayList<String> tokenManager;
+	private String tk = "cl96XGoPTm-mKnE9lVH3sb:APA91bGtQ4Fp795KpKnQ9LGR7MTV4WaNRydnCwkd3JdBjNsA6xLuKPqENACQLraDHZN5P3UvOSispCg8xi2WExuNufCRXPnv486X18EBYqQqnZyUyMeTWGG3Cccq2KwOqTtphfwnBSZS";
 
 	// singleton pattern
 	private static GestoreNotifiche g = null;
@@ -22,7 +23,9 @@ public class GestoreNotifiche {
 	private GestoreNotifiche() {
 		tokenOperai = new ArrayList<>();
 		tokenManager = new ArrayList<>();
-		
+		tokenOperai.add(tk);
+		tokenManager.add(tk);
+
 		try {
 			FileInputStream f = new FileInputStream(
 					"/Users/anselminicolas/Desktop/Project-PAC-ACM/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
@@ -48,29 +51,31 @@ public class GestoreNotifiche {
 		send(body, title, tokenManager);
 	}
 
-	
-	/* va bene? se no si usa solo il metodo con parametro la lista  di recievers e si mette il foreach 
-	 * li dentro, così non si rininizalizza tutto ogni volta, LMK...
+	/*
+	 * va bene? se no si usa solo il metodo con parametro la lista di recievers e si
+	 * mette il foreach li dentro, così non si rininizalizza tutto ogni volta,
+	 * LMK...
 	 */
 	private String send(String body, String title, String reciever) {
+		System.out.println("ricevente " + reciever);
 		
-		Message message = Message.builder().putData("body", body) // info a caso del json che sarà da inviare al client
-				.putData("title", title)
-				.setToken(reciever) // we have to use who to decide which devices get the notification
-				.build();
+		Message message = Message.builder().putData("body", body).putData("title", title).setToken(reciever).build();
+
 		String response;
 		try {
 			System.out.println("invio " + message.toString());
+			var instance = FirebaseMessaging.getInstance();
+			System.out.println(instance.toString());
 			response = FirebaseMessaging.getInstance().send(message);
 			System.out.println("response " + response);
-			return response;
-			
+			return response.toString();
+
 		} catch (Exception e) {
-			System.out.println(e.getClass());
+			System.out.println(e);
 
 			return null;
 		}
-		
+
 	}
 
 	private List<String> send(String body, String title, ArrayList<String> recieversList) {
@@ -83,14 +88,17 @@ public class GestoreNotifiche {
 	}
 
 	public void addToken(String token, String tipo) {
-		if(tipo.equals("operaio")) {
-			if(!tokenOperai.contains(token))
-				tokenOperai.add(token);
-		}
-		if(tipo.equals("manager")) {
-			if(!tokenManager.contains(token))
-				tokenManager.add(token);
-		}
+//		System.out.println("aggiungo " + tipo + " " + token.substring(0, 10));
+//		if (tipo.equals("operaio")) {
+//			if (!tokenOperai.contains(token))
+//				tokenOperai.add(token);
+//		}
+//		if (tipo.equals("manager")) {
+//			if (!tokenManager.contains(token))
+//				tokenManager.add(token);
+//		}
+//		System.out.println(tokenOperai.toString());
+//		System.out.println(tokenManager.toString());
 	}
 
 }
