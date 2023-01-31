@@ -15,7 +15,6 @@ public class GestoreNotifiche {
 	// aggiungere liste dispositivi
 	private ArrayList<String> tokenOperai;
 	private ArrayList<String> tokenManager;
-	private String tk = "epxkbCpgSYWqkB9_kKZt-8:APA91bFkqprtiQwygg-fEYQVAvl8KW20VoTQtQMuTsAf8bfyTVks4C6iQCOMrCg1lMCcDmDV4niK1TTTowJBgIRa-yP6q1oN8SPa_4YuGJGJR1u0KOXPAZW8N5DazgtIJfjN8evN2x9i";
 
 	// singleton pattern
 	private static GestoreNotifiche g = null;
@@ -24,8 +23,6 @@ public class GestoreNotifiche {
 		tokenOperai = new ArrayList<>();
 		tokenManager = new ArrayList<>();
 		
-		tokenOperai.add(tk);
-		tokenManager.add(tk);
 		try {
 			FileInputStream f = new FileInputStream(
 					"/Users/anselminicolas/Desktop/Project-PAC-ACM/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
@@ -83,6 +80,17 @@ public class GestoreNotifiche {
 		}
 		return responses;
 
+	}
+
+	public void addToken(String token, String tipo) {
+		if(tipo.equals("operaio")) {
+			if(!tokenOperai.contains(token))
+				tokenOperai.add(token);
+		}
+		if(tipo.equals("manager")) {
+			if(!tokenManager.contains(token))
+				tokenManager.add(token);
+		}
 	}
 
 }
