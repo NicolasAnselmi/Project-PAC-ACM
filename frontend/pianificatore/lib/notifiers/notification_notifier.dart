@@ -40,7 +40,12 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
           title: message.data["title"],
           body: message.data["body"],
         );
+        print(message.data.keys);
+        state.add(Notifica(
+            descrizione: notification.body ?? "default",
+            titolo: notification.title ?? "default"));
 
+        print("notifica manager");
         // For displaying the notification as an overlay
         if (notification.title! == "Fine Pianificazione" &&
             ref.read(loginStateProvider).name == "manager") {
@@ -50,24 +55,15 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
             background: Colors.cyan.shade700,
             duration: const Duration(seconds: 2),
           );
-          state.insert(
-              0,
-              Notifica(
-                  descrizione: notification.body ?? "default",
-                  titolo: notification.title ?? "default"));
         } else if (notification.title! != "Fine Pianificazione" &&
             ref.read(loginStateProvider).name == "operaio") {
+          print("notifica operaio");
           showSimpleNotification(
             Text(notification.title ?? "default"),
             subtitle: Text(notification.body ?? "default"),
             background: Colors.cyan.shade700,
             duration: const Duration(seconds: 2),
           );
-          state.insert(
-              0,
-              Notifica(
-                  descrizione: notification.body ?? "default",
-                  titolo: notification.title ?? "default"));
         }
       });
     } else {
