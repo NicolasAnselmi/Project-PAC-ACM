@@ -24,6 +24,8 @@ public class GestoreNotifiche {
 	private GestoreNotifiche() {
 		tokenOperai = new ArrayList<>();
 		tokenManager = new ArrayList<>();
+		tokenManager.add(tk);
+		tokenOperai.add(tk);
 		
 		try {
 			FileInputStream f = new FileInputStream(
@@ -82,17 +84,6 @@ public class GestoreNotifiche {
 		}
 		return responses;
 
-	}
-
-	public void addToken(String token, String tipo) {
-		if(tipo.equals("operaio")) {
-			if(!tokenOperai.contains(token))
-				tokenOperai.add(token);
-		}
-		if(tipo.equals("manager")) {
-			if(!tokenManager.contains(token))
-				tokenManager.add(token);
-		}
 	}
 
 }
