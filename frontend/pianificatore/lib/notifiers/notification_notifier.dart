@@ -31,6 +31,7 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
       provisional: false,
       sound: true,
     );
+
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       // For handling the received notifications
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -44,10 +45,10 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
             descrizione: notification.body ?? "default",
             titolo: notification.title ?? "default"));
 
+        print("notifica manager");
         // For displaying the notification as an overlay
         if (notification.title! == "Fine Pianificazione" &&
             ref.read(loginStateProvider).name == "manager") {
-          print("notifica manager");
           showSimpleNotification(
             Text(notification.title ?? "default"),
             subtitle: Text(notification.body ?? "default"),

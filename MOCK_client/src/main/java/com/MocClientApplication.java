@@ -26,7 +26,7 @@ import com.models.macchine.Macchina;
 @SpringBootApplication
 public class MocClientApplication {
 
-	public static final String IP = "54.93.238.234";
+	public static final String IP = "54.93.157.194";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;
