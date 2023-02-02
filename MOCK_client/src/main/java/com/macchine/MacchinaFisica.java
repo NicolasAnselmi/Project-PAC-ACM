@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.MocClientApplication;
 import com.models.lotto.Lavorazione;
+import com.models.macchine.StatoMacchina;
 import com.models.macchine.TipoMacchina;
 
 import java.time.LocalDateTime;
@@ -74,10 +75,25 @@ public class MacchinaFisica extends Thread implements Machinable {
 	public void caricaSuServer() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 		MultiValueMap<String, String> map2 = new LinkedMultiValueMap<String, String>();
+		
+		String body, title;
+		if (statoMacchina.equals(StatoMacchina.AttesaMateriale)) {
+			body =  " ha terminato il materiale e la produzione si è fermata";
+			title =  " FINE MATERIALE";
+		} else if (statoMacchina.equals(StatoMacchina.Guasta)) {
+			body =  " si è guastata e la produzione si è fermata";
+			title =  " GUASTA";
+		} else if (statoMacchina.equals(StatoMacchina.Fermo)) {
+			body =  " ha terminato la lavorazione";
+			title =  " LAVORAZIONE TERMINATA";
+		} else {
+			body =  " ha ripreso la lavorazione";
+			title =  " LAVORAZIONE RIPRESA";
+		}
 		map.add("idLog", getIDMacchina() + "--" + LocalDateTime.now());
 		map.add("idLogger", getIDMacchina());
-		map.add("title", "titolo log");
-		map.add("body", "body log");
+		map.add("title", title);
+		map.add("body", body);
 		map.add("statoMacchina", statoMacchina.toString());
 		map.add("codiceLotto", inCorso == null ? "" : inCorso.getIdLotto());
 

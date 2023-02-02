@@ -16,7 +16,7 @@ public class GestoreNotifiche {
 	private ArrayList<String> tokenOperai;
 	private ArrayList<String> tokenManager;
 	private String tk = "cl96XGoPTm-mKnE9lVH3sb:APA91bGtQ4Fp795KpKnQ9LGR7MTV4WaNRydnCwkd3JdBjNsA6xLuKPqENACQLraDHZN5P3UvOSispCg8xi2WExuNufCRXPnv486X18EBYqQqnZyUyMeTWGG3Cccq2KwOqTtphfwnBSZS";
-
+	
 	// singleton pattern
 	private static GestoreNotifiche g = null;
 
