@@ -34,19 +34,26 @@ public class Macchina implements Machinable {
 		this.timeStampUltimoMessaggio = timeStampMessaggio;
 		if (!this.statoMacchina.equals(statoMacchina)) {
 			String body, title;
-			if (statoMacchina.equals(StatoMacchina.AttesaMateriale)) {
+			
+			switch (statoMacchina) {
+			case AttesaMateriale:
 				body = this.idMacchina + " ha terminato il materiale e la produzione si è fermata";
 				title = this.idMacchina + " FINE MATERIALE";
-			} else if (statoMacchina.equals(StatoMacchina.Guasta)) {
+				break;
+			case Guasta:
 				body = this.idMacchina + " si è guastata e la produzione si è fermata";
 				title = this.idMacchina + " GUASTA";
-			} else if (statoMacchina.equals(StatoMacchina.Fermo)) {
+				break;
+			case Fermo:
 				body = this.idMacchina + " ha terminato la lavorazione";
 				title = this.idMacchina + " LAVORAZIONE TERMINATA";
-			} else {
-				body = this.idMacchina + " ha ripreso la lavorazione";
-				title = this.idMacchina + " LAVORAZIONE RIPRESA";
+				break;
+				
+			default:
+				this.statoMacchina = statoMacchina;
+				return;
 			}
+			
 			gestoreNotifiche.sendOperai(body, title);
 			this.statoMacchina = statoMacchina;
 		}

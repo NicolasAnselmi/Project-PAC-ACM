@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pianificatore/providers/notica_provider.dart';
 import 'package:pianificatore/utils/enums.dart';
 
 class UserAuthNotifier extends Notifier<UserStatus> {
@@ -43,6 +44,7 @@ class UserAuthNotifier extends Notifier<UserStatus> {
 
   void logout() {
     state = UserStatus.none;
+    ref.read(notificaProvider).clear();
     print("LOGOUT");
   }
 }
