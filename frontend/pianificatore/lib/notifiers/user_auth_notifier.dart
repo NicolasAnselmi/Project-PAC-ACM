@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pianificatore/providers/notica_provider.dart';
 import 'package:pianificatore/utils/enums.dart';
@@ -8,7 +10,7 @@ class UserAuthNotifier extends Notifier<UserStatus> {
     return UserStatus.none;
   }
 
-  void login(String email, String password) {
+  void login(String email, String password) async {
     // TODO: RIMUOVEREa
     email = email.trim();
     if (email.contains("operaio"))
@@ -44,7 +46,7 @@ class UserAuthNotifier extends Notifier<UserStatus> {
 
   void logout() {
     state = UserStatus.none;
-    ref.read(notificaProvider).clear();
+    ref.read(notificaProvider).value!.clear();
     print("LOGOUT");
   }
 }

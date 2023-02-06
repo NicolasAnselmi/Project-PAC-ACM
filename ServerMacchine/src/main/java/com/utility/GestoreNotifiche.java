@@ -8,8 +8,11 @@ import java.util.List;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.AndroidConfig;
+import com.google.firebase.messaging.FcmOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.WebpushConfig;
 
 public class GestoreNotifiche {
 	// aggiungere liste dispositivi
@@ -60,7 +63,8 @@ public class GestoreNotifiche {
 		Message message = Message.builder().putData("body", body) // info a caso del json che sarà da inviare al client
 				.putData("title", title)
 				.setToken(reciever) // we have to use who to decide which devices get the notification
-				.build();
+				.build();	
+		
 		String response;
 		try {
 			System.out.println("invio " + message.toString());

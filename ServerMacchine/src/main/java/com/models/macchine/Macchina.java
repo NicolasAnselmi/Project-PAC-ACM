@@ -55,6 +55,7 @@ public class Macchina implements Machinable {
 			}
 			
 			gestoreNotifiche.sendOperai(body, title);
+			System.out.println("stampa " + title);
 			this.statoMacchina = statoMacchina;
 		}
 	}

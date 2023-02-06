@@ -33,7 +33,7 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.only(
                   right: 15, top: 10, bottom: 10, left: 15),
-              height: ref.watch(notificaProvider)[index].titolo ==
+              height: ref.watch(notificaProvider).value![index].titolo ==
                       "Fine Pianificazione"
                   ? 150
                   : 100,
@@ -45,13 +45,13 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                       // TITOLO
                       Expanded(
                         child: Text(
-                          ref.watch(notificaProvider)[index].titolo,
+                          ref.watch(notificaProvider).value![index].titolo,
                           style: const TextStyle(fontSize: 20),
                         ),
                       ),
 
                       // PULSANTE VISUALIZZA
-                      ref.watch(notificaProvider)[index].titolo ==
+                      ref.watch(notificaProvider).value![index].titolo ==
                               "Fine Pianificazione"
                           ? SizedBox(
                               height: 30,
@@ -77,11 +77,12 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                   // DESCRIZIONE NOTIFICA
                   Expanded(
                     flex: 2,
-                    child: Text(ref.watch(notificaProvider)[index].descrizione),
+                    child: Text(
+                        ref.watch(notificaProvider).value![index].descrizione),
                   ),
 
                   // PULSANTI CONFERMA / RIFIUTA (solo per notifiche fine pianificazione)
-                  ref.watch(notificaProvider)[index].titolo ==
+                  ref.watch(notificaProvider).value![index].titolo ==
                           "Fine Pianificazione"
                       ? Expanded(
                           child: Row(
@@ -93,12 +94,14 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      ref.read(notificaProvider).removeWhere(
-                                          (element) =>
+                                      ref
+                                          .read(notificaProvider)
+                                          .value!
+                                          .removeWhere((element) =>
                                               element.titolo ==
                                               ref
-                                                  .watch(
-                                                      notificaProvider)[index]
+                                                  .watch(notificaProvider)
+                                                  .value![index]
                                                   .titolo);
                                     });
                                   },
@@ -115,12 +118,14 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      ref.read(notificaProvider).removeWhere(
-                                          (element) =>
+                                      ref
+                                          .read(notificaProvider)
+                                          .value!
+                                          .removeWhere((element) =>
                                               element.titolo ==
                                               ref
-                                                  .watch(
-                                                      notificaProvider)[index]
+                                                  .watch(notificaProvider)
+                                                  .value![index]
                                                   .titolo);
                                     });
                                   },
@@ -134,7 +139,7 @@ class _NotifichePageState extends ConsumerState<NotifichePage> {
                 ],
               ),
             )),
-        itemCount: ref.watch(notificaProvider).length,
+        itemCount: ref.watch(notificaProvider).value!.length,
       ),
     );
   }

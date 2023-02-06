@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +9,9 @@ import 'package:pianificatore/models/notifica.dart';
 import 'package:pianificatore/providers/auth_providers.dart';
 import '../models/push_notification.dart';
 
-class NotificationNotifier extends Notifier<List<Notifica>> {
-  @override
-  List<Notifica> build() {
-    return [];
-  }
-
+class NotificationNotifier extends AsyncNotifier<List<Notifica>> {
   /// Setup firebase e listener per la ricezione notifiche push
   Future<void> initRicezioneNotifiche() async {
-    await Firebase.initializeApp();
     // Print Device Token
     String? token = await FirebaseMessaging.instance.getToken();
     // ignore: avoid_print
@@ -41,6 +37,8 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
           body: message.data["body"],
         );
 
+        print("arrivata notifica ${message.data["title"]}");
+
         // For displaying the notification as an overlay
         if (notification.title! == "Fine Pianificazione" &&
             ref.read(loginStateProvider).name == "manager") {
@@ -50,7 +48,8 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
             background: Colors.cyan.shade700,
             duration: const Duration(seconds: 2),
           );
-          state.insert(
+          print("inserisco notifica ${notification.title}");
+          state.value!.insert(
               0,
               Notifica(
                   descrizione: notification.body ?? "default",
@@ -63,7 +62,8 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
             background: Colors.cyan.shade700,
             duration: const Duration(seconds: 2),
           );
-          state.insert(
+          print("inserisco notifica operaio ${notification.title}");
+          state.value!.insert(
               0,
               Notifica(
                   descrizione: notification.body ?? "default",
@@ -74,5 +74,11 @@ class NotificationNotifier extends Notifier<List<Notifica>> {
       // ignore: avoid_print
       print('User declined or has not accepted permission');
     }
+  }
+
+  @override
+  FutureOr<List<Notifica>> build() async {
+    await initRicezioneNotifiche();
+    return [];
   }
 }

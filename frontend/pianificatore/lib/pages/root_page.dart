@@ -48,7 +48,6 @@ class _RootPageState extends ConsumerState<RootPage> {
   @override
   void initState() {
     // INIZIALIZZO RICEZIONE NOTIFICHE
-    ref.read(notificaProvider.notifier).initRicezioneNotifiche();
     super.initState();
   }
 
@@ -98,8 +97,12 @@ class _RootPageState extends ConsumerState<RootPage> {
       // LISTA PULSANTI
       body: ListView.builder(
         itemBuilder: (context, index) => PulsanteSezioniHome(
-          titolo: listaPermessi[ref.watch(loginStateProvider).name]!.keys.elementAt(index),
-          pagina: listaPermessi[ref.watch(loginStateProvider).name]!.values.elementAt(index),
+          titolo: listaPermessi[ref.watch(loginStateProvider).name]!
+              .keys
+              .elementAt(index),
+          pagina: listaPermessi[ref.watch(loginStateProvider).name]!
+              .values
+              .elementAt(index),
         ),
         itemCount: listaPermessi[ref.watch(loginStateProvider).name]!.length,
       ),

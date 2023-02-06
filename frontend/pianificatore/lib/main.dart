@@ -5,6 +5,7 @@ import 'package:pianificatore/pages/login_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pianificatore/pages/root_page.dart';
 import 'package:pianificatore/providers/auth_providers.dart';
+import 'package:pianificatore/providers/notica_provider.dart';
 import 'package:pianificatore/utils/enums.dart';
 
 // flutter run -d chrome --web-browser-flag "--disable-web-security"
@@ -12,8 +13,12 @@ import 'package:pianificatore/utils/enums.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  final container = ProviderContainer();
+  container.read(notificaProvider);
   runApp(
-    const ProviderScope(
+    UncontrolledProviderScope(
+      container: container,
       child: MyApp(),
     ),
   );
@@ -21,7 +26,6 @@ void main() async {
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return OverlaySupport(
@@ -32,7 +36,9 @@ class MyApp extends ConsumerWidget {
           primarySwatch: Colors.blue,
         ),
         //home: NotifichePage(),
-        home: ref.watch(loginStateProvider) == UserStatus.none ? const LoginPage() : const RootPage(),
+        home: ref.watch(loginStateProvider) == UserStatus.none
+            ? const LoginPage()
+            : const RootPage(),
       ),
     );
   }
