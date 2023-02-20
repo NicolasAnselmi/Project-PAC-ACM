@@ -2,9 +2,9 @@ package com.models.pianificazione;
 
 import java.util.List;
 
-import com.models.lotto.Lavorazione;
-import com.models.lotto.Lotto;
-import com.models.macchine.Macchina;
+import lotto.Lavorazione;
+import lotto.Lotto;
+import macchina.Macchina;
 
 public interface SchedulerInterface {
 	/**

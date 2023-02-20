@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.cloud.Timestamp;
 
+import macchina.Macchina;
+import macchina.StatoMacchina;
+
 @Service
 public class ServiceMacchina {
 	

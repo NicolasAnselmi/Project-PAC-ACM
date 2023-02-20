@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.models.lotto.Lavorazione;
-import com.models.lotto.Lotto;
-import com.models.macchine.Macchina;
 import com.models.macchine.MacchineDataManager;
+
+import lotto.Lavorazione;
+import lotto.Lotto;
+import macchina.Macchina;
 ;
 
 @Service

@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.google.cloud.Timestamp;
-import com.models.lotto.Lavorazione;
-import com.models.lotto.Lotto;
-import com.models.lotto.PrioritaLotto;
-import com.models.macchine.Macchina;
+
+import lotto.Lavorazione;
+import lotto.Lotto;
+import lotto.PrioritaLotto;
+import macchina.Macchina;
 
 public class Pianificazione implements Comparable<Pianificazione> {
 	

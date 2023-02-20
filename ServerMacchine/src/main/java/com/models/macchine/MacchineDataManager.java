@@ -3,6 +3,9 @@ package com.models.macchine;
 import java.util.ArrayList;
 import java.util.List;
 
+import macchina.Macchina;
+import macchina.StatoMacchina;
+
 public class MacchineDataManager {
 
 	/* SINGLETON PATTERN */

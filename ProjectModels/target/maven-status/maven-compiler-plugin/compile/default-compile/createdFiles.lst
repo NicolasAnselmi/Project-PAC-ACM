@@ -1,0 +1,13 @@
+macchina/Macchina$1.class
+user/Manager.class
+user/Pianificatore.class
+lotto/Lavorazione.class
+lotto/PrioritaLotto.class
+macchina/StatoMacchina.class
+macchina/Machinable.class
+macchina/Macchina.class
+lotto/Lotto.class
+macchina/TipoMacchina.class
+user/Operaio.class
+user/Dipendente.class
+gestoreNotifiche/GestoreNotifiche.class

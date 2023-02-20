@@ -5,9 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.cloud.Timestamp;
-import com.models.lotto.Lavorazione;
-import com.models.lotto.Lotto;
-import com.models.macchine.Macchina;
+
+import lotto.Lavorazione;
+import lotto.Lotto;
+import macchina.Macchina;
 
 public class PianificazioniDataManager {
 

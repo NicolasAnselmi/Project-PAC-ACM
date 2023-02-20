@@ -8,9 +8,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.MocClientApplication;
-import com.models.lotto.Lavorazione;
-import com.models.macchine.StatoMacchina;
-import com.models.macchine.TipoMacchina;
+
+import lotto.Lavorazione;
+import macchina.TipoMacchina;
 
 import java.time.LocalDateTime;
 
@@ -55,6 +55,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 	public void run() {
 
 		while (true) {
+			System.out.println("check " + codaLavorazioni.toString());
 			while (codaLavorazioni != null && !codaLavorazioni.isEmpty()) {
 				aggiornaMacchina();
 				if (codaLavorazioni.isEmpty()) {
@@ -63,6 +64,12 @@ public class MacchinaFisica extends Thread implements Machinable {
 					this.finito = true;
 				}
 				caricaSuServer();
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

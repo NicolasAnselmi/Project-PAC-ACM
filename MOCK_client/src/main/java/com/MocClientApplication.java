@@ -20,13 +20,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.macchine.Fresa;
 import com.macchine.MacchinaFisica;
 import com.macchine.Tornio;
-import com.models.lotto.Lavorazione;
-import com.models.macchine.Macchina;
+
+import lotto.*;
+
 
 @SpringBootApplication
 public class MocClientApplication {
 
-	public static final String IP = "3.126.153.121";
+	public static String IP = null;
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;
@@ -34,8 +35,11 @@ public class MocClientApplication {
 	static int quant = 1;
 	static int slotPart = 5;
 	static int waitTime = 3;
+	static Semaphore s = new Semaphore(1);;
 
 	public static void main(String[] args) {
+		IP = args[0];
+		System.out.println(IP);
 		SpringApplication.run(MocClientApplication.class, args);
 	}
 
@@ -47,8 +51,7 @@ public class MocClientApplication {
 	@Bean
 	CommandLineRunner run(RestTemplate restTemplate) {
 		return args -> {
-			Semaphore s = new Semaphore(1);
-			List<MacchinaFisica> macchine = inizializzaMacchine(restTemplate, s);
+			List<MacchinaFisica> macchine = inizializzaMacchine(restTemplate);
 			avviaMacchine(macchine, restTemplate);
 
 			while (true) {
@@ -59,7 +62,7 @@ public class MocClientApplication {
 						Thread.sleep(1000);
 					}
 					if (lavorazioniFinite(macchine))
-						postLavorazioniEseguite(macchine, restTemplate, s);
+						postLavorazioniEseguite(macchine, restTemplate);
 				}
 
 				Thread.sleep(1000);
@@ -73,6 +76,7 @@ public class MocClientApplication {
 			if (list != null && !list.isEmpty())
 				m.setListaLavorazioni(list);
 		}
+		s.release();
 	}
 
 	private boolean lavorazioniFinite(List<MacchinaFisica> macchine) {
@@ -83,7 +87,7 @@ public class MocClientApplication {
 		return res;
 	}
 
-	private void postLavorazioniEseguite(List<MacchinaFisica> macchine, RestTemplate restTemplate, Semaphore s) {
+	private void postLavorazioniEseguite(List<MacchinaFisica> macchine, RestTemplate restTemplate) {
 		// deleteMacchine(macchine,restTemplate, s);
 		try {
 			s.acquire();
@@ -119,16 +123,16 @@ public class MocClientApplication {
 		return false;
 	}
 
-	private List<MacchinaFisica> inizializzaMacchine(RestTemplate restTemplate, Semaphore s) {
+	private List<MacchinaFisica> inizializzaMacchine(RestTemplate restTemplate) {
 		List<MacchinaFisica> macchine = new ArrayList<MacchinaFisica>();
 		for (int i = 0; i < nTorni; i++)
-			macchine.add(new Tornio(pg, pf, waitTime, restTemplate, s));
+			macchine.add(new Tornio(pg, pf, waitTime, restTemplate,s));
 
 		for (int i = 0; i < nFrese; i++)
-			macchine.add(new Fresa(pg, pf, waitTime, restTemplate, s));
+			macchine.add(new Fresa(pg, pf, waitTime, restTemplate,s));
 
 		for (MacchinaFisica m : macchine) {
-			postMacchinaSulServer(m, restTemplate, s);
+			postMacchinaSulServer(m, restTemplate);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -140,7 +144,7 @@ public class MocClientApplication {
 		return macchine;
 	}
 
-	private void postMacchinaSulServer(MacchinaFisica m, RestTemplate restTemplate, Semaphore s) {
+	private void postMacchinaSulServer(MacchinaFisica m, RestTemplate restTemplate) {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 		map.add("idMacchina", m.getIDMacchina());
 		map.add("tipoMacchina", m.getTipoMacchina().toString());
@@ -151,7 +155,7 @@ public class MocClientApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		restTemplate.postForObject("http://" + IP + ":8081/macchine/aggiungi", map, Macchina.class);
+		restTemplate.postForObject("http://" + IP + ":8081/macchine/aggiungi", map, Object.class);
 
 		s.release();
 
@@ -165,14 +169,22 @@ public class MocClientApplication {
 	}
 
 	private ArrayList<Lavorazione> getCodaLavorazioni(RestTemplate restTemplate, String IDMacchina) {
+		try {
+			s.acquire();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String json = restTemplate.getForObject("http://" + IP + ":8081/pianificazione/idMacchina/" + IDMacchina,
 				String.class);
+		s.release();
 		ArrayList<Lavorazione> list = null;
 		if (json != null) {
 			try {
 				list = (ArrayList<Lavorazione>) getObjectList(json, Lavorazione.class);
-				if (!list.isEmpty())
-					System.out.println(IDMacchina + "->Nuova lista lavorazioni: " + list.toString());
+				if (list.isEmpty()) {
+					s.release();
+				}
 			} catch (JsonMappingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

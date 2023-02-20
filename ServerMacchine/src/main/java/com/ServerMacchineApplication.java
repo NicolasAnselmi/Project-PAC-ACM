@@ -10,6 +10,7 @@ public class ServerMacchineApplication {
 	public static ConfigurableApplicationContext ctx;  
 
 	public static void main(String[] args) {
+		System.out.println(args.toString());
 		ctx = SpringApplication.run(ServerMacchineApplication.class, args);
 	}
 

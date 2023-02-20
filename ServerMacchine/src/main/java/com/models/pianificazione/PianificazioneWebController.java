@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.models.lotto.Lavorazione;
-import com.models.lotto.Lotto;
+import lotto.Lavorazione;
+import lotto.Lotto;
+
+
 
 @RestController
 public class PianificazioneWebController {

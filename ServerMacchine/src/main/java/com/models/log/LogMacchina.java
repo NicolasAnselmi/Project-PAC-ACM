@@ -1,7 +1,8 @@
 package com.models.log;
 
 import com.google.cloud.Timestamp;
-import com.models.macchine.StatoMacchina;
+
+import macchina.StatoMacchina;
 
 public class LogMacchina implements Comparable<LogMacchina>{
 

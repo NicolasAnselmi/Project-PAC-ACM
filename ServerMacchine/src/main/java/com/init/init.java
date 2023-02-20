@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.models.lotto.Lotto;
-import com.models.lotto.PrioritaLotto;
 import com.models.pianificazione.PianificazioniDataManager;
+
+import lotto.Lotto;
 
 @Component
 public class init implements CommandLineRunner{

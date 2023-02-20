@@ -1,5 +1,12 @@
-I:\Archivio\MieiProgrammi\EclipseWorkspace2021\ProjectModels\src\main\java\Lotto.java
-I:\Archivio\MieiProgrammi\EclipseWorkspace2021\ProjectModels\src\main\java\Lavorazione.java
-I:\Archivio\MieiProgrammi\EclipseWorkspace2021\ProjectModels\src\main\java\TipoMacchina.java
-I:\Archivio\MieiProgrammi\EclipseWorkspace2021\ProjectModels\src\main\java\StatoMacchina.java
-I:\Archivio\MieiProgrammi\EclipseWorkspace2021\ProjectModels\src\main\java\PrioritaLotto.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/user/Manager.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/user/Operaio.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/lotto/PrioritaLotto.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/macchina/StatoMacchina.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/macchina/TipoMacchina.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/macchina/Macchina.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/lotto/Lavorazione.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/lotto/Lotto.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/user/Dipendente.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/gestoreNotifiche/GestoreNotifiche.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/macchina/Machinable.java
+/Users/anselminicolas/Desktop/Project-PAC-ACM/ProjectModels/src/main/java/user/Pianificatore.java

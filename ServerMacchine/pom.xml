@@ -59,6 +59,11 @@
 			<artifactId>json</artifactId>
 			<version>20220924</version>
 		</dependency>
+		<dependency>
+			<groupId>lambda-java-example</groupId>
+			<artifactId>doc-examples</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
