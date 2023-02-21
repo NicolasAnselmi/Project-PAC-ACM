@@ -17,7 +17,7 @@ public class init implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		final int MAX = Integer.parseInt(args[0]);
+		final int MAX = 100;
 		String[] s1 = {"tornio","fresa","tornio"};
 		String[] s2 = {"fresa","tornio"};
 		String[] s3 = {"tornio","tornio","fresa"};

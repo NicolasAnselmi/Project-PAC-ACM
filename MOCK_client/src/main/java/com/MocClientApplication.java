@@ -27,7 +27,7 @@ import lotto.*;
 @SpringBootApplication
 public class MocClientApplication {
 
-	public static String IP = null;
+	public static String IP = "localhost";
 	static float pg = 0.9f;
 	static float pf = 0.9f;
 	static float nTorni = 1;
@@ -35,12 +35,10 @@ public class MocClientApplication {
 	static int quant = 1;
 	static int slotPart = 5;
 	static int waitTime = 3;
-	static Semaphore s = new Semaphore(1);;
+	static Semaphore apiLock = new Semaphore(1);;
 
 	public static void main(String[] args) {
-		IP = args[0];
-		System.out.println(IP);
-		SpringApplication.run(MocClientApplication.class, args);
+		SpringApplication.run(MocClientApplication.class);
 	}
 
 	@Bean
@@ -56,13 +54,15 @@ public class MocClientApplication {
 
 			while (true) {
 				if (therIsLavorazioni(restTemplate, macchine) && lavorazioniFinite(macchine)) {
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 					assegnaLavorazioni(macchine, restTemplate);
 					while(!lavorazioniFinite(macchine)) {
 						Thread.sleep(1000);
 					}
-					if (lavorazioniFinite(macchine))
+					if (lavorazioniFinite(macchine)) {
+						System.out.println("Lavorazioni terminate per il periodo corrente.");
 						postLavorazioniEseguite(macchine, restTemplate);
+					}
 				}
 
 				Thread.sleep(1000);
@@ -76,7 +76,7 @@ public class MocClientApplication {
 			if (list != null && !list.isEmpty())
 				m.setListaLavorazioni(list);
 		}
-		s.release();
+		apiLock.release();
 	}
 
 	private boolean lavorazioniFinite(List<MacchinaFisica> macchine) {
@@ -90,13 +90,13 @@ public class MocClientApplication {
 	private void postLavorazioniEseguite(List<MacchinaFisica> macchine, RestTemplate restTemplate) {
 		// deleteMacchine(macchine,restTemplate, s);
 		try {
-			s.acquire();
+			apiLock.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		restTemplate.postForEntity("http://" + IP + ":8081/pianificazione/conferma", null, null);
-		s.release();
+		apiLock.release();
 	}
 
 	
@@ -104,7 +104,6 @@ public class MocClientApplication {
 		for (MacchinaFisica m : macchine) {
 			m.setListaLavorazioni(getCodaLavorazioni(restTemplate, m.getIDMacchina()));
 			m.start();
-			System.out.println(m.getIDMacchina() + " running...");
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -115,6 +114,7 @@ public class MocClientApplication {
 	}
 
 	private boolean therIsLavorazioni(RestTemplate restTemplate, List<MacchinaFisica> macchine) {
+		System.out.println("Main: Controllo nuove lavorazioni.");
 		for (MacchinaFisica m : macchine) {
 			List<Lavorazione> list = getCodaLavorazioni(restTemplate, m.getIDMacchina());
 			if (list != null && !list.isEmpty())
@@ -126,10 +126,10 @@ public class MocClientApplication {
 	private List<MacchinaFisica> inizializzaMacchine(RestTemplate restTemplate) {
 		List<MacchinaFisica> macchine = new ArrayList<MacchinaFisica>();
 		for (int i = 0; i < nTorni; i++)
-			macchine.add(new Tornio(pg, pf, waitTime, restTemplate,s));
+			macchine.add(new Tornio(pg, pf, waitTime, restTemplate,apiLock));
 
 		for (int i = 0; i < nFrese; i++)
-			macchine.add(new Fresa(pg, pf, waitTime, restTemplate,s));
+			macchine.add(new Fresa(pg, pf, waitTime, restTemplate,apiLock));
 
 		for (MacchinaFisica m : macchine) {
 			postMacchinaSulServer(m, restTemplate);
@@ -150,14 +150,14 @@ public class MocClientApplication {
 		map.add("tipoMacchina", m.getTipoMacchina().toString());
 
 		try {
-			s.acquire();
+			apiLock.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		restTemplate.postForObject("http://" + IP + ":8081/macchine/aggiungi", map, Object.class);
 
-		s.release();
+		apiLock.release();
 
 	}
 
@@ -170,21 +170,19 @@ public class MocClientApplication {
 
 	private ArrayList<Lavorazione> getCodaLavorazioni(RestTemplate restTemplate, String IDMacchina) {
 		try {
-			s.acquire();
+			apiLock.acquire();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		String json = restTemplate.getForObject("http://" + IP + ":8081/pianificazione/idMacchina/" + IDMacchina,
 				String.class);
-		s.release();
+		apiLock.release();
+		
 		ArrayList<Lavorazione> list = null;
 		if (json != null) {
 			try {
 				list = (ArrayList<Lavorazione>) getObjectList(json, Lavorazione.class);
-				if (list.isEmpty()) {
-					s.release();
-				}
 			} catch (JsonMappingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

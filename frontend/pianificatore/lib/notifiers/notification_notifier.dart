@@ -19,6 +19,7 @@ class NotificationNotifier extends AsyncNotifier<List<Notifica>> {
 
     // 2. Instantiate Firebase Messaging
     FirebaseMessaging messaging = FirebaseMessaging.instance;
+    print(messaging);
 
     // 3. On iOS, this helps to take the user permissions
     NotificationSettings settings = await messaging.requestPermission(
@@ -32,6 +33,7 @@ class NotificationNotifier extends AsyncNotifier<List<Notifica>> {
       // For handling the received notifications
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         // Parse the message received
+        print("pluto");
         PushNotification notification = PushNotification(
           title: message.data["title"],
           body: message.data["body"],
@@ -74,6 +76,7 @@ class NotificationNotifier extends AsyncNotifier<List<Notifica>> {
       // ignore: avoid_print
       print('User declined or has not accepted permission');
     }
+    print("pippo");
   }
 
   @override

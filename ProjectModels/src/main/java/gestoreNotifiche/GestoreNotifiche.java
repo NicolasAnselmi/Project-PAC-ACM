@@ -15,9 +15,9 @@ public class GestoreNotifiche {
 	// aggiungere liste dispositivi
 	private ArrayList<String> tokenOperai;
 	private ArrayList<String> tokenManager;
-	private String tk1 = "cl96XGoPTm-mKnE9lVH3sb:APA91bGtQ4Fp795KpKnQ9LGR7MTV4WaNRydnCwkd3JdBjNsA6xLuKPqENACQLraDHZN5P3UvOSispCg8xi2WExuNufCRXPnv486X18EBYqQqnZyUyMeTWGG3Cccq2KwOqTtphfwnBSZS";
+	private String tk1 = "cl96XGoPTm-cl96XGoPTm-mKnE9lVH3sb:APA91bGtQ4Fp795KpKnQ9LGR7MTV4WaNRydnCwkd3JdBjNsA6xLuKPqENACQLraDHZN5P3UvOSispCg8xi2WExuNufCRXPnv486X18EBYqQqnZyUyMeTWGG3Cccq2KwOqTtphfwnBSZS";
 	private String tk2 = "epxkbCpgSYWqkB9_kKZt-8:APA91bFkqprtiQwygg-fEYQVAvl8KW20VoTQtQMuTsAf8bfyTVks4C6iQCOMrCg1lMCcDmDV4niK1TTTowJBgIRa-yP6q1oN8SPa_4YuGJGJR1u0KOXPAZW8N5DazgtIJfjN8evN2x9i";
-	
+	private String tk3 = "cktaDyOlR7uEd70C-aZcEY:APA91bEOaA21ayys4L-1FHo-886JdLinTYnhirdRPgKDuYTydxM8Rbb2Tg_eWBKmyhGiqLlbobWObPoSjhs2ve9cRQ6HGOqbscLa8rD7uRELhwc6nGP60JA6hsFKBaXSENaDwzTSeHmu";
 	// singleton pattern
 	private static GestoreNotifiche g = null;
 
@@ -25,10 +25,8 @@ public class GestoreNotifiche {
 		tokenOperai = new ArrayList<>();
 		tokenManager = new ArrayList<>();
 		
-		tokenOperai.add(tk1);
-		tokenOperai.add(tk2);
-		tokenManager.add(tk1);
-		tokenManager.add(tk2);
+		tokenOperai.add(tk1); //tokenOperai.add(tk2); tokenOperai.add(tk3);
+		tokenManager.add(tk1); //tokenManager.add(tk2); tokenManager.add(tk3);
 		try {
 			FileInputStream f = new FileInputStream(
 					"/Users/anselminicolas/Desktop/Project-PAC-ACM/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
@@ -73,7 +71,7 @@ public class GestoreNotifiche {
 			return response;
 			
 		} catch (Exception e) {
-			System.out.println(e.getClass());
+			System.out.println(e.getMessage());
 
 			return null;
 		}

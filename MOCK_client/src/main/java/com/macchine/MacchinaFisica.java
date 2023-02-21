@@ -19,7 +19,6 @@ public class MacchinaFisica extends Thread implements Machinable {
 	private String ip = MocClientApplication.IP;
 	protected float probGuasto;
 	protected float probFineMateriali;
-	protected int countSlotPart;
 	protected int maxSlotPart;
 	protected int waitTimeRiparazione;
 	protected int waitTimeMateriale;
@@ -32,6 +31,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 	protected Lavorazione inCorso;
 	private Semaphore s;
 	private boolean finito;
+	private boolean resume;
 
 	protected RestTemplate restTemplate;
 
@@ -44,33 +44,41 @@ public class MacchinaFisica extends Thread implements Machinable {
 		this.tipoMacchina = TipoMacchina.valueOf(tipoMacchina);
 		this.statoMacchina = StatoMacchina.Fermo;
 		this.restTemplate = restTemplate;
-		this.countSlotPart = 0;
 		this.waitTimeRiparazione = 0;
 		this.waitTimeMateriale = 0;
 		this.maxWaitTime = waitTime;
 		this.finito = true;
+		this.resume = false;
 	}
 
 	@Override
 	public void run() {
+		System.out.println(this.getIDMacchina() + " running...");
 
 		while (true) {
-			System.out.println("check " + codaLavorazioni.toString());
-			while (codaLavorazioni != null && !codaLavorazioni.isEmpty()) {
+			
+			while (!finito) {
+				
 				aggiornaMacchina();
-				if (codaLavorazioni.isEmpty()) {
-					System.out.println(IDMacchina + ": finito");
-					this.statoMacchina = StatoMacchina.Fermo;
-					this.finito = true;
+				
+				try {
+					Thread.sleep((long) (Math.random() * 2000));
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+
 				caricaSuServer();
+
 			}
+			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep((long) (Math.random() * 2000));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 		}
 
 	}
@@ -82,20 +90,20 @@ public class MacchinaFisica extends Thread implements Machinable {
 	public void caricaSuServer() {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 		MultiValueMap<String, String> map2 = new LinkedMultiValueMap<String, String>();
-		
+
 		String body, title;
 		if (statoMacchina.equals(StatoMacchina.AttesaMateriale)) {
-			body =  " ha terminato il materiale e la produzione si è fermata";
-			title =  " FINE MATERIALE";
+			body = " ha terminato il materiale e la produzione si è fermata";
+			title = " FINE MATERIALE";
 		} else if (statoMacchina.equals(StatoMacchina.Guasta)) {
-			body =  " si è guastata e la produzione si è fermata";
-			title =  " GUASTA";
+			body = " si è guastata e la produzione si è fermata";
+			title = " GUASTA";
 		} else if (statoMacchina.equals(StatoMacchina.Fermo)) {
-			body =  " ha terminato la lavorazione";
-			title =  " LAVORAZIONE TERMINATA";
+			body = " ha terminato la lavorazione";
+			title = " LAVORAZIONE TERMINATA";
 		} else {
-			body =  " ha ripreso la lavorazione";
-			title =  " LAVORAZIONE RIPRESA";
+			body = " ha ripreso la lavorazione";
+			title = " LAVORAZIONE RIPRESA";
 		}
 		map.add("idLog", getIDMacchina() + "--" + LocalDateTime.now());
 		map.add("idLogger", getIDMacchina());
@@ -130,22 +138,39 @@ public class MacchinaFisica extends Thread implements Machinable {
 		double g;
 		switch (statoMacchina) {
 		case Lavorazione:
-			System.out.println(IDMacchina + " in lavorazione: " + codaLavorazioni.get(0));
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			countSlotPart++;
-			inCorso = codaLavorazioni.remove(0);
-			double fm = Math.random();
-			if (fm > probFineMateriali)
-				statoMacchina = StatoMacchina.AttesaMateriale;
+			if(!resume) {
+				System.out.println(IDMacchina + " in lavorazione: " + codaLavorazioni.get(0));
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				inCorso = codaLavorazioni.remove(0);
+				
+				double fm = Math.random();
+				if (fm > probFineMateriali) {
+					statoMacchina = StatoMacchina.AttesaMateriale;
+					resume = true;
+					break;
+				}
 
-			g = Math.random();
-			if (g > probGuasto)
-				statoMacchina = StatoMacchina.Guasta;
+				g = Math.random();
+				if (g > probGuasto) {
+					statoMacchina = StatoMacchina.Guasta;
+					resume = true;
+					break;
+				}
+			} else {
+				System.out.println(IDMacchina + " riprendo lavorazione: " + inCorso);
+				resume = false;
+			}
+
+			if (codaLavorazioni.isEmpty()) {
+				System.out.println(IDMacchina + ": finito");
+				this.statoMacchina = StatoMacchina.Fermo;
+				this.finito = true;
+			}
 
 			break;
 
@@ -156,7 +181,6 @@ public class MacchinaFisica extends Thread implements Machinable {
 				waitTimeMateriale = 0;
 				statoMacchina = StatoMacchina.Lavorazione;
 				System.out.println(IDMacchina + " ha ricevuto i materiali");
-				countSlotPart--;
 			}
 			break;
 
@@ -167,7 +191,6 @@ public class MacchinaFisica extends Thread implements Machinable {
 				waitTimeRiparazione = 0;
 				statoMacchina = StatoMacchina.Lavorazione;
 				System.out.println(IDMacchina + " aggiustata;");
-				countSlotPart--;
 			}
 			break;
 
@@ -196,6 +219,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 	}
 
 	public void setListaLavorazioni(List<Lavorazione> codaLavorazioni) {
+
 		this.codaLavorazioni = codaLavorazioni;
 		if (!codaLavorazioni.isEmpty()) {
 			this.maxSlotPart = getMaxSlot(codaLavorazioni);
@@ -205,6 +229,7 @@ public class MacchinaFisica extends Thread implements Machinable {
 			this.statoMacchina = StatoMacchina.Fermo;
 			this.finito = true;
 		}
+
 	}
 
 	private int getMaxSlot(List<Lavorazione> codaLavorazioni) {
