@@ -25,8 +25,8 @@ public class GestoreNotifiche {
 		tokenOperai = new ArrayList<>();
 		tokenManager = new ArrayList<>();
 		
-		tokenOperai.add(tk1); //tokenOperai.add(tk2); tokenOperai.add(tk3);
-		tokenManager.add(tk1); //tokenManager.add(tk2); tokenManager.add(tk3);
+		tokenOperai.add(tk1); tokenOperai.add(tk2); tokenOperai.add(tk3);
+		tokenManager.add(tk1); tokenManager.add(tk2); tokenManager.add(tk3);
 		try {
 			FileInputStream f = new FileInputStream(
 					"/Users/anselminicolas/Desktop/Project-PAC-ACM/ServerMacchine/src/main/resources/servermacchine-firebase-adminsdk-75eqt-df0ea8a9a2.json");
@@ -65,9 +65,9 @@ public class GestoreNotifiche {
 		
 		String response;
 		try {
-			System.out.println("invio " + message.toString());
+			System.out.println("invio " + title + " a " + reciever.substring(5));
 			response = FirebaseMessaging.getInstance().send(message);
-			System.out.println("response " + response);
+			System.out.println("response " + response + " di " + reciever.substring(5));
 			return response;
 			
 		} catch (Exception e) {

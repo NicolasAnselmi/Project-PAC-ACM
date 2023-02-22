@@ -1,1 +1,1 @@
-String k_ip_address = "3.66.169.23";
+String k_ip_address = "18.197.12.207";
